@@ -56,6 +56,7 @@ export class ClientJsonRpc extends BaseRpcClient implements Client {
     return this.connection.sendNotification(command, args);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onNotification<K extends keyof OnNotificationTypes>(kind: K, listener: (args: OnNotificationTypes[K]) => any): Disposable {
     return this.connection.onNotification(kind, listener);
   }

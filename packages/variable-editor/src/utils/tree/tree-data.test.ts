@@ -3,6 +3,7 @@ import { TestTreeNodeFactory } from './test-utils/types';
 import { addNode, getNode, getNodesOnPath, hasChildren, removeNode, updateNode } from './tree-data';
 import { type TreeNodeUpdates } from './types';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const nodeUpdates: TreeNodeUpdates<{ name: string; value: string; children: Array<any> }> = [
   { key: 'name', value: 'newName' },
   { key: 'value', value: 'newValue' }
@@ -177,7 +178,7 @@ describe('removeNode', () => {
       const originalData = structuredClone(data);
       const newData = removeNode(data, [1, 1, 0]);
       expect(data).toEqual(originalData);
-      expect(newData).not.toBe(data);
+      expect(newData).not.toEqual(data);
       expect(newData[1].children[1].children).toHaveLength(0);
     });
   });

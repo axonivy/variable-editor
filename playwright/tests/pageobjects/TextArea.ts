@@ -34,7 +34,7 @@ export class TextArea {
   }
 
   async expectEnabled() {
-    await expect(this.locator).not.toBeDisabled();
+    await expect(this.locator).toBeEnabled();
   }
 
   async expectDisabled() {

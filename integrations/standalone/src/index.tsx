@@ -4,17 +4,21 @@ import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
-import { URLParams } from './url-helper';
+import { appParam, directSaveParam, pmvParam, readonlyParam, themeParam, webSocketBaseParam } from './url-helper';
 
 export async function start(): Promise<void> {
-  const server = URLParams.webSocketBase();
-  const app = URLParams.app();
-  const pmv = URLParams.pmv();
-  const theme = URLParams.theme();
-  const readonly = URLParams.readonly();
-  const directSave = URLParams.directSave();
+  const server = webSocketBaseParam();
+  const app = appParam();
+  const pmv = pmvParam();
+  const theme = themeParam();
+  const readonly = readonlyParam();
+  const directSave = directSaveParam();
   const queryClient = initQueryClient();
-  const root = ReactDOM.createRoot(document.getElementById('root')!);
+  const rootElement = document.getElementById('root');
+  if (!rootElement) {
+    throw new Error('rootElement not found');
+  }
+  const root = ReactDOM.createRoot(rootElement);
 
   root.render(
     <React.StrictMode>

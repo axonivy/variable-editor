@@ -18,6 +18,7 @@ export const getNodesOnPath = <TNode extends TreeNode<TNode>>(data: Array<TNode>
 };
 
 const getNodesOnPathRecursive = <TNode extends TreeNode<TNode>>(data: Array<TNode>, path: TreePath): Array<TNode | undefined> => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const node = data[path.shift()!];
   if (path.length === 0) {
     return [node];
