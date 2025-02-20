@@ -1,4 +1,4 @@
-import type { ValidationMessages } from '@axonivy/variable-editor-protocol';
+import type { VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import { customRenderHook } from '../components/variables/data/test-utils/test-utils';
 import type { Variable } from '../components/variables/data/variable';
 import type { TreePath } from '../utils/tree/types';
@@ -26,4 +26,4 @@ const validations = [
   { message: 'message2', path: 'Amazon.Comprehend', severity: 'WARNING' },
   { message: 'message3', path: 'Amazon.Comprehend', severity: 'ERROR' },
   { message: 'message4', path: 'Amazon.Comprehend.AccessKey', severity: 'INFO' }
-] as ValidationMessages;
+] as Array<VariablesValidationResult>;

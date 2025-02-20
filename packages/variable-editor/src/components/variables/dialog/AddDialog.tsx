@@ -58,7 +58,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
   const [knownVariable, setKnownVariable] = useState<KnownVariables>();
   useEffect(() => setKnownVariable(undefined), [name, namespace]);
 
-  const knownVariables = useMeta('meta/knownVariables', context, EMPTY_KNOWN_VARIABLES).data;
+  const knownVariables = useMeta('variables/meta/knownVariables', context, EMPTY_KNOWN_VARIABLES).data;
 
   const initializeVariableDialog = () => {
     setName(newNodeName(table, 'NewVariable'));

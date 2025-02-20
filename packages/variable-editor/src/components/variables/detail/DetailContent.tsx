@@ -8,7 +8,7 @@ import {
   useReadonly,
   type MessageData
 } from '@axonivy/ui-components';
-import { EMPTY_KNOWN_VARIABLES, type ValidationMessages } from '@axonivy/variable-editor-protocol';
+import { EMPTY_KNOWN_VARIABLES, type VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import { useMemo } from 'react';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
@@ -22,14 +22,14 @@ import { Value } from './Value';
 
 export const useOverwrites = (key: Array<string>) => {
   const { context } = useAppContext();
-  const knownVariables = useMeta('meta/knownVariables', context, EMPTY_KNOWN_VARIABLES).data;
+  const knownVariables = useMeta('variables/meta/knownVariables', context, EMPTY_KNOWN_VARIABLES).data;
   if (knownVariables.children.length === 0) {
     return false;
   }
   return findVariable(knownVariables, ...key) !== undefined;
 };
 
-export const messageDataOfProperty = (validations: ValidationMessages, property: string): MessageData | undefined => {
+export const messageDataOfProperty = (validations: Array<VariablesValidationResult>, property: string): MessageData | undefined => {
   const validationMatches = validations.filter(val => val.property === property);
   if (validationMatches.length === 0) {
     return undefined;

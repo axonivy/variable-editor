@@ -1,42 +1,34 @@
-import type {
-  Client,
-  Event,
-  MetaRequestTypes,
-  ValidationMessages,
-  VariablesActionArgs,
-  VariablesData
-} from '@axonivy/variable-editor-protocol';
+import { VariablesClient } from '@axonivy/variable-editor';
+import type { ConfigEditorActionArgs, MetaRequestTypes, VariablesData, VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import { validations, variables } from './data';
 import { knownVariables } from './meta';
 
-export class VariablesClientMock implements Client {
+export class VariablesClientMock extends VariablesClient {
   private variablesData: VariablesData = variables;
 
-  data(): Promise<VariablesData> {
+  override data(): Promise<VariablesData> {
     return Promise.resolve(variables);
   }
 
-  saveData(saveData: VariablesData): Promise<ValidationMessages> {
+  override saveData(saveData: VariablesData): Promise<Array<VariablesValidationResult>> {
     this.variablesData.data = saveData.data;
     return Promise.resolve(validations);
   }
 
-  validate(): Promise<ValidationMessages> {
+  override validate(): Promise<Array<VariablesValidationResult>> {
     return Promise.resolve(validations);
   }
 
-  meta<TMeta extends keyof MetaRequestTypes>(path: TMeta): Promise<MetaRequestTypes[TMeta][1]> {
+  override meta<TMeta extends keyof MetaRequestTypes>(path: TMeta): Promise<MetaRequestTypes[TMeta][1]> {
     switch (path) {
-      case 'meta/knownVariables':
+      case 'variables/meta/knownVariables':
         return Promise.resolve(knownVariables);
       default:
         throw Error('mock meta path not programmed');
     }
   }
 
-  action(action: VariablesActionArgs): void {
+  override action(action: ConfigEditorActionArgs): void {
     console.log(`Action: ${JSON.stringify(action)}`);
   }
-
-  onDataChanged: Event<void>;
 }

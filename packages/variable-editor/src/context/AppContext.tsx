@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import type { Variable } from '../components/variables/data/variable';
-import type { VariablesEditorDataContext, ValidationMessages } from '@axonivy/variable-editor-protocol';
+import type { VariablesEditorDataContext, VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import type { TreePath } from '../utils/tree/types';
 import type { UpdateConsumer } from '../utils/lambda/lambda';
 import type { useHistoryData } from '@axonivy/ui-components';
@@ -10,7 +10,7 @@ type AppContext = {
   setVariables: UpdateConsumer<Array<Variable>>;
   selectedVariable: TreePath;
   setSelectedVariable: (path: TreePath) => void;
-  validations: ValidationMessages;
+  validations: Array<VariablesValidationResult>;
   context: VariablesEditorDataContext;
   detail: boolean;
   setDetail: (visible: boolean) => void;

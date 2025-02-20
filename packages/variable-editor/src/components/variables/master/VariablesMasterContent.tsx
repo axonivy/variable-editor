@@ -21,7 +21,6 @@ import {
   useTableSelect
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { ValidationMessages } from '@axonivy/variable-editor-protocol';
 import { getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef } from 'react';
@@ -34,6 +33,7 @@ import { AddVariableDialog } from '../dialog/AddDialog';
 import { OverwriteDialog } from '../dialog/OverwriteDialog';
 import { ValidationRow } from './ValidationRow';
 import './VariablesMasterContent.css';
+import type { VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 
 export const ROW_HEIGHT = 36 as const;
 
@@ -165,7 +165,7 @@ export const VariablesMasterContent = () => {
   );
 };
 
-export const variablesWithValidations = (originalVariables: Array<Variable>, validations: ValidationMessages) => {
+export const variablesWithValidations = (originalVariables: Array<Variable>, validations: Array<VariablesValidationResult>) => {
   if (validations.length === 0) {
     return originalVariables;
   }
@@ -179,7 +179,7 @@ export const variablesWithValidations = (originalVariables: Array<Variable>, val
   return variables;
 };
 
-const addValidations = (variables: Array<Variable>, groupedValidations: Record<string, ValidationMessages>, currentKey: string) => {
+const addValidations = (variables: Array<Variable>, groupedValidations: Record<string, Array<VariablesValidationResult>>, currentKey: string) => {
   variables.forEach(variable => {
     const key = currentKey + '.' + variable.name;
     variable.validations = groupedValidations[key] ?? [];
@@ -187,7 +187,7 @@ const addValidations = (variables: Array<Variable>, groupedValidations: Record<s
   });
 };
 
-export const rowHeight = (validations?: ValidationMessages) => {
+export const rowHeight = (validations?: Array<VariablesValidationResult>) => {
   const height = 36;
   if (!validations) {
     return height;

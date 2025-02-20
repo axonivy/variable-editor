@@ -15,7 +15,12 @@ import {
   useHotkeys
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { EditorProps, ValidationMessages, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
+import {
+  useClient,
+  type VariablesData,
+  type VariablesEditorDataContext,
+  type VariablesValidationResult
+} from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import type { RootVariable, Variable } from './components/variables/data/variable';
@@ -25,15 +30,18 @@ import { VariablesMasterContent } from './components/variables/master/VariablesM
 import { VariablesMasterToolbar } from './components/variables/master/VariablesMasterToolbar';
 import { AppProvider } from './context/AppContext';
 import { useAction } from './context/useAction';
-import { useClient } from './protocol/ClientContextProvider';
-import { genQueryKey } from './query/query-client';
 import { useKnownHotkeys } from './utils/hotkeys';
 import type { Unary } from './utils/lambda/lambda';
 import { getNode } from './utils/tree/tree-data';
 import type { TreePath } from './utils/tree/types';
 import './VariablesEditor.css';
 
-function VariableEditor(props: EditorProps) {
+type VariableEditorProps = {
+  context: VariablesEditorDataContext;
+  directSave?: boolean;
+};
+
+function VariableEditor(props: VariableEditorProps) {
   const [detail, setDetail] = useState(true);
   const [context, setContext] = useState(props.context);
   const [directSave, setDirectSave] = useState(props.directSave);
@@ -49,9 +57,9 @@ function VariableEditor(props: EditorProps) {
 
   const queryKeys = useMemo(
     () => ({
-      data: (context: VariablesEditorDataContext) => genQueryKey('data', context),
-      saveData: (context: VariablesEditorDataContext) => genQueryKey('saveData', context),
-      validate: (context: VariablesEditorDataContext) => genQueryKey('validate', context)
+      data: (context: VariablesEditorDataContext) => ['variables/data', context],
+      saveData: (context: VariablesEditorDataContext) => ['variables/saveData', context],
+      validate: (context: VariablesEditorDataContext) => ['variables/validate', context]
     }),
     []
   );
@@ -89,7 +97,7 @@ function VariableEditor(props: EditorProps) {
       }
       return Promise.resolve([]);
     },
-    onSuccess: (data: ValidationMessages) => queryClient.setQueryData(queryKeys.validate(context), data)
+    onSuccess: (data: Array<VariablesValidationResult>) => queryClient.setQueryData(queryKeys.validate(context), data)
   });
 
   const openUrl = useAction('openUrl');

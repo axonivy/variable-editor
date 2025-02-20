@@ -9,14 +9,24 @@
 export type Severity = ("INFO" | "WARNING" | "ERROR")
 
 export interface Variables {
+  configEditorActionArgs: ConfigEditorActionArgs;
   knownVariables: KnownVariables;
-  variablesActionArgs: VariablesActionArgs;
   variablesData: VariablesData;
   variablesEditorDataContext: VariablesEditorDataContext;
   variablesSaveDataArgs: VariablesSaveDataArgs;
   variablesValidationResult: VariablesValidationResult[];
   void: Void;
   [k: string]: unknown;
+}
+export interface ConfigEditorActionArgs {
+  actionId: "openUrl";
+  context: FileSelectionContext;
+  payload: string;
+}
+export interface FileSelectionContext {
+  app: string;
+  file: string;
+  pmv: string;
 }
 export interface KnownVariables {
   children: KnownVariables[];
@@ -37,20 +47,15 @@ export interface EnumMetaData {
   type: "enum";
   values: string[];
 }
-export interface VariablesActionArgs {
-  actionId: "openUrl";
+export interface VariablesData {
   context: VariablesEditorDataContext;
-  payload: string;
+  data: string;
+  helpUrl: string;
 }
 export interface VariablesEditorDataContext {
   app: string;
   file: string;
   pmv: string;
-}
-export interface VariablesData {
-  context: VariablesEditorDataContext;
-  data: string;
-  helpUrl: string;
 }
 export interface VariablesSaveDataArgs {
   context: VariablesEditorDataContext;

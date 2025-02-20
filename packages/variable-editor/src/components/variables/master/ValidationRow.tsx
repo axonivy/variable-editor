@@ -1,5 +1,5 @@
 import { MessageRow, SelectRow, TableCell } from '@axonivy/ui-components';
-import type { Severity, ValidationMessages } from '@axonivy/variable-editor-protocol';
+import type { Severity, VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import { flexRender, type Row } from '@tanstack/react-table';
 import type { VirtualItem } from '@tanstack/react-virtual';
 import type { Variable } from '../data/variable';
@@ -44,7 +44,7 @@ export const ValidationRow = ({ row, virtualRow }: ValidationRowProps) => {
   );
 };
 
-export const rowClass = (validations?: ValidationMessages) => {
+export const rowClass = (validations?: Array<VariablesValidationResult>) => {
   if (!validations) {
     return '';
   }

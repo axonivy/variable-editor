@@ -1,26 +1,24 @@
-import type { Client, ValidationMessages, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
+import type { useHistoryData } from '@axonivy/ui-components';
+import { ClientContextProvider, initQueryClient, QueryProvider, type VariablesEditorDataContext, type VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import type { RenderHookOptions } from '@testing-library/react';
 import { renderHook } from '@testing-library/react';
 import { type ReactNode } from 'react';
 import { AppProvider } from '../../../../context/AppContext';
-import { ClientContextProvider } from '../../../../protocol/ClientContextProvider';
-import { QueryProvider } from '../../../../query/QueryProvider';
-import { initQueryClient } from '../../../../query/query-client';
+import type { VariablesClient } from '../../../../protocol/variables-client';
 import type { TreePath } from '../../../../utils/tree/types';
 import type { Variable } from '../variable';
-import type { useHistoryData } from '@axonivy/ui-components';
 
 type ContextHelperProps = {
-  client?: Partial<Client>;
+  client?: Partial<VariablesClient>;
   appContext?: {
     variables?: Array<Variable>;
     selectedVariable?: TreePath;
-    validations?: ValidationMessages;
+    validations?: Array<VariablesValidationResult>;
   };
 };
 
 const ContextHelper = (props: ContextHelperProps & { children: ReactNode }) => {
-  const client = (props.client ?? new EmptyClient()) as Client;
+  const client = (props.client ?? new EmptyClient()) as VariablesClient;
   const appContext = {
     context: {} as VariablesEditorDataContext,
     variables: props.appContext?.variables ?? [],
@@ -52,4 +50,4 @@ export const customRenderHook = <Result, Props>(
 };
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-class EmptyClient implements Partial<Client> {}
+class EmptyClient implements Partial<VariablesClient> {}

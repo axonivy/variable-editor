@@ -8,7 +8,7 @@ import { toNodes } from './known-variables';
 
 export const VariableBrowser = ({ applyFn }: { applyFn: (node?: KnownVariables) => void }) => {
   const { context } = useAppContext();
-  const knownVariables = useMeta('meta/knownVariables', context, EMPTY_KNOWN_VARIABLES).data;
+  const knownVariables = useMeta('variables/meta/knownVariables', context, EMPTY_KNOWN_VARIABLES).data;
   const nodes = useMemo(() => toNodes(knownVariables), [knownVariables]);
   const variableBrowser = useBrowser(nodes);
   return (

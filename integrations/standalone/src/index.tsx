@@ -1,6 +1,7 @@
-import { ThemeProvider, ReadonlyProvider, Flex, Spinner, toast, Toaster, HotkeysProvider } from '@axonivy/ui-components';
-import { ClientContextProvider, ClientJsonRpc, QueryProvider, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
 import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
+import { Flex, HotkeysProvider, ReadonlyProvider, Spinner, ThemeProvider, toast, Toaster } from '@axonivy/ui-components';
+import { VariableEditor, VariablesClient } from '@axonivy/variable-editor';
+import { ClientContextProvider, initQueryClient, QueryProvider } from '@axonivy/variable-editor-protocol';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
@@ -32,7 +33,7 @@ export async function start(): Promise<void> {
   );
 
   const initialize = async (connection: Connection) => {
-    const client = await ClientJsonRpc.startClient(connection);
+    const client = await VariablesClient.startClient(connection, VariablesClient);
     root.render(
       <React.StrictMode>
         <ThemeProvider defaultTheme={theme}>
@@ -52,12 +53,12 @@ export async function start(): Promise<void> {
     return client;
   };
 
-  const reconnect = async (connection: Connection, oldClient: ClientJsonRpc) => {
+  const reconnect = async (connection: Connection, oldClient: VariablesClient) => {
     await oldClient.stop();
     return initialize(connection);
   };
 
-  webSocketConnection<ClientJsonRpc>(ClientJsonRpc.webSocketUrl(server)).listen({
+  webSocketConnection<VariablesClient>(VariablesClient.webSocketUrl(server)).listen({
     onConnection: initialize,
     onReconnect: reconnect,
     logger: { log: console.log, info: toast.info, warn: toast.warning, error: toast.error }

@@ -1,12 +1,11 @@
+import { useClient, type ConfigEditorActionArgs } from '@axonivy/variable-editor-protocol';
 import { useAppContext } from './AppContext';
-import { useClient } from '../protocol/ClientContextProvider';
-import type { VariablesActionArgs } from '@axonivy/variable-editor-protocol';
 
-export function useAction(actionId: VariablesActionArgs['actionId']) {
+export function useAction(actionId: ConfigEditorActionArgs['actionId']) {
   const { context } = useAppContext();
   const client = useClient();
 
-  return (content?: VariablesActionArgs['payload']) => {
+  return (content?: ConfigEditorActionArgs['payload']) => {
     let payload = content ?? '';
     if (typeof payload === 'object') {
       payload = JSON.stringify(payload);

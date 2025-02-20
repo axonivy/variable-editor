@@ -1,5 +1,7 @@
+import type { MessageConnection } from '@axonivy/jsonrpc';
 import { HotkeysProvider, ThemeProvider } from '@axonivy/ui-components';
-import { ClientContextProvider, QueryProvider, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
+import { VariableEditor } from '@axonivy/variable-editor';
+import { ClientContextProvider, initQueryClient, QueryProvider } from '@axonivy/variable-editor-protocol';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
@@ -10,7 +12,7 @@ if (!rootElement) {
   throw new Error('rootElement not found');
 }
 const root = ReactDOM.createRoot(rootElement);
-const client = new VariablesClientMock();
+const client = new VariablesClientMock({} as MessageConnection);
 const queryClient = initQueryClient();
 
 root.render(

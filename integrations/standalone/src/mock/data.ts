@@ -1,4 +1,4 @@
-import type { ValidationMessages, VariablesData } from '@axonivy/variable-editor-protocol';
+import type { VariablesData, VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 
 export const variables: VariablesData = {
   context: { app: '', pmv: '', file: '' },
@@ -39,7 +39,7 @@ export const variables: VariablesData = {
   helpUrl: 'https://dev.axonivy.com'
 };
 
-export const validations: ValidationMessages = [
+export const validations: Array<VariablesValidationResult> = [
   {
     message: 'Invalid key',
     path: 'invalidKey',

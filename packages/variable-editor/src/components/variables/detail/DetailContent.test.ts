@@ -1,5 +1,6 @@
-import type { Client, KnownVariables, MetaRequestTypes, ValidationMessages } from '@axonivy/variable-editor-protocol';
+import type { KnownVariables, MetaRequestTypes, VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import { waitFor } from '@testing-library/react';
+import type { VariablesClient } from '../../../protocol/variables-client';
 import { customRenderHook } from '../data/test-utils/test-utils';
 import { messageDataOfProperty, useOverwrites } from './DetailContent';
 
@@ -37,7 +38,7 @@ describe('useOverwrites', () => {
   });
 });
 
-class ClientMock implements Partial<Client> {
+class ClientMock implements Partial<VariablesClient> {
   meta<TMeta extends keyof MetaRequestTypes>(): Promise<MetaRequestTypes[TMeta][1]> {
     return Promise.resolve({
       children: [{ name: 'Amazon', children: [{ name: 'Comprehend', children: [{ name: 'SecretKey' }, { name: 'AccessKey' }] }] }]
@@ -58,4 +59,4 @@ const validations = [
   { message: 'message2', property: 'property1', severity: 'WARNING' },
   { message: 'message3', property: 'property2', severity: 'ERROR' },
   { message: 'message4', property: 'property2', severity: 'INFO' }
-] as ValidationMessages;
+] as Array<VariablesValidationResult>;

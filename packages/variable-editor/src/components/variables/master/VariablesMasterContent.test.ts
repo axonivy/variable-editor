@@ -1,4 +1,4 @@
-import type { ValidationMessages } from '@axonivy/variable-editor-protocol';
+import type { VariablesValidationResult } from '@axonivy/variable-editor-protocol';
 import type { Variable } from '../data/variable';
 import { rowHeight, variablesWithValidations } from './VariablesMasterContent';
 
@@ -9,7 +9,7 @@ test('variablesWithValidations', () => {
       value: '',
       description: '',
       metadata: { type: '' },
-      validations: [{ message: 'Existing validation 0' }] as ValidationMessages,
+      validations: [{ message: 'Existing validation 0' }] as Array<VariablesValidationResult>,
       children: []
     },
     {
@@ -32,7 +32,7 @@ test('variablesWithValidations', () => {
           value: '',
           description: '',
           metadata: { type: '' },
-          validations: [{ message: 'Existing validation 11' }] as ValidationMessages,
+          validations: [{ message: 'Existing validation 11' }] as Array<VariablesValidationResult>,
           children: []
         }
       ]
@@ -43,7 +43,7 @@ test('variablesWithValidations', () => {
     { message: 'Validation 1a', path: 'name1' },
     { message: 'Validation 1b', path: 'name1' },
     { message: 'Validation 10', path: 'name1.name10' }
-  ] as ValidationMessages;
+  ] as Array<VariablesValidationResult>;
   const variables = variablesWithValidations(originalVariables, validations);
   expect(variables[0].validations).toEqual([validations[0]]);
   expect(variables[1].validations).toEqual([validations[1], validations[2]]);
@@ -54,6 +54,6 @@ test('variablesWithValidations', () => {
 test('rowHeight', () => {
   expect(rowHeight(undefined)).toEqual(36);
   expect(rowHeight([])).toEqual(36);
-  expect(rowHeight([{}] as ValidationMessages)).toEqual(72);
-  expect(rowHeight([{}, {}, {}] as ValidationMessages)).toEqual(144);
+  expect(rowHeight([{}] as Array<VariablesValidationResult>)).toEqual(72);
+  expect(rowHeight([{}, {}, {}] as Array<VariablesValidationResult>)).toEqual(144);
 });

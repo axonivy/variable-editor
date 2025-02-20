@@ -1,7 +1,5 @@
+import { useClient, type MetaRequestTypes } from '@axonivy/variable-editor-protocol';
 import { useQuery } from '@tanstack/react-query';
-import { genQueryKey } from '../query/query-client';
-import type { MetaRequestTypes } from '@axonivy/variable-editor-protocol';
-import { useClient } from '../protocol/ClientContextProvider';
 
 type NonUndefinedGuard<T> = T extends undefined ? never : T;
 
@@ -12,7 +10,7 @@ export function useMeta<TMeta extends keyof MetaRequestTypes>(
 ): { data: MetaRequestTypes[TMeta][1] } {
   const client = useClient();
   return useQuery({
-    queryKey: genQueryKey(path, args),
+    queryKey: [path, args],
     queryFn: () => client.meta(path, args),
     initialData: initialData
   });
