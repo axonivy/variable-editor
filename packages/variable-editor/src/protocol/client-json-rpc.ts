@@ -62,7 +62,7 @@ export class ClientJsonRpc extends BaseRpcClient implements Client {
   }
 
   public static webSocketUrl(url: string) {
-    return urlBuilder(url, 'ivy-config-lsp');
+    return urlBuilder(url, 'ivy-variables-lsp');
   }
 
   public static async startClient(connection: Connection): Promise<ClientJsonRpc> {
