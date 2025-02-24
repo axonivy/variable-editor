@@ -1,5 +1,6 @@
 import type {
   Client,
+  EditorFileContent,
   Event,
   MetaRequestTypes,
   ValidationMessages,
@@ -16,9 +17,9 @@ export class VariablesClientMock implements Client {
     return Promise.resolve(variables);
   }
 
-  saveData(saveData: VariablesData): Promise<ValidationMessages> {
+  saveData(saveData: VariablesData): Promise<EditorFileContent> {
     this.variablesData.data = saveData.data;
-    return Promise.resolve(validations);
+    return Promise.resolve({ content: '' });
   }
 
   validate(): Promise<ValidationMessages> {

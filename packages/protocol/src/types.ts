@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 import type {
+  EditorFileContent,
   KnownVariables,
   VariablesActionArgs,
   VariablesData,
@@ -19,7 +20,7 @@ export interface MetaRequestTypes {
 
 export interface RequestTypes extends MetaRequestTypes {
   data: [VariablesEditorDataContext, VariablesData];
-  saveData: [SaveArgs, ValidationMessages];
+  saveData: [SaveArgs, EditorFileContent];
   validate: [VariablesEditorDataContext, ValidationMessages];
 }
 
@@ -42,7 +43,7 @@ export interface Disposable {
 
 export interface Client {
   data(context: VariablesEditorDataContext): Promise<VariablesData>;
-  saveData(saveArgs: SaveArgs): Promise<ValidationMessages>;
+  saveData(saveArgs: SaveArgs): Promise<EditorFileContent>;
   validate(validate: VariablesEditorDataContext): Promise<ValidationMessages>;
   meta<TMeta extends keyof MetaRequestTypes>(path: TMeta, args: MetaRequestTypes[TMeta][0]): Promise<MetaRequestTypes[TMeta][1]>;
   action(action: VariablesActionArgs): void;
