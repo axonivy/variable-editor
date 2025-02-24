@@ -16,7 +16,8 @@ import type {
   RequestTypes,
   ValidationMessages,
   VariablesActionArgs,
-  OnNotificationTypes
+  OnNotificationTypes,
+  EditorFileContent
 } from '@axonivy/variable-editor-protocol';
 
 export class ClientJsonRpc extends BaseRpcClient implements Client {
@@ -32,7 +33,7 @@ export class ClientJsonRpc extends BaseRpcClient implements Client {
     return this.sendRequest('data', context);
   }
 
-  saveData(saveData: VariablesData): Promise<ValidationMessages> {
+  saveData(saveData: VariablesData): Promise<EditorFileContent> {
     return this.sendRequest('saveData', saveData);
   }
 

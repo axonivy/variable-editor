@@ -15,7 +15,7 @@ import {
   useHotkeys
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { EditorProps, ValidationMessages, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
+import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import type { RootVariable, Variable } from './components/variables/data/variable';
@@ -87,9 +87,9 @@ function VariableEditor(props: EditorProps) {
       if (saveData) {
         return await client.saveData({ context, data: toContent(saveData.root), directSave });
       }
-      return Promise.resolve([]);
+      return Promise.resolve();
     },
-    onSuccess: (data: ValidationMessages) => queryClient.setQueryData(queryKeys.validate(context), data)
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.validate(context) })
   });
 
   const openUrl = useAction('openUrl');

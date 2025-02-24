@@ -9,6 +9,7 @@
 export type Severity = ("INFO" | "WARNING" | "ERROR")
 
 export interface Variables {
+  editorFileContent: EditorFileContent;
   knownVariables: KnownVariables;
   variablesActionArgs: VariablesActionArgs;
   variablesData: VariablesData;
@@ -17,6 +18,9 @@ export interface Variables {
   variablesValidationResult: VariablesValidationResult[];
   void: Void;
   [k: string]: unknown;
+}
+export interface EditorFileContent {
+  content: string;
 }
 export interface KnownVariables {
   children: KnownVariables[];
