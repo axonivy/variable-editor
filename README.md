@@ -1,6 +1,6 @@
 # Variables Editor
 
-This repo contains the web-based variables editor client.
+This repo contains the web-based Variables Editor client.
 
 ### Available Scripts
 
@@ -14,18 +14,16 @@ This repo contains the web-based variables editor client.
 
 `npm run test`: Run unit tests
 
-`npm run webtest:mock`: Run Playwright tests against mock environment
+`npm run webtest`: Run Playwright tests
 
-`npm run webtest:engine`: Run Playwright tests against designer engine
-
-### VsCode dev environment
+### VSCode dev environment
 
 #### Debug
 
 Simply start the `Launch Standalone` or `Launch Standalone Mock` launch config to get debug and breakpoint support.
 
 > [!NOTE]
-> The `Launch Standalone` launch config connects to a real designer and therefore requires a running designer engine on port 8081 with a project called `variables`. These attributes can be changed via URL parameters.
+> The `Launch Standalone` launch config connects to a real designer and therefore requires a running designer engine on port 8081 with a project called `variables-test-project`. These attributes can be changed via URL parameters.
 
 > [!NOTE]
 > The `Launch Standalone Mock` launch config only receives mock data and therefore does not work with features for which a real engine is needed (e.g. data validation).
