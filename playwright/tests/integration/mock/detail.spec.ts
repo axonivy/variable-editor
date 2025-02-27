@@ -206,7 +206,7 @@ test('show password', async () => {
 });
 
 test('empty details', async () => {
-  await expect(editor.details.locator.locator('p')).toHaveText('Select a variable to edit its properties.');
+  await expect(editor.details.locator.locator('p')).toHaveText('Select a Variable to edit its properties.');
 });
 
 test('toogle details', async () => {

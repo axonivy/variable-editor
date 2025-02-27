@@ -60,7 +60,7 @@ export const VariablesDetailContent = () => {
   const validations = useValidations(selectedVariable);
 
   if (!variable) {
-    return <PanelMessage message='Select a variable to edit its properties.' />;
+    return <PanelMessage message='Select a Variable to edit its properties.' />;
   }
 
   const hasChildren = variableHasChildren(variable);
