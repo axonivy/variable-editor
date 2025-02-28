@@ -1,5 +1,6 @@
 .variables-editor-main-content {
   overflow: auto;
+  height: 100%;
 }
 
 .variables-editor-table-field {
