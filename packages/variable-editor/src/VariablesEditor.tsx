@@ -15,7 +15,7 @@ import {
   useHotkeys
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { EditorProps, ValidationMessages, VariablesData } from '@axonivy/variable-editor-protocol';
+import type { EditorProps, ValidationMessages, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import type { RootVariable, Variable } from './components/variables/data/variable';
@@ -49,15 +49,15 @@ function VariableEditor(props: EditorProps) {
 
   const queryKeys = useMemo(
     () => ({
-      data: () => genQueryKey('data', context),
-      saveData: () => genQueryKey('saveData', context),
-      validate: () => genQueryKey('validate', context)
+      data: (context: VariablesEditorDataContext) => genQueryKey('data', context),
+      saveData: (context: VariablesEditorDataContext) => genQueryKey('saveData', context),
+      validate: (context: VariablesEditorDataContext) => genQueryKey('validate', context)
     }),
-    [context]
+    []
   );
 
   const { data, isPending, isError, isSuccess, error } = useQuery({
-    queryKey: queryKeys.data(),
+    queryKey: queryKeys.data(context),
     queryFn: async () => {
       const content = await client.data(context);
       const root = toVariables(content.data);
@@ -68,16 +68,16 @@ function VariableEditor(props: EditorProps) {
   });
 
   const validations = useQuery({
-    queryKey: queryKeys.validate(),
+    queryKey: queryKeys.validate(context),
     queryFn: async () => await client.validate(context),
     initialData: [],
     enabled: isSuccess
   }).data;
 
   const mutation = useMutation({
-    mutationKey: queryKeys.saveData(),
+    mutationKey: queryKeys.saveData(context),
     mutationFn: async (updateData: Unary<Array<Variable>>) => {
-      const saveData = queryClient.setQueryData<VariablesData & { root: RootVariable }>(queryKeys.data(), prevData => {
+      const saveData = queryClient.setQueryData<VariablesData & { root: RootVariable }>(queryKeys.data(context), prevData => {
         if (prevData) {
           prevData.root.children = updateData(prevData.root.children);
           return prevData;
@@ -89,7 +89,7 @@ function VariableEditor(props: EditorProps) {
       }
       return Promise.resolve([]);
     },
-    onSuccess: (data: ValidationMessages) => queryClient.setQueryData(queryKeys.validate(), data)
+    onSuccess: (data: ValidationMessages) => queryClient.setQueryData(queryKeys.validate(context), data)
   });
 
   const openUrl = useAction('openUrl');

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
 import type {
   KnownVariables,
   VariablesActionArgs,
@@ -31,6 +32,7 @@ export interface OnNotificationTypes {
 }
 
 export interface Event<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
 }
 

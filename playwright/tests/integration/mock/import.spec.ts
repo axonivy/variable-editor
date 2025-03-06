@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
   editor = await VariableEditor.openMock(page);
 });
 
-describe('importAndOverwrite', async () => {
+describe('importAndOverwrite', () => {
   test('password', async () => {
     await editor.tree.expectRowCount(11);
 
@@ -68,7 +68,7 @@ test('importAndOverwriteWholeSubTree', async () => {
   await details.expectValues('Amazon.Comprehend', 'AccessKey', '<YOUR_ACCESS_KEY>', 'Access key to access amazon comprehend', 'Default');
 });
 
-describe('disabledMetadataOfOverwrittenVariable', async () => {
+describe('disabledMetadataOfOverwrittenVariable', () => {
   test('enum', async () => {
     await editor.overwrite.open();
     await editor.overwrite.variables.row(2).click();
