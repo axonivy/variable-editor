@@ -1,11 +1,11 @@
 {
   "name": "@axonivy/config-editor-standalone",
   "private": true,
-  "version": "12.0.4-next",
+  "version": "12.0.5-next",
   "dependencies": {
+    "@axonivy/jsonrpc": "~12.0.4-next.535",
     "@axonivy/ui-components": "~12.0.4-next.535",
     "@axonivy/ui-icons": "~12.0.4-next.535",
-    "@axonivy/jsonrpc": "~12.0.4-next.535",
     "@axonivy/variable-editor": "*",
     "@axonivy/variable-editor-protocol": "*",
     "@tanstack/react-query": "^5.32",
