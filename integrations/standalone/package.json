@@ -3,9 +3,9 @@
   "private": true,
   "version": "12.0.5-next",
   "dependencies": {
-    "@axonivy/jsonrpc": "~12.0.5-next.541",
-    "@axonivy/ui-components": "~12.0.5-next.541",
-    "@axonivy/ui-icons": "~12.0.5-next.541",
+    "@axonivy/jsonrpc": "~12.0.5-next.543",
+    "@axonivy/ui-components": "~12.0.5-next.543",
+    "@axonivy/ui-icons": "~12.0.5-next.543",
     "@axonivy/variable-editor": "~12.0.5-next",
     "@axonivy/variable-editor-protocol": "~12.0.5-next",
     "@tanstack/react-query": "^5.32",
@@ -17,7 +17,7 @@
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^5.4.10"
+    "vite": "^6.2.1"
   },
   "scripts": {
     "clean": "rimraf build",
