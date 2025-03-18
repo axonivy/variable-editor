@@ -12,18 +12,18 @@ test('new text variable', async () => {
   await editor.addVariable();
   await editor.tree.row(11).click();
   const details = editor.details;
-  await details.expectTitle('Variables - project-name - NewVariable');
+  await details.expectTitle('Variable - NewVariable');
 
   await details.fill('myName', 'myValue', 'This is myName with a value of myValue');
 
   await details.expectValues('microsoft-connector', 'myName', 'myValue', 'This is myName with a value of myValue', 'Default');
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await editor.tree.row(11).expectValues(['myName', 'myValue']);
   await editor.tree.row(10).click();
-  await details.expectTitle('Variables - project-name - connectorProvider');
+  await details.expectTitle('Variable - connectorProvider');
   await editor.tree.row(11).click();
 
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await details.expectValues('microsoft-connector', 'myName', 'myValue', 'This is myName with a value of myValue', 'Default');
 });
 
@@ -32,18 +32,18 @@ test('new password variable', async () => {
   await editor.addVariable();
   await editor.tree.row(11).click();
   const details = editor.details;
-  await details.expectTitle('Variables - project-name - NewVariable');
+  await details.expectTitle('Variable - NewVariable');
 
   await details.fill('myName', 'myValue', 'This is myName with a value of myValue', 'Password');
 
   await details.expectValues('microsoft-connector', 'myName', 'myValue', 'This is myName with a value of myValue', 'Password');
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await editor.tree.row(11).expectValues(['myName', '***']);
   await editor.tree.row(10).click();
-  await details.expectTitle('Variables - project-name - connectorProvider');
+  await details.expectTitle('Variable - connectorProvider');
   await editor.tree.row(11).click();
 
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await details.expectValues('microsoft-connector', 'myName', 'myValue', 'This is myName with a value of myValue', 'Password');
 });
 
@@ -52,18 +52,18 @@ test('new daytime variable', async () => {
   await editor.addVariable();
   await editor.tree.row(11).click();
   const details = editor.details;
-  await details.expectTitle('Variables - project-name - NewVariable');
+  await details.expectTitle('Variable - NewVariable');
 
   await details.fill('myName', '12:15', 'This is myName with a value of myValue', 'Daytime');
 
   await details.expectValues('microsoft-connector', 'myName', '12:15', 'This is myName with a value of myValue', 'Daytime');
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await editor.tree.row(11).expectValues(['myName', '12:15']);
   await editor.tree.row(10).click();
-  await details.expectTitle('Variables - project-name - connectorProvider');
+  await details.expectTitle('Variable - connectorProvider');
   await editor.tree.row(11).click();
 
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await details.expectValues('microsoft-connector', 'myName', '12:15', 'This is myName with a value of myValue', 'Daytime');
 });
 
@@ -72,20 +72,20 @@ test('new file variable', async () => {
   await editor.addVariable();
   await editor.tree.row(11).click();
   const details = editor.details;
-  await details.expectTitle('Variables - project-name - NewVariable');
+  await details.expectTitle('Variable - NewVariable');
 
   await details.fill('myName', '', 'This is myName with a value of myValue', 'File');
   await details.fileNameExtension.choose('txt');
 
   await details.expectValues('microsoft-connector', 'myName', '', 'This is myName with a value of myValue', 'File');
   await details.fileNameExtension.expectValue('txt');
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await editor.tree.row(11).expectValues(['myName', '']);
   await editor.tree.row(10).click();
-  await details.expectTitle('Variables - project-name - connectorProvider');
+  await details.expectTitle('Variable - connectorProvider');
   await editor.tree.row(11).click();
 
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await details.expectValues('microsoft-connector', 'myName', '', 'This is myName with a value of myValue', 'File');
   await details.fileNameExtension.expectValue('txt');
 });
@@ -95,19 +95,19 @@ test('new enum variable', async () => {
   await editor.addVariable();
   await editor.tree.row(11).click();
   const details = editor.details;
-  await details.expectTitle('Variables - project-name - NewVariable');
+  await details.expectTitle('Variable - NewVariable');
 
   await details.fill('myName', 'Monday', 'This is myName with a value of Monday', 'Enum');
 
   await details.expectValues('microsoft-connector', 'myName', 'Monday', 'This is myName with a value of Monday', 'Enum');
   await details.listOfPossibleValues.expectValues('Monday');
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await editor.tree.row(11).expectValues(['myName', 'Monday']);
   await editor.tree.row(10).click();
-  await details.expectTitle('Variables - project-name - connectorProvider');
+  await details.expectTitle('Variable - connectorProvider');
   await editor.tree.row(11).click();
 
-  await details.expectTitle('Variables - project-name - myName');
+  await details.expectTitle('Variable - myName');
   await details.expectValues('microsoft-connector', 'myName', 'Monday', 'This is myName with a value of Monday', 'Enum');
   await details.listOfPossibleValues.expectValues('Monday');
 });
@@ -221,7 +221,7 @@ test('delete selected', async () => {
   await editor.tree.row(1).click();
   await editor.tree.row(1).expectValues(['appId', 'MyAppId']);
   const details = editor.details;
-  await details.expectTitle('Variables - project-name - appId');
+  await details.expectTitle('Variable - appId');
   await details.expectValues('microsoft-connector', 'appId', 'MyAppId', 'Your Azure Application (client) ID', 'Default');
 
   await editor.delete.click();

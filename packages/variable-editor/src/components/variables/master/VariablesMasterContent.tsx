@@ -26,7 +26,7 @@ import { getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef } from 'react';
 import { useAppContext } from '../../../context/AppContext';
-import { useKnownHotkeys } from '../../../utils/hotkeys';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { deleteFirstSelectedRow, toTreePath, useTreeGlobalFilter } from '../../../utils/tree/tree';
 import { type Variable } from '../data/variable';
 import { variableIcon } from '../data/variable-utils';
@@ -34,10 +34,12 @@ import { AddVariableDialog } from '../dialog/AddDialog';
 import { OverwriteDialog } from '../dialog/OverwriteDialog';
 import { ValidationRow } from './ValidationRow';
 import './VariablesMasterContent.css';
+import { useTranslation } from 'react-i18next';
 
 export const ROW_HEIGHT = 36 as const;
 
 export const VariablesMasterContent = () => {
+  const { t } = useTranslation();
   const { variables: originalVariables, setVariables, setSelectedVariable, detail, setDetail, validations } = useAppContext();
   const variables = useMemo(() => variablesWithValidations(originalVariables, validations), [originalVariables, validations]);
 
@@ -53,7 +55,7 @@ export const VariablesMasterContent = () => {
   const columns: Array<ColumnDef<Variable, string>> = [
     {
       accessorKey: 'name',
-      header: header => <ExpandableHeader name='Name' header={header} />,
+      header: header => <ExpandableHeader name={t('common:label.name')} header={header} />,
       cell: cell => (
         <ExpandableCell cell={cell} icon={variableIcon(cell.row.original)}>
           <span>{cell.getValue()}</span>
@@ -65,7 +67,7 @@ export const VariablesMasterContent = () => {
     },
     {
       accessorFn: (variable: Variable) => (variable.metadata.type === 'password' ? '***' : variable.value),
-      header: 'Value',
+      header: t('common:label.value'),
       cell: cell => <span>{cell.getValue()}</span>,
       minSize: 200,
       size: 500,
@@ -144,7 +146,7 @@ export const VariablesMasterContent = () => {
         tabIndex={-1}
         ref={firstElement}
         className='variables-editor-table-field'
-        label='List of Variables'
+        label={t('label.variables')}
         control={control}
         onClick={event => event.stopPropagation()}
       >

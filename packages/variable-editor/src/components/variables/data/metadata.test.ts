@@ -5,13 +5,15 @@ import {
   isFileMetadataFilenameExtension,
   isMetadata,
   isMetadataType,
-  metadataOptions,
   toEnumMetadataUpdate,
-  toFileMetadataUpdate
+  toFileMetadataUpdate,
+  useMetadataOptions
 } from './metadata';
+import { customRenderHook } from './test-utils/test-utils';
 
 test('metadataOptions', () => {
-  expect(metadataOptions).toEqual([
+  const { result } = customRenderHook(() => useMetadataOptions());
+  expect(result.current).toEqual([
     { label: 'Default', value: 'default' },
     { label: 'Password', value: 'password' },
     { label: 'Daytime', value: 'daytime' },

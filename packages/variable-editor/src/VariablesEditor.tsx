@@ -1,37 +1,19 @@
-import {
-  Button,
-  Flex,
-  PanelMessage,
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-  SidebarHeader,
-  Spinner,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-  useHistoryData,
-  useHotkeys
-} from '@axonivy/ui-components';
+import { Flex, PanelMessage, ResizableHandle, ResizablePanel, ResizablePanelGroup, Spinner, useHistoryData } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import type { RootVariable, Variable } from './components/variables/data/variable';
 import { toContent, toVariables } from './components/variables/data/variable-utils';
-import { VariablesDetailContent } from './components/variables/detail/DetailContent';
 import { VariablesMasterContent } from './components/variables/master/VariablesMasterContent';
 import { VariablesMasterToolbar } from './components/variables/master/VariablesMasterToolbar';
 import { AppProvider } from './context/AppContext';
-import { useAction } from './context/useAction';
 import { useClient } from './protocol/ClientContextProvider';
 import { genQueryKey } from './query/query-client';
-import { useKnownHotkeys } from './utils/hotkeys';
 import type { Unary } from './utils/lambda/lambda';
-import { getNode } from './utils/tree/tree-data';
 import type { TreePath } from './utils/tree/types';
 import './VariablesEditor.css';
+import { Detail } from './components/variables/detail/Detail';
 
 function VariableEditor(props: EditorProps) {
   const [detail, setDetail] = useState(true);
@@ -92,10 +74,6 @@ function VariableEditor(props: EditorProps) {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.validate(context) })
   });
 
-  const openUrl = useAction('openUrl');
-  const { openHelp: helpText } = useKnownHotkeys();
-  useHotkeys(helpText.hotkey, () => openUrl(data?.helpUrl), { scopes: ['global'] });
-
   if (isPending) {
     return (
       <Flex alignItems='center' justifyContent='center' style={{ width: '100%', height: '100%' }}>
@@ -106,13 +84,6 @@ function VariableEditor(props: EditorProps) {
 
   if (isError) {
     return <PanelMessage icon={IvyIcons.ErrorXMark} message={`An error has occurred: ${error.message}`} />;
-  }
-
-  const title = `Variables - ${context.pmv}`;
-  let detailTitle = title;
-  const variable = getNode(data.root.children, selectedVariable);
-  if (variable) {
-    detailTitle += ' - ' + variable.name;
   }
 
   return (
@@ -132,7 +103,7 @@ function VariableEditor(props: EditorProps) {
       <ResizablePanelGroup direction='horizontal'>
         <ResizablePanel defaultSize={75} minSize={50} className='variables-editor-main-panel'>
           <Flex className='variables-editor-panel-content' direction='column'>
-            <VariablesMasterToolbar title={title} />
+            <VariablesMasterToolbar />
             <VariablesMasterContent />
           </Flex>
         </ResizablePanel>
@@ -140,19 +111,7 @@ function VariableEditor(props: EditorProps) {
           <>
             <ResizableHandle />
             <ResizablePanel defaultSize={25} minSize={10}>
-              <Flex direction='column' className='variables-editor-panel-content variables-editor-detail-panel'>
-                <SidebarHeader icon={IvyIcons.PenEdit} title={detailTitle} className='variables-editor-detail-header' tabIndex={-1}>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button icon={IvyIcons.Help} onClick={() => openUrl(data.helpUrl)} aria-label={helpText.label} />
-                      </TooltipTrigger>
-                      <TooltipContent className='variables-editor-help-tooltip-content'>{helpText.label}</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </SidebarHeader>
-                <VariablesDetailContent />
-              </Flex>
+              <Detail helpUrl={data.helpUrl} />
             </ResizablePanel>
           </>
         )}

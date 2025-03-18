@@ -5,6 +5,7 @@ import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import { VariablesClientMock } from './mock/variables-client-mock';
 import { parameter } from './url-helper';
+import { initTranslation } from './i18n';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -13,6 +14,7 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 const client = new VariablesClientMock(parameter('virtualize') === 'true');
 const queryClient = initQueryClient();
+initTranslation();
 
 root.render(
   <React.StrictMode>

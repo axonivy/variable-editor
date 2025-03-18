@@ -5,6 +5,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import { appParam, directSaveParam, pmvParam, readonlyParam, themeParam, webSocketBaseParam } from './url-helper';
+import { initTranslation } from './i18n';
 
 export async function start(): Promise<void> {
   const server = webSocketBaseParam();
@@ -19,6 +20,7 @@ export async function start(): Promise<void> {
     throw new Error('rootElement not found');
   }
   const root = ReactDOM.createRoot(rootElement);
+  initTranslation();
 
   root.render(
     <React.StrictMode>

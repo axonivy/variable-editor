@@ -17,8 +17,9 @@ import { getNodesOnPath, updateNode, hasChildren as variableHasChildren } from '
 import { type VariableUpdates } from '../data/variable';
 import { findVariable } from '../dialog/known-variables';
 import './DetailContent.css';
-import { Metadata } from './Metadata';
+import { MetadataPart } from './Metadata';
 import { Value } from './Value';
+import { useTranslation } from 'react-i18next';
 
 export const useOverwrites = (key: Array<string>) => {
   const { context } = useAppContext();
@@ -58,9 +59,10 @@ export const VariablesDetailContent = () => {
   const overwrites = useOverwrites(key);
 
   const validations = useValidations(selectedVariable);
+  const { t } = useTranslation();
 
   if (!variable) {
-    return <PanelMessage message='Select a Variable to edit its properties.' />;
+    return <PanelMessage message={t('label.noVariableSelected')} />;
   }
 
   const hasChildren = variableHasChildren(variable);
@@ -69,16 +71,16 @@ export const VariablesDetailContent = () => {
 
   return (
     <Flex direction='column' gap={4} className='variables-editor-detail-content'>
-      <BasicField label='Namespace'>
+      <BasicField label={t('common:label.namespace')}>
         <BasicInput value={key.slice(0, -1).join('.')} disabled />
       </BasicField>
-      <BasicField label='Name' message={messageDataOfProperty(validations, 'key')}>
+      <BasicField label={t('common:label.name')} message={messageDataOfProperty(validations, 'key')}>
         <BasicInput value={variable.name} onChange={event => handleVariableAttributeChange([{ key: 'name', value: event.target.value }])} />
       </BasicField>
       {!hasChildren && (
         <Value variable={variable} onChange={handleVariableAttributeChange} message={messageDataOfProperty(validations, 'value')} />
       )}
-      <BasicField label='Description'>
+      <BasicField label={t('common:label.description')}>
         <Textarea
           value={variable.description}
           onChange={event => handleVariableAttributeChange([{ key: 'description', value: event.target.value }])}
@@ -86,7 +88,7 @@ export const VariablesDetailContent = () => {
       </BasicField>
       {!hasChildren && (
         <ReadonlyProvider readonly={readonly || overwrites}>
-          <Metadata variable={variable} onChange={handleVariableAttributeChange} />
+          <MetadataPart variable={variable} onChange={handleVariableAttributeChange} />
         </ReadonlyProvider>
       )}
     </Flex>

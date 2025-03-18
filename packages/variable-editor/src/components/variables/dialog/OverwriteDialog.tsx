@@ -19,18 +19,20 @@ import type { KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
 import { useState } from 'react';
 import { useAppContext } from '../../../context/AppContext';
-import { useKnownHotkeys } from '../../../utils/hotkeys';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { toRowId } from '../../../utils/tree/tree';
 import { type Variable } from '../data/variable';
 import { VariableBrowser } from './VariableBrowser';
 import { addKnownVariable } from './known-variables';
 import './OverwriteDialog.css';
+import { useTranslation } from 'react-i18next';
 
 type OverwriteProps = {
   table: Table<Variable>;
 };
 
 export const OverwriteDialog = ({ table }: OverwriteProps) => {
+  const { t } = useTranslation();
   const { setVariables, setSelectedVariable } = useAppContext();
   const [dialogState, setDialogState] = useState(false);
   const { importVar: shortcut } = useKnownHotkeys();
@@ -64,9 +66,9 @@ export const OverwriteDialog = ({ table }: OverwriteProps) => {
       <DialogContent className='variables-editor-overwrite-dialog-content'>
         <Flex direction='column' gap={4}>
           <DialogHeader>
-            <DialogTitle>Import Variable</DialogTitle>
+            <DialogTitle>{t('dialog.overwrite.title')}</DialogTitle>
           </DialogHeader>
-          <DialogDescription>Choose the folder or Variable of a required project you want to import and overwrite.</DialogDescription>
+          <DialogDescription>{t('dialog.overwrite.desc')}</DialogDescription>
           <VariableBrowser
             applyFn={node => {
               insertVariable(node);

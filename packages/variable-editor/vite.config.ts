@@ -21,6 +21,8 @@ export default defineConfig({
         '@axonivy/ui-icons',
         '@tanstack/react-query',
         '@tanstack/react-query-devtools',
+        'i18next',
+        'react-i18next',
         'react',
         'react-error-boundary',
         'react/jsx-runtime',

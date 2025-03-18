@@ -1,7 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import { type VariableUpdate } from './variable';
+import { useMemo } from 'react';
 
 export type Metadata = { type: MetadataType };
-export type MetadataType = (typeof metadataOptions)[number]['value'] | '';
+const metadataOptions = ['', 'default', 'password', 'daytime', 'enum', 'file'] as const;
+export type MetadataType = '' | (typeof metadataOptions)[number];
 
 export interface EnumMetadata extends Metadata {
   values: Array<string>;
@@ -12,13 +15,19 @@ export interface FileMetadata extends Metadata {
 }
 export type FileMetadataFilenameExtension = (typeof fileMetadataFilenameExtensionOptions)[number]['value'];
 
-export const metadataOptions = [
-  { label: 'Default', value: 'default' },
-  { label: 'Password', value: 'password' },
-  { label: 'Daytime', value: 'daytime' },
-  { label: 'Enum', value: 'enum' },
-  { label: 'File', value: 'file' }
-] as const satisfies Array<{ label: string; value: string }>;
+export const useMetadataOptions = (): Array<{ label: string; value: MetadataType }> => {
+  const { t } = useTranslation();
+  return useMemo(
+    () => [
+      { label: t('metadata.default'), value: 'default' },
+      { label: t('metadata.password'), value: 'password' },
+      { label: t('metadata.daytime'), value: 'daytime' },
+      { label: t('metadata.enum'), value: 'enum' },
+      { label: t('metadata.file'), value: 'file' }
+    ],
+    [t]
+  );
+};
 
 export const fileMetadataFilenameExtensionOptions = [
   { label: 'txt', value: 'txt' },
@@ -26,7 +35,7 @@ export const fileMetadataFilenameExtensionOptions = [
 ] as const satisfies Array<{ label: string; value: string }>;
 
 export const isMetadataType = (metadataType: string): metadataType is MetadataType => {
-  return metadataType === '' || metadataOptions.some(option => option.value === metadataType);
+  return metadataOptions.includes(metadataType as MetadataType);
 };
 
 export const isMetadata = (metadata: unknown): metadata is Metadata => {

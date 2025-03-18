@@ -18,6 +18,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
 import { toEnumMetadataUpdate } from '../data/metadata';
 import { type VariableUpdates } from '../data/variable';
+import { useTranslation } from 'react-i18next';
 
 type EnumValuesProps = {
   selectedValue: string;
@@ -26,6 +27,7 @@ type EnumValuesProps = {
 };
 
 export const EnumValues = ({ selectedValue: value, values, onChange }: EnumValuesProps) => {
+  const { t } = useTranslation();
   const selection = useTableSelect<string>();
   const columns: Array<ColumnDef<string, string>> = [
     {
@@ -71,20 +73,20 @@ export const EnumValues = ({ selectedValue: value, values, onChange }: EnumValue
   const readonly = useReadonly();
   const control = readonly ? null : (
     <Flex gap={2}>
-      <Button key='addButton' icon={IvyIcons.Plus} onClick={addValue} aria-label='Add value' />
+      <Button key='addButton' icon={IvyIcons.Plus} onClick={addValue} aria-label={t('label.addValue')} />
       <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
       <Button
         key='deleteButton'
         icon={IvyIcons.Trash}
         onClick={deleteValue}
         disabled={!table.getIsSomeRowsSelected()}
-        aria-label='Delete value'
+        aria-label={t('label.deleteValue')}
       />
     </Flex>
   );
 
   return (
-    <BasicField label='List of possible values' control={control}>
+    <BasicField label={t('label.listOfValues')} control={control}>
       <Table>
         <TableBody>
           {table.getRowModel().rows.map(row => (

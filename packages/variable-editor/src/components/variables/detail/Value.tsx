@@ -2,6 +2,7 @@ import { BasicField, BasicInput, BasicSelect, Message, PasswordInput, type Messa
 import { useMemo } from 'react';
 import { isEnumMetadata } from '../data/metadata';
 import type { Variable, VariableUpdates } from '../data/variable';
+import { useTranslation } from 'react-i18next';
 
 type ValueProps = {
   variable: Variable;
@@ -10,6 +11,7 @@ type ValueProps = {
 };
 
 export const Value = ({ variable, onChange, message }: ValueProps) => {
+  const { t } = useTranslation();
   const enumSelectItems = useMemo(() => {
     const metadata = variable.metadata;
     if (!isEnumMetadata(metadata)) {
@@ -39,7 +41,7 @@ export const Value = ({ variable, onChange, message }: ValueProps) => {
         return (
           <>
             <BasicInput value={variable.value} disabled={true} />
-            <Message message='Value is served by a file' variant='info' />
+            <Message message={t('message.valueFromFile')} variant='info' />
           </>
         );
       default:
@@ -54,7 +56,7 @@ export const Value = ({ variable, onChange, message }: ValueProps) => {
   };
 
   return (
-    <BasicField label='Value' message={message}>
+    <BasicField label={t('common:label.value')} message={message}>
       {input()}
     </BasicField>
   );
