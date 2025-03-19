@@ -162,7 +162,7 @@ test.describe('add', () => {
       const add = editor.add;
       await add.open.click();
       const namespaceMessage = await add.namespace.message();
-      await namespaceMessage.expectToBeInfo("Folder structure of Variable (e.g. 'Connector.Key')");
+      await namespaceMessage.expectToBeInfo("Folder structure of Variable (e.g. 'Connector.Key').");
       await expect(add.create.locator).toBeEnabled();
       await add.namespace.fill('microsoft-connector.appId.New.Namespace');
       await namespaceMessage.expectToBeError("Namespace 'microsoft-connector.appId' is not a folder, you cannot add a child to it.");

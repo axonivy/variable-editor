@@ -9,20 +9,37 @@ import { initQueryClient } from '../../../../query/query-client';
 import type { TreePath } from '../../../../utils/tree/types';
 import type { Variable } from '../variable';
 import type { useHistoryData } from '@axonivy/ui-components';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import enTrans from '../../../../translation/variable-editor/en.json';
+import { enCommonTranslation } from '../../../..';
 
 type ContextHelperProps = {
   client?: Partial<Client>;
   appContext?: {
+    context?: VariablesEditorDataContext;
     variables?: Array<Variable>;
     selectedVariable?: TreePath;
     validations?: ValidationMessages;
   };
 };
 
+const initTranslation = () => {
+  if (i18n.isInitializing || i18n.isInitialized) return;
+  i18n.use(initReactI18next).init({
+    debug: true,
+    lng: 'en',
+    fallbackLng: 'en',
+    ns: ['variable-editor'],
+    defaultNS: 'variable-editor',
+    resources: { en: { 'variable-editor': enTrans, common: enCommonTranslation } }
+  });
+};
+
 const ContextHelper = (props: ContextHelperProps & { children: ReactNode }) => {
   const client = (props.client ?? new EmptyClient()) as Client;
   const appContext = {
-    context: {} as VariablesEditorDataContext,
+    context: props.appContext?.context ?? ({} as VariablesEditorDataContext),
     variables: props.appContext?.variables ?? [],
     setVariables: () => {},
     selectedVariable: props.appContext?.selectedVariable ?? [],
@@ -32,6 +49,9 @@ const ContextHelper = (props: ContextHelperProps & { children: ReactNode }) => {
     setDetail: () => {},
     history: {} as ReturnType<typeof useHistoryData<Array<Variable>>>
   };
+
+  initTranslation();
+
   return (
     <ClientContextProvider client={client}>
       <QueryProvider client={initQueryClient()}>

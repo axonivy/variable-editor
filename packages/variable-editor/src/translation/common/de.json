@@ -1,0 +1,22 @@
+{
+  "hotkey": {
+    "focusInscription": "Fokus Inscription ({{hotkey}})",
+    "focusMain": "Fokus Main ({{hotkey}})",
+    "focusToolbar": "Fokus Toolbar ({{hotkey}})",
+    "help": "Hilfe öffnen ({{hotkey}})",
+    "redo": "Wiederholen ({{hotkey}})",
+    "undo": "Rückgängig ({{hotkey}})"
+  },
+  "label": {
+    "cancel": "Abbrechen",
+    "description": "Beschreibung",
+    "details": "Details",
+    "info": "Info",
+    "name": "Name",
+    "namespace": "Namensbereich",
+    "search": "Suchen",
+    "settings": "Einstellungen",
+    "theme": "Thema",
+    "value": "Wert"
+  }
+}

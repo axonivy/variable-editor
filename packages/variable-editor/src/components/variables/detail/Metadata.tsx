@@ -3,24 +3,27 @@ import {
   fileMetadataFilenameExtensionOptions,
   isEnumMetadata,
   isFileMetadata,
-  metadataOptions,
   toFileMetadataUpdate,
+  useMetadataOptions,
   type FileMetadataFilenameExtension,
-  type MetadataType
+  type MetadataType,
+  type Metadata
 } from '../data/metadata';
 import { type Variable, type VariableUpdates } from '../data/variable';
 import { EnumValues } from './EnumValues';
+import { useTranslation } from 'react-i18next';
 
 type MetadataProps = {
   variable: Variable;
   onChange: (updates: VariableUpdates) => void;
 };
 
-export const Metadata = ({ variable, onChange }: MetadataProps) => {
+export const MetadataPart = ({ variable, onChange }: MetadataProps) => {
+  const { t } = useTranslation();
   const metadata = variable.metadata;
 
   const onValueChange = (value: MetadataType) => {
-    const newMetadata = { type: value === 'default' ? '' : value };
+    const newMetadata: Metadata = { type: value === 'default' ? '' : value };
     const updates: VariableUpdates = [];
     switch (value) {
       case 'daytime':
@@ -42,14 +45,16 @@ export const Metadata = ({ variable, onChange }: MetadataProps) => {
     onChange(updates);
   };
 
+  const metadataOptions = useMetadataOptions();
+
   return (
     <>
-      <BasicField label='Metadata'>
+      <BasicField label={t('label.metadata')}>
         <BasicSelect value={metadata.type === '' ? 'default' : metadata.type} items={metadataOptions} onValueChange={onValueChange} />
       </BasicField>
       {isEnumMetadata(metadata) && <EnumValues selectedValue={variable.value} values={metadata.values} onChange={onChange} />}
       {isFileMetadata(metadata) && (
-        <BasicField label='Filename extension'>
+        <BasicField label={t('label.filenameExtension')}>
           <BasicSelect
             value={metadata.extension}
             items={fileMetadataFilenameExtensionOptions}

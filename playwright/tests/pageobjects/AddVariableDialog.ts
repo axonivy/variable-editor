@@ -11,12 +11,15 @@ export class AddVariableDialog {
   readonly importMessage: Locator;
   readonly create: Button;
 
-  constructor(page: Page, readonly parent: Locator) {
+  constructor(
+    page: Page,
+    readonly parent: Locator
+  ) {
     this.open = new Button(parent, { name: 'Add Variable' });
     this.dialog = parent.getByRole('dialog');
     this.name = new TextArea(this.dialog);
     this.namespace = new Combobox(page, this.dialog);
-    this.importMessage = this.dialog.getByLabel('Import message');
+    this.importMessage = this.dialog.locator('.import-message');
     this.create = new Button(this.dialog, { name: 'Create Variable' });
   }
 

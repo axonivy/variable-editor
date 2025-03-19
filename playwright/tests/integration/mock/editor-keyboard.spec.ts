@@ -46,5 +46,5 @@ test('open/close detail via enter', async () => {
   await editor.page.keyboard.press('ArrowDown');
   await editor.page.keyboard.press('Enter');
   await expect(editor.details.locator).toBeVisible();
-  await editor.details.expectTitle('Variables - project-name - secretKey');
+  await editor.details.expectTitle('Variable - secretKey');
 });

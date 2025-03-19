@@ -26,15 +26,15 @@ import {
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useRef } from 'react';
 import { useAppContext } from '../../../context/AppContext';
-import { useKnownHotkeys } from '../../../utils/hotkeys';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
+import { useTranslation } from 'react-i18next';
+import { useHeaderTitles } from '../../../utils/useHeaderTitles';
 
-type VariablesMasterToolbarProps = {
-  title: string;
-};
-
-export const VariablesMasterToolbar = ({ title }: VariablesMasterToolbarProps) => {
+export const VariablesMasterToolbar = () => {
   const { detail, setDetail, history, setUnhistorisedVariables } = useAppContext();
   const { theme, setTheme, disabled } = useTheme();
+  const { t } = useTranslation();
+  const { mainTitle } = useHeaderTitles();
 
   const firstElement = useRef<HTMLDivElement>(null);
   const hotkeys = useKnownHotkeys();
@@ -56,7 +56,7 @@ export const VariablesMasterToolbar = ({ title }: VariablesMasterToolbarProps) =
 
   return (
     <Toolbar tabIndex={-1} ref={firstElement} className='variables-editor-main-toolbar'>
-      <ToolbarTitle>{title}</ToolbarTitle>
+      <ToolbarTitle>{mainTitle}</ToolbarTitle>
       <Flex gap={1}>
         <ToolbarContainer maxWidth={450}>
           <Flex>
@@ -87,10 +87,10 @@ export const VariablesMasterToolbar = ({ title }: VariablesMasterToolbarProps) =
               <Tooltip>
                 <TooltipTrigger asChild>
                   <PopoverTrigger asChild>
-                    <Button icon={IvyIcons.Settings} size='large' aria-label='Settings' />
+                    <Button icon={IvyIcons.Settings} size='large' aria-label={t('common:label.settings')} />
                   </PopoverTrigger>
                 </TooltipTrigger>
-                <TooltipContent>Settings</TooltipContent>
+                <TooltipContent>{t('common:label.settings')}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
             <PopoverContent sideOffset={12}>
@@ -100,14 +100,14 @@ export const VariablesMasterToolbar = ({ title }: VariablesMasterToolbarProps) =
                     <Label>
                       <Flex alignItems='center' gap={1}>
                         <IvyIcon icon={IvyIcons.DarkMode} />
-                        Theme
+                        {t('common:label.theme')}
                       </Flex>
                     </Label>
                     <Switch
                       defaultChecked={theme === 'dark'}
                       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                       size='small'
-                      aria-label='Theme'
+                      aria-label={t('common:label.theme')}
                     />
                   </Field>
                 </Flex>
@@ -123,10 +123,10 @@ export const VariablesMasterToolbar = ({ title }: VariablesMasterToolbarProps) =
                 icon={IvyIcons.LayoutSidebarRightCollapse}
                 size='large'
                 onClick={() => setDetail(!detail)}
-                aria-label='Details toggle'
+                aria-label={t('common:label.details')}
               />
             </TooltipTrigger>
-            <TooltipContent>Details toggle</TooltipContent>
+            <TooltipContent>{t('common:label.details')}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </Flex>

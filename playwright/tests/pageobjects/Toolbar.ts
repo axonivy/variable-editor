@@ -12,7 +12,7 @@ export class Toolbar {
     this.locator = parent.locator('.variables-editor-main-toolbar');
     this.undo = this.locator.getByRole('button', { name: 'Undo' });
     this.redo = this.locator.getByRole('button', { name: 'Redo' });
-    this.detailsToggle = this.locator.getByRole('button', { name: 'Details toggle' });
+    this.detailsToggle = this.locator.getByRole('button', { name: 'Details' });
   }
 
   async expectTitle(title: string) {
