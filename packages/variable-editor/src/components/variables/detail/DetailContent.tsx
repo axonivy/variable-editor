@@ -17,7 +17,7 @@ import { getNodesOnPath, updateNode, hasChildren as variableHasChildren } from '
 import { type VariableUpdates } from '../data/variable';
 import { findVariable } from '../dialog/known-variables';
 import './DetailContent.css';
-import { MetadataPart } from './Metadata';
+import { MetadataPart } from './MetadataPart';
 import { Value } from './Value';
 import { useTranslation } from 'react-i18next';
 

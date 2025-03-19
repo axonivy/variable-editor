@@ -13,12 +13,12 @@ import { type Variable, type VariableUpdates } from '../data/variable';
 import { EnumValues } from './EnumValues';
 import { useTranslation } from 'react-i18next';
 
-type MetadataProps = {
+type MetadataPartProps = {
   variable: Variable;
   onChange: (updates: VariableUpdates) => void;
 };
 
-export const MetadataPart = ({ variable, onChange }: MetadataProps) => {
+export const MetadataPart = ({ variable, onChange }: MetadataPartProps) => {
   const { t } = useTranslation();
   const metadata = variable.metadata;
 

@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 export type Metadata = { type: MetadataType };
 const metadataOptions = ['', 'default', 'password', 'daytime', 'enum', 'file'] as const;
-export type MetadataType = '' | (typeof metadataOptions)[number];
+export type MetadataType = (typeof metadataOptions)[number];
 
 export interface EnumMetadata extends Metadata {
   values: Array<string>;
