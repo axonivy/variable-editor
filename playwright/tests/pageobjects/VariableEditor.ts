@@ -47,13 +47,11 @@ export class VariableEditor {
     return this.openUrl(page, url);
   }
 
-  static async openMock(page: Page, options?: { virtualize?: boolean }) {
+  static async openMock(page: Page, options?: { virtualize?: boolean; lng?: string }) {
     let url = 'mock.html';
     if (options) {
       url += '?';
-      if (options.virtualize) {
-        url += `virtualize=${options.virtualize}&`;
-      }
+      url += this.params(options);
     }
     return this.openUrl(page, url);
   }
