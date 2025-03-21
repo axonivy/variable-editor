@@ -18,5 +18,8 @@
     "settings": "Einstellungen",
     "theme": "Thema",
     "value": "Wert"
+  },
+  "message": {
+    "errorOccured": "Ein Fehler ist aufgetreten: {{message}}"
   }
 }

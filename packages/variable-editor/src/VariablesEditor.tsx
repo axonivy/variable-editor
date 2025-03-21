@@ -14,8 +14,10 @@ import type { Unary } from './utils/lambda/lambda';
 import type { TreePath } from './utils/tree/types';
 import './VariablesEditor.css';
 import { Detail } from './components/variables/detail/Detail';
+import { useTranslation } from 'react-i18next';
 
 function VariableEditor(props: EditorProps) {
+  const { t } = useTranslation();
   const [detail, setDetail] = useState(true);
   const [context, setContext] = useState(props.context);
   const [directSave, setDirectSave] = useState(props.directSave);
@@ -83,7 +85,7 @@ function VariableEditor(props: EditorProps) {
   }
 
   if (isError) {
-    return <PanelMessage icon={IvyIcons.ErrorXMark} message={`An error has occurred: ${error.message}`} />;
+    return <PanelMessage icon={IvyIcons.ErrorXMark} message={t('common:message.errorOccured', { message: error.message })} />;
   }
 
   return (
