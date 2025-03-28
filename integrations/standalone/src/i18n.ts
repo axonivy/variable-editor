@@ -17,6 +17,9 @@ export const initTranslation = () => {
       resources: {
         en: { 'variable-editor': enTranslation, common: enCommonTranslation },
         de: { 'variable-editor': deTranslation, common: deCommonTranslation }
+      },
+      detection: {
+        order: ['querystring']
       }
     });
 };
