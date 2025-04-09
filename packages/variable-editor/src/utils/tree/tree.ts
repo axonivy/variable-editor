@@ -71,7 +71,7 @@ export const toRowId = (path: TreePath) => {
 
 export const useTreeGlobalFilter = <TNode extends TreeNode<TNode>>(data: Array<TNode>) => {
   const { t } = useTranslation();
-  const globalFilter = useTableGlobalFilter({ searchPlaceholder: t('common:label.search') });
+  const globalFilter = useTableGlobalFilter({ searchPlaceholder: t('common.label.search') });
   const globalFilterFn = (row: Row<TNode>, _columnId: string, filterValue: string) =>
     treeGlobalFilter(data, toTreePath(row.id), filterValue);
   return { ...globalFilter, options: { ...globalFilter.options, globalFilterFn: globalFilterFn, filterFromLeafRows: true } };

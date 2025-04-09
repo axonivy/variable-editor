@@ -56,7 +56,7 @@ export const Value = ({ variable, onChange, message }: ValueProps) => {
   };
 
   return (
-    <BasicField label={t('common:label.value')} message={message}>
+    <BasicField label={t('common.label.value')} message={message}>
       {input()}
     </BasicField>
   );

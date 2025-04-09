@@ -16,9 +16,9 @@ export const VariableBrowser = ({ applyFn }: { applyFn: (node?: KnownVariables) 
   const options = useMemo<BrowsersViewProps['options']>(
     () => ({
       applyBtn: { label: t('dialog.import'), icon: IvyIcons.FileImport },
-      cancelBtn: { label: t('common:label.cancel') },
-      info: { label: t('common:label.info') },
-      search: { placeholder: t('common:label.search') }
+      cancelBtn: { label: t('common.label.cancel') },
+      info: { label: t('common.label.info') },
+      search: { placeholder: t('common.label.search') }
     }),
     [t]
   );

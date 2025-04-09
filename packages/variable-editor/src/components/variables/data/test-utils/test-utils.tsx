@@ -12,7 +12,6 @@ import type { useHistoryData } from '@axonivy/ui-components';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import enTrans from '../../../../translation/variable-editor/en.json';
-import { enCommonTranslation } from '../../../..';
 
 type ContextHelperProps = {
   client?: Partial<Client>;
@@ -31,7 +30,7 @@ const initTranslation = () => {
     fallbackLng: 'en',
     ns: ['variable-editor'],
     defaultNS: 'variable-editor',
-    resources: { en: { 'variable-editor': enTrans, common: enCommonTranslation } }
+    resources: { en: { 'variable-editor': enTrans } }
   });
 };
 

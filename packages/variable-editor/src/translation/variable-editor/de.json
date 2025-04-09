@@ -1,4 +1,29 @@
 {
+  "common": {
+    "hotkey": {
+      "focusInscription": "Fokus Inscription ({{hotkey}})",
+      "focusMain": "Fokus Main ({{hotkey}})",
+      "focusToolbar": "Fokus Toolbar ({{hotkey}})",
+      "help": "Hilfe öffnen ({{hotkey}})",
+      "redo": "Wiederholen ({{hotkey}})",
+      "undo": "Rückgängig ({{hotkey}})"
+    },
+    "label": {
+      "cancel": "Abbrechen",
+      "description": "Beschreibung",
+      "details": "Details",
+      "info": "Info",
+      "name": "Name",
+      "namespace": "Namensbereich",
+      "search": "Suchen",
+      "settings": "Einstellungen",
+      "theme": "Thema",
+      "value": "Wert"
+    },
+    "message": {
+      "errorOccured": "Ein Fehler ist aufgetreten: {{message}}"
+    }
+  },
   "dialog": {
     "addVar": {
       "desc": "Wählen Sie den Namen und den Namensbereich der Variablen aus, die Sie hinzufügen möchten.",

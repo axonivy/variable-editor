@@ -55,7 +55,7 @@ export const VariablesMasterContent = () => {
   const columns: Array<ColumnDef<Variable, string>> = [
     {
       accessorKey: 'name',
-      header: header => <ExpandableHeader name={t('common:label.name')} header={header} />,
+      header: header => <ExpandableHeader name={t('common.label.name')} header={header} />,
       cell: cell => (
         <ExpandableCell cell={cell} icon={variableIcon(cell.row.original)}>
           <span>{cell.getValue()}</span>
@@ -67,7 +67,7 @@ export const VariablesMasterContent = () => {
     },
     {
       accessorFn: (variable: Variable) => (variable.metadata.type === 'password' ? '***' : variable.value),
-      header: t('common:label.value'),
+      header: t('common.label.value'),
       cell: cell => <span>{cell.getValue()}</span>,
       minSize: 200,
       size: 500,

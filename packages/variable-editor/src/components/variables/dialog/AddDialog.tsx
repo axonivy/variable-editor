@@ -141,13 +141,13 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
         </DialogHeader>
         <DialogDescription>{t('dialog.addVar.desc')}</DialogDescription>
         <Flex direction='column' gap={3} ref={enter} tabIndex={-1}>
-          <BasicField label={t('common:label.name')} message={nameValidationMessage} aria-label={t('common:label.name')}>
+          <BasicField label={t('common.label.name')} message={nameValidationMessage} aria-label={t('common.label.name')}>
             <Input value={name} onChange={event => setName(event.target.value)} />
           </BasicField>
           <BasicField
-            label={t('common:label.namespace')}
+            label={t('common.label.namespace')}
             message={namespaceValidationMessage ?? { variant: 'info', message: t('message.variableInfo') }}
-            aria-label={t('common:label.namespace')}
+            aria-label={t('common.label.namespace')}
           >
             <Combobox
               value={namespace}
