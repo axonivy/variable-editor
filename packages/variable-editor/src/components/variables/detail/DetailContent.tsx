@@ -71,16 +71,16 @@ export const VariablesDetailContent = () => {
 
   return (
     <Flex direction='column' gap={4} className='variables-editor-detail-content'>
-      <BasicField label={t('common:label.namespace')}>
+      <BasicField label={t('common.label.namespace')}>
         <BasicInput value={key.slice(0, -1).join('.')} disabled />
       </BasicField>
-      <BasicField label={t('common:label.name')} message={messageDataOfProperty(validations, 'key')}>
+      <BasicField label={t('common.label.name')} message={messageDataOfProperty(validations, 'key')}>
         <BasicInput value={variable.name} onChange={event => handleVariableAttributeChange([{ key: 'name', value: event.target.value }])} />
       </BasicField>
       {!hasChildren && (
         <Value variable={variable} onChange={handleVariableAttributeChange} message={messageDataOfProperty(validations, 'value')} />
       )}
-      <BasicField label={t('common:label.description')}>
+      <BasicField label={t('common.label.description')}>
         <Textarea
           value={variable.description}
           onChange={event => handleVariableAttributeChange([{ key: 'description', value: event.target.value }])}
