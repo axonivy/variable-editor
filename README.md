@@ -1,5 +1,7 @@
 # Variables Editor
 
+[![translation-status](https://hosted.weblate.org/widget/axonivy/variable-editor/svg-badge.svg)](https://hosted.weblate.org/engage/axonivy/)
+
 This repo contains the web-based Variables Editor client.
 
 ### Available Scripts
