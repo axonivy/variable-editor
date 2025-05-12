@@ -47,8 +47,14 @@ export const VariablesMasterContent = () => {
   const selection = useTableSelect<Variable>({
     onSelect: selectedRows => {
       const selectedRowId = Object.keys(selectedRows).find(key => selectedRows[key]);
+      if (selectedRowId === undefined) {
+        setSelectedVariable([]);
+        return;
+      }
       const selectedVariable = table.getRowModel().flatRows.find(row => row.id === selectedRowId)?.id;
-      setSelectedVariable(toTreePath(selectedVariable));
+      if (selectedVariable) {
+        setSelectedVariable(toTreePath(selectedVariable));
+      }
     }
   });
   const expanded = useTableExpand<Variable>();
@@ -93,7 +99,7 @@ export const VariablesMasterContent = () => {
   const tableContainer = useRef<HTMLDivElement>(null);
   const virtualizer = useVirtualizer<HTMLDivElement, HTMLTableRowElement>({
     count: rows.length,
-    estimateSize: index => rowHeight(rows[index].original.validations),
+    estimateSize: index => rowHeight(rows[index]?.original.validations),
     getScrollElement: () => tableContainer.current,
     overscan: 20
   });
@@ -183,6 +189,7 @@ export const VariablesMasterContent = () => {
             <TableBody style={{ height: `${virtualizer.getTotalSize()}px` }} className='variables-editor-table-body'>
               {virtualizer.getVirtualItems().map(virtualRow => {
                 const row = rows[virtualRow.index];
+                if (row === undefined) return null;
                 return <ValidationRow key={row.id} row={row} virtualRow={virtualRow} />;
               })}
             </TableBody>

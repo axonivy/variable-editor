@@ -44,8 +44,7 @@ export const messageDataOfProperty = (validations: ValidationMessages, property:
   if (validationWarning) {
     return { message: validationWarning.message, variant: 'warning' };
   }
-  const validationOther = validationMatches[0];
-  return { message: validationOther.message, variant: 'info' };
+  return { message: validationMatches[0]?.message, variant: 'info' };
 };
 
 export const VariablesDetailContent = () => {
