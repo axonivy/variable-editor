@@ -47,7 +47,7 @@
   "scripts": {
     "clean": "rimraf lib *.tsbuildinfo",
     "build": "tsc --build && tscp",
-    "package": "vite build",
+    "package": "npm run clean && vite build && tsc -p tsconfig.production.json && tscp",
     "build:clean": "npm run clean && npm run build",
     "type": "tsc --noEmit",
     "test": "vitest",
