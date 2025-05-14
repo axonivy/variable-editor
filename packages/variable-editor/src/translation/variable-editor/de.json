@@ -1,7 +1,7 @@
 {
   "common": {
     "hotkey": {
-      "focusInscription": "Fokus Inscription ({{hotkey}})",
+      "focusInscription": "Fokus Inskription ({{hotkey}})",
       "focusMain": "Fokus Main ({{hotkey}})",
       "focusToolbar": "Fokus Toolbar ({{hotkey}})",
       "help": "Hilfe öffnen ({{hotkey}})",
@@ -14,7 +14,7 @@
       "details": "Details",
       "info": "Info",
       "name": "Name",
-      "namespace": "Namensbereich",
+      "namespace": "Namespace",
       "search": "Suchen",
       "settings": "Einstellungen",
       "theme": "Thema",
@@ -63,7 +63,7 @@
   "metadata": {
     "daytime": "Tageszeit",
     "default": "Standard",
-    "enum": "Aufzählung",
+    "enum": "Enum",
     "file": "Datei",
     "password": "Passwort"
   },
