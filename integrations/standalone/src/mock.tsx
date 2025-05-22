@@ -1,10 +1,10 @@
-import { HotkeysProvider, ThemeProvider } from '@axonivy/ui-components';
+import { HotkeysProvider, ReadonlyProvider, ThemeProvider } from '@axonivy/ui-components';
 import { ClientContextProvider, QueryProvider, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import { VariablesClientMock } from './mock/variables-client-mock';
-import { parameter } from './url-helper';
+import { parameter, readonlyParam } from './url-helper';
 import { initTranslation } from './i18n';
 
 const rootElement = document.getElementById('root');
@@ -13,6 +13,7 @@ if (!rootElement) {
 }
 const root = ReactDOM.createRoot(rootElement);
 const client = new VariablesClientMock(parameter('virtualize') === 'true');
+const readonly = readonlyParam();
 const queryClient = initQueryClient();
 initTranslation();
 
@@ -21,9 +22,11 @@ root.render(
     <ThemeProvider defaultTheme={'light'}>
       <ClientContextProvider client={client}>
         <QueryProvider client={queryClient}>
-          <HotkeysProvider initiallyActiveScopes={['global']}>
-            <VariableEditor context={{ app: '', pmv: 'project-name', file: '' }} />
-          </HotkeysProvider>
+          <ReadonlyProvider readonly={readonly}>
+            <HotkeysProvider initiallyActiveScopes={['global']}>
+              <VariableEditor context={{ app: '', pmv: 'project-name', file: '' }} />
+            </HotkeysProvider>
+          </ReadonlyProvider>
         </QueryProvider>
       </ClientContextProvider>
     </ThemeProvider>

@@ -24,4 +24,7 @@ test('readonly', async ({ page }) => {
   await expect(editor.delete.locator).toBeHidden();
   await page.keyboard.press('Delete');
   await editor.tree.expectRowCount(4);
+
+  await expect(editor.toolbar.undo).toBeHidden();
+  await expect(editor.toolbar.redo).toBeHidden();
 });
