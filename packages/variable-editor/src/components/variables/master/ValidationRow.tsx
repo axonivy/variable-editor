@@ -28,19 +28,16 @@ export const ValidationRow = ({ row, virtualRow }: ValidationRowProps) => {
           </TableCell>
         ))}
       </SelectRow>
-      {row.original.validations &&
-        row.original.validations
-          .filter(val => val.severity !== 'INFO')
-          .map((val, index) => (
-            <MessageRow
-              key={index}
-              columnCount={2}
-              message={{ message: val.message, variant: val.severity.toLocaleLowerCase() as Lowercase<Severity> }}
-              style={{
-                transform: `translateY(${virtualRow.start + ROW_HEIGHT * (index + 1)}px)`
-              }}
-            />
-          ))}
+      {row.original.validations?.map((val, index) => (
+        <MessageRow
+          key={index}
+          columnCount={2}
+          message={{ message: val.message, variant: val.severity.toLocaleLowerCase() as Lowercase<Severity> }}
+          style={{
+            transform: `translateY(${virtualRow.start + ROW_HEIGHT * (index + 1)}px)`
+          }}
+        />
+      ))}
     </>
   );
 };
