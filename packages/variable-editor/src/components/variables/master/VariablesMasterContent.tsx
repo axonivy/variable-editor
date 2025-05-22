@@ -172,7 +172,10 @@ export const variablesWithValidations = (originalVariables: Array<Variable>, val
     return originalVariables;
   }
   const variables = structuredClone(originalVariables);
-  const groupedValidations = groupBy(validations, val => val.path);
+  const groupedValidations = groupBy(
+    validations.filter(val => val.severity !== 'INFO'),
+    val => val.path
+  );
   variables.forEach(variable => {
     const key = variable.name;
     variable.validations = groupedValidations[key] ?? [];
