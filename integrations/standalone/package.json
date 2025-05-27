@@ -1,5 +1,5 @@
 {
-  "name": "@axonivy/config-editor-standalone",
+  "name": "@axonivy/variable-editor-standalone",
   "private": true,
   "version": "13.2.0-next",
   "dependencies": {
