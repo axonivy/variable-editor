@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "parent",
+  "name": "@axonivy/variable-editor-root",
   "engines": {
     "node": ">=20.10.0"
   },
@@ -21,11 +21,11 @@
     "i18n:extract": "lerna run i18n:extract",
     "i18n:ci": "lerna run i18n:ci",
     "protocol": "npm run -w @axonivy/variable-editor-protocol",
-    "dev": "npm -w @axonivy/config-editor-standalone run dev",
-    "test": "npm -w @axonivy/variable-editor run test",
+    "dev": "npm run -w @axonivy/variable-editor-standalone dev",
+    "test": "npm run -w @axonivy/variable-editor test",
     "test:ci": "lerna run test:ci",
-    "webtest": "npm -w @axonivy/config-editor-playwright run webtest",
-    "webtest:screenshot": "npm -w @axonivy/config-editor-playwright run webtest:screenshots",
+    "webtest": "npm run -w @axonivy/variable-editor-playwright webtest",
+    "webtest:screenshot": "npm run -w @axonivy/variable-editor-playwright webtest:screenshots",
     "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t patch -u",
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
