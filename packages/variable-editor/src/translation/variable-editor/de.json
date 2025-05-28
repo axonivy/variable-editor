@@ -14,7 +14,7 @@
       "details": "Details",
       "info": "Info",
       "name": "Name",
-      "namespace": "Namespace",
+      "namespace": "Namensbereich",
       "search": "Suchen",
       "settings": "Einstellungen",
       "theme": "Thema",
@@ -56,7 +56,7 @@
     "namespaceIsNotFolder": "Namensbereich '{{variable}}' ist kein Ordner, Sie können keinen Unterordner hinzufügen.",
     "notAllowedChar": "Zeichen '.' ist nicht erlaubt.",
     "valueFromFile": "Der Wert wird von einer Datei bereitgestellt.",
-    "variableAlreadyExists": "Name ist bereits vorhanden in diesem Namensbereich.",
+    "variableAlreadyExists": "Variablenname ist bereits vorhanden in diesem Namensbereich.",
     "variableInfo": "Ordnerstruktur der Variable (z.B. 'Connector.Key').",
     "variablePresent": "Diese Variable ist bereits in einem benötigten Projekt enthalten. Möchten Sie sie importieren?"
   },
