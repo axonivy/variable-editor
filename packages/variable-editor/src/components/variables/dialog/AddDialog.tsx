@@ -23,7 +23,7 @@ import {
 import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
 import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
@@ -41,6 +41,7 @@ type AddVariableDialogProps = {
 };
 
 export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const { context, variables, setVariables, setSelectedVariable } = useAppContext();
 
@@ -105,6 +106,9 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
     addVar();
     if (!event.ctrlKey && !event.metaKey) {
       setOpen(false);
+    } else {
+      setName('');
+      nameInputRef.current?.focus();
     }
   };
 
@@ -142,7 +146,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
         <DialogDescription>{t('dialog.addVar.desc')}</DialogDescription>
         <Flex direction='column' gap={3} ref={enter} tabIndex={-1}>
           <BasicField label={t('common.label.name')} message={nameValidationMessage} aria-label={t('common.label.name')}>
-            <Input value={name} onChange={event => setName(event.target.value)} />
+            <Input ref={nameInputRef} value={name} onChange={event => setName(event.target.value)} />
           </BasicField>
           <BasicField
             label={t('common.label.namespace')}
