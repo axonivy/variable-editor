@@ -108,7 +108,10 @@ test.describe('add', () => {
     await expect(editor.add.dialog).toBeHidden();
     await editor.page.keyboard.press('a');
     await editor.add.name.fill('keyboard');
+    await editor.add.name.expectValue('keyboard');
     await editor.page.keyboard.press('ControlOrMeta+Enter');
+    await editor.add.name.expectValue('');
+    await editor.add.name.fill('keyboard');
     await expect(editor.add.dialog).toBeVisible();
     await (await editor.add.name.message()).expectToBeError('Name is already present in this Namespace.');
 
