@@ -188,7 +188,7 @@ const addValidations = (variables: Array<Variable>, groupedValidations: Record<s
 };
 
 export const rowHeight = (validations?: ValidationMessages) => {
-  const height = 36;
+  const height = 32;
   if (!validations) {
     return height;
   }
