@@ -52,8 +52,8 @@ test('variablesWithValidations', () => {
 });
 
 test('rowHeight', () => {
-  expect(rowHeight(undefined)).toEqual(36);
-  expect(rowHeight([])).toEqual(36);
-  expect(rowHeight([{}] as ValidationMessages)).toEqual(72);
-  expect(rowHeight([{}, {}, {}] as ValidationMessages)).toEqual(144);
+  expect(rowHeight(undefined)).toEqual(32);
+  expect(rowHeight([])).toEqual(32);
+  expect(rowHeight([{}] as ValidationMessages)).toEqual(64);
+  expect(rowHeight([{}, {}, {}] as ValidationMessages)).toEqual(128);
 });
