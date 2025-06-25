@@ -109,6 +109,13 @@ test.describe('add', () => {
     await editor.page.keyboard.press('a');
     await editor.add.name.fill('keyboard');
     await editor.add.name.expectValue('keyboard');
+
+    //check that it is not possible to open other dialogs via shortcut
+    await editor.add.dialog.focus();
+    await editor.page.keyboard.press('i');
+    await expect(editor.overwrite.importBtn.locator).toBeHidden();
+
+    await editor.add.name.locator.focus();
     await editor.page.keyboard.press('ControlOrMeta+Enter');
     await editor.add.name.expectValue('');
     await editor.add.name.fill('keyboard');
