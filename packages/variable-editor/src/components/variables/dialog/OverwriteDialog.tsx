@@ -12,6 +12,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  useHotkeyLocalScopes,
   useHotkeys
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -35,8 +36,18 @@ export const OverwriteDialog = ({ table }: OverwriteProps) => {
   const { t } = useTranslation();
   const { setVariables, setSelectedVariable } = useAppContext();
   const [dialogState, setDialogState] = useState(false);
+  const { activateLocalScopes, restoreLocalScopes } = useHotkeyLocalScopes(['overwriteDialog']);
   const { importVar: shortcut } = useKnownHotkeys();
-  useHotkeys(shortcut.hotkey, () => setDialogState(true), { scopes: ['global'], keyup: true, enabled: !dialogState });
+  const onOpenChange = (open: boolean) => {
+    setDialogState(open);
+    if (open) {
+      activateLocalScopes();
+    } else {
+      restoreLocalScopes();
+    }
+  };
+
+  useHotkeys(shortcut.hotkey, () => onOpenChange(true), { scopes: ['global'], keyup: true, enabled: !dialogState });
 
   const insertVariable = (node?: KnownVariables): void => {
     if (!node) {
@@ -51,7 +62,7 @@ export const OverwriteDialog = ({ table }: OverwriteProps) => {
   };
 
   return (
-    <Dialog open={dialogState} onOpenChange={setDialogState}>
+    <Dialog open={dialogState} onOpenChange={onOpenChange}>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>

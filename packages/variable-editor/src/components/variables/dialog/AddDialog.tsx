@@ -18,6 +18,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  useHotkeyLocalScopes,
   useHotkeys
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -44,17 +45,20 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const { context, variables, setVariables, setSelectedVariable } = useAppContext();
+  const { activateLocalScopes, restoreLocalScopes } = useHotkeyLocalScopes(['addDialog']);
 
   const [open, setOpen] = useState(false);
   const onOpenChange = (open: boolean) => {
     setOpen(open);
     if (open) {
       initializeVariableDialog();
+      activateLocalScopes();
+    } else {
+      restoreLocalScopes();
     }
   };
   const [name, setName] = useState('');
   const [namespace, setNamespace] = useState('');
-
   const { nameValidationMessage, namespaceValidationMessage } = useValidateAddVariable(name, namespace, variables);
 
   const [knownVariable, setKnownVariable] = useState<KnownVariables>();
@@ -93,7 +97,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
   const addVariable = (event: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
     if (knownVariable) {
       addKnown(knownVariable);
-      setOpen(false);
+      onOpenChange(false);
       return;
     }
     const namespaceKey = namespace ? namespace.split('.') : [];
@@ -105,7 +109,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
     }
     addVar();
     if (!event.ctrlKey && !event.metaKey) {
-      setOpen(false);
+      onOpenChange(false);
     } else {
       setName('');
       nameInputRef.current?.focus();
@@ -122,7 +126,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
       }
       addVariable(e);
     },
-    { scopes: ['global'], enabled: open, enableOnFormTags: true }
+    { scopes: ['addDialog'], enabled: open, enableOnFormTags: true }
   );
 
   const allInputsValid = () => !nameValidationMessage && !namespaceValidationMessage;
