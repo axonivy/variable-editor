@@ -18,6 +18,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  useHotkeyLocalScopes,
   useHotkeys,
   type MessageData
 } from '@axonivy/ui-components';
@@ -41,12 +42,16 @@ type AddVariableDialogProps = {
 
 export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
   const { context, variables, setVariables, setSelectedVariable } = useAppContext();
+  const { activateLocalScopes, restoreLocalScopes } = useHotkeyLocalScopes(['addDialog']);
 
   const [open, setOpen] = useState(false);
   const onOpenChange = (open: boolean) => {
     setOpen(open);
     if (open) {
       initializeVariableDialog();
+      activateLocalScopes();
+    } else {
+      restoreLocalScopes();
     }
   };
   const [name, setName] = useState('');
@@ -91,7 +96,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
   const addVariable = (event: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
     if (knownVariable) {
       addKnown(knownVariable);
-      setOpen(false);
+      onOpenChange(false);
       return;
     }
     const namespaceKey = namespace ? namespace.split('.') : [];
@@ -103,7 +108,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
     }
     addVar();
     if (!event.ctrlKey && !event.metaKey) {
-      setOpen(false);
+      onOpenChange(false);
     }
   };
 
@@ -117,7 +122,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
       }
       addVariable(e);
     },
-    { scopes: ['global'], enabled: open, enableOnFormTags: true }
+    { scopes: ['addDialog'], enabled: open, enableOnFormTags: true }
   );
 
   const allInputsValid = () => !nameValidationMessage && !namespaceValidationMessage;
