@@ -1,8 +1,8 @@
 import { selectRow, useTableGlobalFilter } from '@axonivy/ui-components';
 import type { Row, Table } from '@tanstack/react-table';
+import { useTranslation } from 'react-i18next';
 import { getNode, getNodesOnPath, removeNode } from './tree-data';
 import type { DeleteFirstSelectedRowReturnType, TreeNode, TreePath } from './types';
-import { useTranslation } from 'react-i18next';
 
 export const deleteFirstSelectedRow = <TNode extends TreeNode<TNode>>(
   table: Table<TNode>,

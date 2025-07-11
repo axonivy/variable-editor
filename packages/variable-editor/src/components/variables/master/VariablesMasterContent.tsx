@@ -25,16 +25,16 @@ import type { ValidationMessages } from '@axonivy/variable-editor-protocol';
 import { getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
-import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { deleteFirstSelectedRow, toTreePath, useTreeGlobalFilter } from '../../../utils/tree/tree';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { type Variable } from '../data/variable';
 import { variableIcon } from '../data/variable-utils';
 import { AddVariableDialog } from '../dialog/AddDialog';
 import { OverwriteDialog } from '../dialog/OverwriteDialog';
 import { ValidationRow } from './ValidationRow';
 import './VariablesMasterContent.css';
-import { useTranslation } from 'react-i18next';
 
 export const ROW_HEIGHT = 36 as const;
 

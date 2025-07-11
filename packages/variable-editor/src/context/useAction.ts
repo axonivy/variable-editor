@@ -1,6 +1,6 @@
-import { useAppContext } from './AppContext';
-import { useClient } from '../protocol/ClientContextProvider';
 import type { VariablesActionArgs } from '@axonivy/variable-editor-protocol';
+import { useClient } from '../protocol/ClientContextProvider';
+import { useAppContext } from './AppContext';
 
 export function useAction(actionId: VariablesActionArgs['actionId']) {
   const { context } = useAppContext();

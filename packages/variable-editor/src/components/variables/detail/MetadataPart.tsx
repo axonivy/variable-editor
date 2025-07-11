@@ -1,4 +1,5 @@
 import { BasicField, BasicSelect } from '@axonivy/ui-components';
+import { useTranslation } from 'react-i18next';
 import {
   fileMetadataFilenameExtensionOptions,
   isEnumMetadata,
@@ -6,12 +7,11 @@ import {
   toFileMetadataUpdate,
   useMetadataOptions,
   type FileMetadataFilenameExtension,
-  type MetadataType,
-  type Metadata
+  type Metadata,
+  type MetadataType
 } from '../data/metadata';
 import { type Variable, type VariableUpdates } from '../data/variable';
 import { EnumValues } from './EnumValues';
-import { useTranslation } from 'react-i18next';
 
 type MetadataPartProps = {
   variable: Variable;

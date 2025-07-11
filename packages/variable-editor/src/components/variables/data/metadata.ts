@@ -1,6 +1,6 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { type VariableUpdate } from './variable';
-import { useMemo } from 'react';
 
 export type Metadata = { type: MetadataType };
 const metadataOptions = ['', 'default', 'password', 'daytime', 'enum', 'file'] as const;

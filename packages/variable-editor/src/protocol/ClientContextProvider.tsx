@@ -1,6 +1,6 @@
+import type { Client, ClientContext } from '@axonivy/variable-editor-protocol';
 import type { ReactNode } from 'react';
 import { createContext, useContext } from 'react';
-import type { Client, ClientContext } from '@axonivy/variable-editor-protocol';
 
 const ClientContextInstance = createContext<ClientContext | undefined>(undefined);
 

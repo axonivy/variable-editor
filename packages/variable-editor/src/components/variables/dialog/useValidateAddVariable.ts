@@ -1,8 +1,8 @@
 import type { MessageData } from '@axonivy/ui-components';
+import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { hasChildren } from '../../../utils/tree/tree-data';
 import type { Variable } from '../data/variable';
-import { useTranslation } from 'react-i18next';
-import { useCallback, useMemo } from 'react';
 
 export const useValidateAddVariable = (name: string, namespace: string, variables: Array<Variable>) => {
   const { t } = useTranslation();

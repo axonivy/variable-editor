@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { TextArea } from './TextArea';
-import { Select } from './Select';
 import { EnumValues } from './EnumValues';
+import { Select } from './Select';
+import { TextArea } from './TextArea';
 
 export class Details {
   readonly locator: Locator;

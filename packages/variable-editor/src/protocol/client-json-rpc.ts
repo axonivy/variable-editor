@@ -9,15 +9,15 @@ import {
 } from '@axonivy/jsonrpc';
 import type {
   Client,
-  VariablesData,
-  VariablesEditorDataContext,
+  EditorFileContent,
   MetaRequestTypes,
   NotificationTypes,
+  OnNotificationTypes,
   RequestTypes,
   ValidationMessages,
   VariablesActionArgs,
-  OnNotificationTypes,
-  EditorFileContent
+  VariablesData,
+  VariablesEditorDataContext
 } from '@axonivy/variable-editor-protocol';
 
 export class ClientJsonRpc extends BaseRpcClient implements Client {

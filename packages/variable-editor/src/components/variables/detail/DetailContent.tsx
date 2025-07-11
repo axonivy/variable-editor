@@ -10,6 +10,7 @@ import {
 } from '@axonivy/ui-components';
 import { EMPTY_KNOWN_VARIABLES, type ValidationMessages } from '@axonivy/variable-editor-protocol';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
 import { useValidations } from '../../../context/useValidation';
@@ -19,7 +20,6 @@ import { findVariable } from '../dialog/known-variables';
 import './DetailContent.css';
 import { MetadataPart } from './MetadataPart';
 import { Value } from './Value';
-import { useTranslation } from 'react-i18next';
 
 export const useOverwrites = (key: Array<string>) => {
   const { context } = useAppContext();
