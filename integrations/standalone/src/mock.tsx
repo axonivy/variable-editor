@@ -2,10 +2,10 @@ import { HotkeysProvider, ReadonlyProvider, ThemeProvider } from '@axonivy/ui-co
 import { ClientContextProvider, QueryProvider, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
+import { initTranslation } from './i18n';
 import './index.css';
 import { VariablesClientMock } from './mock/variables-client-mock';
 import { parameter, readonlyParam } from './url-helper';
-import { initTranslation } from './i18n';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

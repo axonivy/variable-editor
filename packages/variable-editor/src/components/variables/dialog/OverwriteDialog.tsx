@@ -19,14 +19,14 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
-import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { toRowId } from '../../../utils/tree/tree';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { type Variable } from '../data/variable';
-import { VariableBrowser } from './VariableBrowser';
 import { addKnownVariable } from './known-variables';
 import './OverwriteDialog.css';
-import { useTranslation } from 'react-i18next';
+import { VariableBrowser } from './VariableBrowser';
 
 type OverwriteProps = {
   table: Table<Variable>;

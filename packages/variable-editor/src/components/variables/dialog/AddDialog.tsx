@@ -25,16 +25,16 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
-import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { keyOfFirstSelectedNonLeafRow, keysOfAllNonLeafRows, newNodeName, toRowId } from '../../../utils/tree/tree';
 import { addNode } from '../../../utils/tree/tree-data';
 import type { AddNodeReturnType } from '../../../utils/tree/types';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { createVariable, type Variable } from '../data/variable';
 import './AddDialog.css';
 import { addKnownVariable, findVariable } from './known-variables';
-import { useTranslation } from 'react-i18next';
 import { useValidateAddVariable } from './useValidateAddVariable';
 
 type AddVariableDialogProps = {

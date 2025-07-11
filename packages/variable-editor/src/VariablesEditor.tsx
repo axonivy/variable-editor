@@ -3,8 +3,10 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { RootVariable, Variable } from './components/variables/data/variable';
 import { toContent, toVariables } from './components/variables/data/variable-utils';
+import { Detail } from './components/variables/detail/Detail';
 import { VariablesMasterContent } from './components/variables/master/VariablesMasterContent';
 import { VariablesMasterToolbar } from './components/variables/master/VariablesMasterToolbar';
 import { AppProvider } from './context/AppContext';
@@ -13,8 +15,6 @@ import { genQueryKey } from './query/query-client';
 import type { Unary } from './utils/lambda/lambda';
 import type { TreePath } from './utils/tree/types';
 import './VariablesEditor.css';
-import { Detail } from './components/variables/detail/Detail';
-import { useTranslation } from 'react-i18next';
 
 function VariableEditor(props: EditorProps) {
   const { t } = useTranslation();

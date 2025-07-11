@@ -26,10 +26,10 @@ import {
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useRef } from 'react';
-import { useAppContext } from '../../../context/AppContext';
-import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { useTranslation } from 'react-i18next';
+import { useAppContext } from '../../../context/AppContext';
 import { useHeaderTitles } from '../../../utils/useHeaderTitles';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 
 export const VariablesMasterToolbar = () => {
   const { detail, setDetail } = useAppContext();

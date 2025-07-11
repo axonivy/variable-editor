@@ -1,7 +1,7 @@
 import type { VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { customRenderHook } from '../components/variables/data/test-utils/test-utils';
-import { useHeaderTitles } from './useHeaderTitles';
 import { rootVariable } from '../components/variables/data/test-utils/variables';
+import { useHeaderTitles } from './useHeaderTitles';
 
 test('empty', () => {
   const { result } = customRenderHook(() => useHeaderTitles());

@@ -16,9 +16,9 @@ import {
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
+import { useTranslation } from 'react-i18next';
 import { toEnumMetadataUpdate } from '../data/metadata';
 import { type VariableUpdates } from '../data/variable';
-import { useTranslation } from 'react-i18next';
 
 type EnumValuesProps = {
   selectedValue: string;

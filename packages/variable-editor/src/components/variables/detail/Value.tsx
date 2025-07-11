@@ -1,8 +1,8 @@
 import { BasicField, BasicInput, BasicSelect, Message, PasswordInput, type MessageData } from '@axonivy/ui-components';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { isEnumMetadata } from '../data/metadata';
 import type { Variable, VariableUpdates } from '../data/variable';
-import { useTranslation } from 'react-i18next';
 
 type ValueProps = {
   variable: Variable;

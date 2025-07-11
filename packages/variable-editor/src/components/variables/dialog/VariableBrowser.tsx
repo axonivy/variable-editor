@@ -2,10 +2,10 @@ import { BrowsersView, type BrowsersViewProps, useBrowser } from '@axonivy/ui-co
 import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
 import { toNodes } from './known-variables';
-import { useTranslation } from 'react-i18next';
 
 export const VariableBrowser = ({ applyFn }: { applyFn: (node?: KnownVariables) => void }) => {
   const { t } = useTranslation();

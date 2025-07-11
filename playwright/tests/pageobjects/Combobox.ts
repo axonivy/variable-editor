@@ -9,7 +9,11 @@ export class Combobox {
   private readonly options: Locator;
   private readonly toggleMenu: Button;
 
-  constructor(readonly page: Page, parent: Locator, options?: { label?: string; nth?: number }) {
+  constructor(
+    readonly page: Page,
+    parent: Locator,
+    options?: { label?: string; nth?: number }
+  ) {
     this.parent = parent;
     if (options?.label) {
       this.locator = parent.getByRole('combobox', { name: options.label, exact: true });

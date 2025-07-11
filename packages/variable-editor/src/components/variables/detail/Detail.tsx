@@ -1,9 +1,9 @@
-import { Flex, SidebarHeader, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, Button, useHotkeys } from '@axonivy/ui-components';
+import { Button, Flex, SidebarHeader, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, useHotkeys } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { VariablesDetailContent } from './DetailContent';
-import { useHeaderTitles } from '../../../utils/useHeaderTitles';
 import { useAction } from '../../../context/useAction';
+import { useHeaderTitles } from '../../../utils/useHeaderTitles';
 import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
+import { VariablesDetailContent } from './DetailContent';
 
 export const Detail = ({ helpUrl }: { helpUrl: string }) => {
   const { detailTitle } = useHeaderTitles();
