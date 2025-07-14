@@ -32,6 +32,7 @@
     "react-i18next": "^15.4.1"
   },
   "devDependencies": {
+    "@tanstack/react-table": "^8.21.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/react": "^19.0.7",
