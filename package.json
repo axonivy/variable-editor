@@ -8,25 +8,25 @@
     "node": "22.17.0"
   },
   "scripts": {
-    "ci": "npm install && npm run package && (npm run lint:ci || true) && npm run type && npm run test:ci && npm run i18n:ci",
-    "clean": "lerna run clean",
+    "ci": "pnpm install && pnpm package && (pnpm lint:ci || true) && pnpm type && pnpm test:ci && pnpm i18n:ci",
+    "clean": "pnpm -r clean",
     "build": "tsc --build && tscp --build",
-    "package": "lerna run package",
-    "build:clean": "lerna run build:clean",
-    "type": "lerna run type",
+    "package": "pnpm -r package",
+    "build:clean": "pnpm -r build:clean",
+    "type": "pnpm -r type",
     "lint": "eslint",
     "lint:ci": "eslint -o eslint.xml -f checkstyle",
     "lint:fix": "eslint --fix",
     "lint:inspect": "eslint --inspect-config",
     "i18n:extract": "lerna run i18n:extract",
     "i18n:ci": "lerna run i18n:ci",
-    "protocol": "npm run -w @axonivy/variable-editor-protocol",
+    "generate": "pnpm -r generate",
     "dev": "npm run -w @axonivy/variable-editor-standalone dev",
-    "test": "npm run -w @axonivy/variable-editor test",
-    "test:ci": "lerna run test:ci",
-    "webtest": "npm run -w @axonivy/variable-editor-playwright webtest",
-    "webtest:screenshot": "npm run -w @axonivy/variable-editor-playwright webtest:screenshots",
-    "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t semver -u",
+    "test": "pnpm -r test",
+    "test:ci": "pnpm -r test:ci",
+    "webtest": "pnpm -r webtest",
+    "webtest:screenshot": "pnpm -r webtest:screenshots",
+    "update:axonivy:next": "pnpx --yes npm-check-updates @axonivy* -ws -t semver -u",
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {
@@ -41,10 +41,5 @@
     "typescript": "~5.8.0",
     "typescript-cp": "^0.1.9"
   },
-  "workspaces": [
-    "packages/*",
-    "integrations/*",
-    "playwright"
-  ],
   "prettier": "@axonivy/prettier-config"
 }

@@ -48,7 +48,7 @@
     "clean": "rimraf lib *.tsbuildinfo",
     "build": "tsc --build && tscp",
     "package": "vite build",
-    "build:clean": "npm run clean && npm run build",
+    "build:clean": "pnpm clean && pnpm build",
     "type": "tsc --noEmit",
     "test": "vitest",
     "test:ci": "vitest --watch=false",

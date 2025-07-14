@@ -25,7 +25,7 @@
   "scripts": {
     "clean": "rimraf build",
     "build": "tsc --build",
-    "build:clean": "npm run clean && npm run build",
+    "build:clean": "pnpm clean && pnpm build",
     "package": "vite build",
     "type": "tsc --noEmit",
     "dev": "vite",
