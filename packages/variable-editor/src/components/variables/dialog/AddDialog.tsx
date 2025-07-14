@@ -1,13 +1,8 @@
 import {
+  BasicDialog,
   BasicField,
   Button,
   Combobox,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
   Flex,
   hotkeyText,
@@ -25,16 +20,16 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
-import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { keyOfFirstSelectedNonLeafRow, keysOfAllNonLeafRows, newNodeName, toRowId } from '../../../utils/tree/tree';
 import { addNode } from '../../../utils/tree/tree-data';
 import type { AddNodeReturnType } from '../../../utils/tree/types';
+import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { createVariable, type Variable } from '../data/variable';
 import './AddDialog.css';
 import { addKnownVariable, findVariable } from './known-variables';
-import { useTranslation } from 'react-i18next';
 import { useValidateAddVariable } from './useValidateAddVariable';
 
 type AddVariableDialogProps = {
@@ -132,41 +127,18 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
   const allInputsValid = () => !nameValidationMessage && !namespaceValidationMessage;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DialogTrigger asChild>
-              <Button className='variables-editor-add-button' icon={IvyIcons.Plus} aria-label={shortcut.label} />
-            </DialogTrigger>
-          </TooltipTrigger>
-          <TooltipContent>{shortcut.label}</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <DialogContent onCloseAutoFocus={e => e.preventDefault()}>
-        <DialogHeader>
-          <DialogTitle>{t('dialog.addVar.title')}</DialogTitle>
-        </DialogHeader>
-        <DialogDescription>{t('dialog.addVar.desc')}</DialogDescription>
-        <Flex direction='column' gap={3} ref={enter} tabIndex={-1}>
-          <BasicField label={t('common.label.name')} message={nameValidationMessage} aria-label={t('common.label.name')}>
-            <Input ref={nameInputRef} value={name} onChange={event => setName(event.target.value)} />
-          </BasicField>
-          <BasicField
-            label={t('common.label.namespace')}
-            message={namespaceValidationMessage ?? { variant: 'info', message: t('message.variableInfo') }}
-            aria-label={t('common.label.namespace')}
-          >
-            <Combobox
-              value={namespace}
-              onChange={setNamespace}
-              onInput={event => setNamespace(event.currentTarget.value)}
-              options={namespaceOptions()}
-            />
-          </BasicField>
-          {knownVariable && <Message className='import-message' variant='warning' message={t('message.variablePresent')} />}
-        </Flex>
-        <DialogFooter>
+    <BasicDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      contentProps={{
+        title: t('dialog.addVar.title'),
+        description: t('dialog.addVar.desc'),
+        buttonClose: (
+          <Button variant='outline' size='large'>
+            {t('common.label.cancel')}
+          </Button>
+        ),
+        buttonCustom: (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -177,8 +149,40 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
               <TooltipContent>{t('dialog.createTooltip', { modifier: hotkeyText('mod') })}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        ),
+        onCloseAutoFocus: e => e.preventDefault()
+      }}
+      dialogTrigger={
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DialogTrigger asChild>
+                <Button className='variables-editor-add-button' icon={IvyIcons.Plus} aria-label={shortcut.label} />
+              </DialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent>{shortcut.label}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      }
+    >
+      <Flex direction='column' gap={3} ref={enter} tabIndex={-1}>
+        <BasicField label={t('common.label.name')} message={nameValidationMessage} aria-label={t('common.label.name')}>
+          <Input ref={nameInputRef} value={name} onChange={event => setName(event.target.value)} />
+        </BasicField>
+        <BasicField
+          label={t('common.label.namespace')}
+          message={namespaceValidationMessage ?? { variant: 'info', message: t('message.variableInfo') }}
+          aria-label={t('common.label.namespace')}
+        >
+          <Combobox
+            value={namespace}
+            onChange={setNamespace}
+            onInput={event => setNamespace(event.currentTarget.value)}
+            options={namespaceOptions()}
+          />
+        </BasicField>
+        {knownVariable && <Message className='import-message' variant='warning' message={t('message.variablePresent')} />}
+      </Flex>
+    </BasicDialog>
   );
 };
