@@ -52,6 +52,7 @@
     "variables": "Variables"
   },
   "message": {
+    "addFirstItem": "Add your first variable to get started",
     "emptyName": "Name cannot be empty.",
     "namespaceIsNotFolder": "Namespace '{{variable}}' is not a folder, you cannot add a child to it.",
     "notAllowedChar": "Character '.' is not allowed.",
