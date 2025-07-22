@@ -5,6 +5,7 @@ import {
   ExpandableHeader,
   Flex,
   groupBy,
+  PanelMessage,
   selectRow,
   Separator,
   Table,
@@ -117,7 +118,9 @@ export const VariablesMasterContent = () => {
   const hotkeys = useKnownHotkeys();
   const control = readonly ? null : (
     <Flex gap={2}>
-      <AddVariableDialog table={table} />
+      <AddVariableDialog table={table}>
+        <Button className='variables-editor-add-button' icon={IvyIcons.Plus} aria-label={hotkeys.addVar.label} />
+      </AddVariableDialog>
       <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
       <OverwriteDialog table={table} />
       <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
@@ -139,6 +142,20 @@ export const VariablesMasterContent = () => {
   const ref = useHotkeys(hotkeys.deleteVar.hotkey, () => deleteVariable(), { scopes: ['global'], enabled: !readonly });
   const firstElement = useRef<HTMLDivElement>(null);
   useHotkeys(hotkeys.focusMain.hotkey, () => firstElement.current?.focus(), { scopes: ['global'] });
+
+  if (variables === undefined || variables.length === 0) {
+    return (
+      <Flex direction='column' alignItems='center' justifyContent='center' style={{ height: '100%' }}>
+        <PanelMessage icon={IvyIcons.Tool} message={t('message.addFirstItem')} mode='column'>
+          <AddVariableDialog table={table}>
+            <Button size='large' variant='primary' icon={IvyIcons.Plus}>
+              {t('dialog.addVar.title')}
+            </Button>
+          </AddVariableDialog>
+        </PanelMessage>
+      </Flex>
+    );
+  }
 
   return (
     <Flex direction='column' ref={ref} className='variables-editor-main-content' onClick={resetSelection}>

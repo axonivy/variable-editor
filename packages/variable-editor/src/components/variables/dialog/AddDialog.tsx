@@ -16,10 +16,9 @@ import {
   useHotkeyLocalScopes,
   useHotkeys
 } from '@axonivy/ui-components';
-import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
@@ -34,9 +33,10 @@ import { useValidateAddVariable } from './useValidateAddVariable';
 
 type AddVariableDialogProps = {
   table: Table<Variable>;
+  children: ReactNode;
 };
 
-export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
+export const AddVariableDialog = ({ table, children }: AddVariableDialogProps) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const { context, variables, setVariables, setSelectedVariable } = useAppContext();
@@ -156,9 +156,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <DialogTrigger asChild>
-                <Button className='variables-editor-add-button' icon={IvyIcons.Plus} aria-label={shortcut.label} />
-              </DialogTrigger>
+              <DialogTrigger asChild>{children}</DialogTrigger>
             </TooltipTrigger>
             <TooltipContent>{shortcut.label}</TooltipContent>
           </Tooltip>

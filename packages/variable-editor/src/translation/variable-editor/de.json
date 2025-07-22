@@ -52,6 +52,7 @@
     "variables": "Variablen"
   },
   "message": {
+    "addFirstItem": "Fügen sie ihre erste Variable hinzu, um zu beginnen",
     "emptyName": "Name darf nicht leer sein.",
     "namespaceIsNotFolder": "Namensbereich '{{variable}}' ist kein Ordner, Sie können keinen Unterordner hinzufügen.",
     "notAllowedChar": "Zeichen '.' ist nicht erlaubt.",
