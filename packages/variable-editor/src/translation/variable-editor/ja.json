@@ -1,75 +1,16 @@
 {
   "common": {
-    "hotkey": {
-      "focusInscription": "",
-      "focusMain": "",
-      "focusToolbar": "",
-      "help": "",
-      "redo": "",
-      "undo": ""
-    },
-    "label": {
-      "cancel": "",
-      "description": "",
-      "details": "",
-      "info": "",
-      "name": "",
-      "namespace": "",
-      "search": "",
-      "settings": "",
-      "theme": "",
-      "value": ""
-    },
-    "message": {
-      "errorOccured": ""
-    }
+    "hotkey": {},
+    "label": {},
+    "message": {}
   },
   "dialog": {
-    "addVar": {
-      "desc": "",
-      "title": ""
-    },
-    "create": "",
-    "createTooltip": "",
-    "import": "",
-    "overwrite": {
-      "desc": "",
-      "title": ""
-    }
+    "addVar": {},
+    "overwrite": {}
   },
-  "hotkey": {
-    "addVariable": "",
-    "deleteVariable": "",
-    "importVariable": ""
-  },
-  "label": {
-    "addValue": "",
-    "deleteValue": "",
-    "filenameExtension": "",
-    "listOfValues": "",
-    "metadata": "",
-    "noVariableSelected": "",
-    "variables": ""
-  },
-  "message": {
-    "addFirstItem": "",
-    "emptyName": "",
-    "namespaceIsNotFolder": "",
-    "notAllowedChar": "",
-    "valueFromFile": "",
-    "variableAlreadyExists": "",
-    "variableInfo": "",
-    "variablePresent": ""
-  },
-  "metadata": {
-    "daytime": "",
-    "default": "",
-    "enum": "",
-    "file": "",
-    "password": ""
-  },
-  "title": {
-    "detail": "",
-    "main": ""
-  }
+  "hotkey": {},
+  "label": {},
+  "message": {},
+  "metadata": {},
+  "title": {}
 }
