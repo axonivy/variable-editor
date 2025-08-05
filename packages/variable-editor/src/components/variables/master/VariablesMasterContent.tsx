@@ -122,7 +122,9 @@ export const VariablesMasterContent = () => {
         <Button className='variables-editor-add-button' icon={IvyIcons.Plus} aria-label={hotkeys.addVar.label} />
       </AddVariableDialog>
       <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
-      <OverwriteDialog table={table} />
+      <OverwriteDialog table={table}>
+        <Button icon={IvyIcons.FileImport} aria-label={hotkeys.importVar.label} />
+      </OverwriteDialog>
       <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
       <TooltipProvider>
         <Tooltip>
@@ -147,11 +149,18 @@ export const VariablesMasterContent = () => {
     return (
       <Flex direction='column' alignItems='center' justifyContent='center' style={{ height: '100%' }}>
         <PanelMessage icon={IvyIcons.Tool} message={t('message.addFirstItem')} mode='column'>
-          <AddVariableDialog table={table}>
-            <Button size='large' variant='primary' icon={IvyIcons.Plus}>
-              {t('dialog.addVar.title')}
-            </Button>
-          </AddVariableDialog>
+          <Flex gap={2}>
+            <AddVariableDialog table={table}>
+              <Button size='large' variant='primary' icon={IvyIcons.Plus}>
+                {t('dialog.addVar.title')}
+              </Button>
+            </AddVariableDialog>
+            <OverwriteDialog table={table}>
+              <Button size='large' variant='primary' icon={IvyIcons.FileImport}>
+                {t('dialog.overwrite.title')}
+              </Button>
+            </OverwriteDialog>
+          </Flex>
         </PanelMessage>
       </Flex>
     );

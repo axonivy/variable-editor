@@ -1,6 +1,5 @@
 import {
   BasicDialogHeader,
-  Button,
   Dialog,
   DialogContent,
   DialogTrigger,
@@ -13,9 +12,9 @@ import {
   useDialogHotkeys,
   useHotkeys
 } from '@axonivy/ui-components';
-import { IvyIcons } from '@axonivy/ui-icons';
 import type { KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
+import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
 import { toRowId } from '../../../utils/tree/tree';
@@ -25,7 +24,12 @@ import { addKnownVariable } from './known-variables';
 import './OverwriteDialog.css';
 import { VariableBrowser } from './VariableBrowser';
 
-export const OverwriteDialog = ({ table }: { table: Table<Variable> }) => {
+type OverwriteVariableDialogProps = {
+  table: Table<Variable>;
+  children: ReactNode;
+};
+
+export const OverwriteDialog = ({ table, children }: OverwriteVariableDialogProps) => {
   const { t } = useTranslation();
   const { setVariables, setSelectedVariable } = useAppContext();
   const { open, onOpenChange } = useDialogHotkeys(['overwriteDialog']);
@@ -49,9 +53,7 @@ export const OverwriteDialog = ({ table }: { table: Table<Variable> }) => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <DialogTrigger asChild>
-              <Button icon={IvyIcons.FileImport} aria-label={shortcut.label} />
-            </DialogTrigger>
+            <DialogTrigger asChild>{children}</DialogTrigger>
           </TooltipTrigger>
           <TooltipContent>{shortcut.label}</TooltipContent>
         </Tooltip>
