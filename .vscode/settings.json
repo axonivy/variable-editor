@@ -5,7 +5,6 @@
     "source.organizeImports": "always"
   },
   "editor.insertSpaces": true,
-  "eslint.validate": ["javascript", "typescript"],
   "search.exclude": {
     "**/node_modules": true,
     "**/lib": true
@@ -35,5 +34,5 @@
   },
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  }
 }
