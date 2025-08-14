@@ -1,8 +1,7 @@
-import tseslint from 'typescript-eslint';
 import config from '@axonivy/eslint-config';
-import i18next from 'eslint-plugin-i18next';
+import { defineConfig } from 'eslint/config';
 
-export default tseslint.config(
+export default defineConfig([
   ...config.base,
   ...config.i18n,
   // TypeScript configs
@@ -15,4 +14,4 @@ export default tseslint.config(
       }
     }
   }
-);
+]);

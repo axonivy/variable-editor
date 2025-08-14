@@ -17,7 +17,7 @@
   "types": "lib/index.d.ts",
   "main": "lib/editor.js",
   "dependencies": {
-    "@axonivy/variable-editor-protocol": "~13.2.0-next",
+    "@axonivy/variable-editor-protocol": "workspace:~13.2.0-next",
     "@tanstack/react-virtual": "^3.12.0",
     "yaml": "^2.7.0"
   },
@@ -32,6 +32,10 @@
     "react-i18next": "^15.4.1"
   },
   "devDependencies": {
+    "@axonivy/jsonrpc": "~13.2.0-next.828.f70d17e",
+    "@axonivy/ui-components": "~13.2.0-next.828.f70d17e",
+    "@axonivy/ui-icons": "~13.2.0-next.828.f70d17e",
+    "@tanstack/react-table": "^8.21.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/react": "^19.0.7",
@@ -41,6 +45,8 @@
     "jsdom": "^26.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0",
     "vite-plugin-dts": "^4.5.0",
     "vitest": "^3.0.3"
   },
@@ -48,7 +54,7 @@
     "clean": "rimraf lib *.tsbuildinfo",
     "build": "tsc --build && tscp",
     "package": "vite build",
-    "build:clean": "npm run clean && npm run build",
+    "build:clean": "pnpm run clean && pnpm run build",
     "type": "tsc --noEmit",
     "test": "vitest",
     "test:ci": "vitest --watch=false",
