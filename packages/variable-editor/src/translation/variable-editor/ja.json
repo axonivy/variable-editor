@@ -1,7 +1,8 @@
 {
   "common": {
     "hotkey": {
-      "help": "オープンヘルプ({{hotkey}})"
+      "help": "オープンヘルプ({{hotkey}})",
+      "focusInscription": "焦点の徴候({{hotkey}})"
     },
     "label": {
       "cancel": "キャンセル",
