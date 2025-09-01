@@ -1,16 +1,12 @@
 {
   "common": {
-    "hotkey": {},
-    "label": {},
-    "message": {}
-  },
-  "dialog": {
-    "addVar": {},
-    "overwrite": {}
-  },
-  "hotkey": {},
-  "label": {},
-  "message": {},
-  "metadata": {},
-  "title": {}
+    "hotkey": {
+      "help": "オープンヘルプ({{hotkey}})",
+      "focusInscription": "焦点の徴候({{hotkey}})"
+    },
+    "label": {
+      "cancel": "キャンセル",
+      "details": "インフォメーション"
+    }
+  }
 }
