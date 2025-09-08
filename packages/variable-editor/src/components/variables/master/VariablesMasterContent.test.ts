@@ -45,10 +45,10 @@ test('variablesWithValidations', () => {
     { message: 'Validation 10', path: 'name1.name10' }
   ] as ValidationMessages;
   const variables = variablesWithValidations(originalVariables, validations);
-  expect(variables[0].validations).toEqual([validations[0]]);
-  expect(variables[1].validations).toEqual([validations[1], validations[2]]);
-  expect(variables[1].children[0].validations).toEqual([validations[3]]);
-  expect(variables[1].children[1].validations).toEqual([]);
+  expect(variables[0]?.validations).toEqual([validations[0]]);
+  expect(variables[1]?.validations).toEqual([validations[1], validations[2]]);
+  expect(variables[1]?.children[0]?.validations).toEqual([validations[3]]);
+  expect(variables[1]?.children[1]?.validations).toEqual([]);
 });
 
 test('rowHeight', () => {
