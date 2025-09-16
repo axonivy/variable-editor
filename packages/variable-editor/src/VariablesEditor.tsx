@@ -1,8 +1,17 @@
-import { Flex, PanelMessage, ResizableHandle, ResizablePanel, ResizablePanelGroup, Spinner, useHistoryData } from '@axonivy/ui-components';
+import {
+  Flex,
+  PanelMessage,
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+  Spinner,
+  useHistoryData,
+  useHotkeys
+} from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { RootVariable, Variable } from './components/variables/data/variable';
 import { toContent, toVariables } from './components/variables/data/variable-utils';
@@ -14,7 +23,7 @@ import { useClient } from './protocol/ClientContextProvider';
 import { genQueryKey } from './query/query-client';
 import type { Unary } from './utils/lambda/lambda';
 import type { TreePath } from './utils/tree/types';
-import './VariablesEditor.css';
+import { useKnownHotkeys } from './utils/useKnownHotkeys';
 
 function VariableEditor(props: EditorProps) {
   const { t } = useTranslation();
@@ -76,9 +85,22 @@ function VariableEditor(props: EditorProps) {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.validate(context) })
   });
 
+  const detailRef = useRef<HTMLDivElement>(null);
+  const hotkeys = useKnownHotkeys();
+  useHotkeys(
+    hotkeys.focusInscription.hotkey,
+    () => {
+      setDetail(true);
+      detailRef.current?.focus();
+    },
+    {
+      scopes: ['global']
+    }
+  );
+
   if (isPending) {
     return (
-      <Flex alignItems='center' justifyContent='center' style={{ width: '100%', height: '100%' }}>
+      <Flex alignItems='center' justifyContent='center' className='h-full w-full'>
         <Spinner />
       </Flex>
     );
@@ -103,8 +125,8 @@ function VariableEditor(props: EditorProps) {
       }}
     >
       <ResizablePanelGroup direction='horizontal'>
-        <ResizablePanel defaultSize={75} minSize={50} className='variables-editor-main-panel'>
-          <Flex className='variables-editor-panel-content' direction='column'>
+        <ResizablePanel defaultSize={75} minSize={50} className='bg-n75'>
+          <Flex className='h-full' direction='column'>
             <VariablesMasterToolbar />
             <VariablesMasterContent />
           </Flex>
@@ -113,7 +135,7 @@ function VariableEditor(props: EditorProps) {
           <>
             <ResizableHandle />
             <ResizablePanel defaultSize={25} minSize={10}>
-              <Detail helpUrl={data.helpUrl} />
+              <Detail ref={detailRef} helpUrl={data.helpUrl} />
             </ResizablePanel>
           </>
         )}

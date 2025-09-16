@@ -17,7 +17,6 @@ import { useValidations } from '../../../context/useValidation';
 import { getNodesOnPath, updateNode, hasChildren as variableHasChildren } from '../../../utils/tree/tree-data';
 import { type VariableUpdates } from '../data/variable';
 import { findVariable } from '../dialog/known-variables';
-import './DetailContent.css';
 import { MetadataPart } from './MetadataPart';
 import { Value } from './Value';
 
@@ -69,7 +68,7 @@ export const VariablesDetailContent = () => {
   const handleVariableAttributeChange = (updates: VariableUpdates) => setVariables(old => updateNode(old, selectedVariable, updates));
 
   return (
-    <Flex direction='column' gap={4} className='variables-editor-detail-content'>
+    <Flex direction='column' gap={4} className='min-h-0 overflow-auto p-3'>
       <BasicField label={t('common.label.namespace')}>
         <BasicInput value={key.slice(0, -1).join('.')} disabled />
       </BasicField>
