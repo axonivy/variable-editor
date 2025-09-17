@@ -33,7 +33,7 @@
     "createTooltip": "さらに変数を追加するには、{{modifier}} を長押しします。",
     "import": "変数をインポート",
     "overwrite": {
-      "desc": "インポートして上書きしたい必要なプロジェクトのフォルダまたは変数を選択してください。",
+      "desc": "インポートして上書きしたい対象プロジェクトのフォルダまたは変数を選択してください。",
       "title": "変数をインポート"
     }
   },
@@ -54,12 +54,12 @@
   "message": {
     "addFirstItem": "最初の変数を追加して開始してください",
     "emptyName": "名前を空にすることはできません。",
-    "namespaceIsNotFolder": "名前空間 '{{variable}}' はフォルダではないため、子をそれに追加することはできません。",
+    "namespaceIsNotFolder": "名前空間 '{{variable}}' はフォルダではないため、子を追加することはできません。",
     "notAllowedChar": "文字 '.' は使用できません。",
     "valueFromFile": "値はファイルによって提供されます。",
     "variableAlreadyExists": "この名前空間にはすでに名前が存在します。",
-    "variableInfo": "変数のフォルダ構造 (例: 'Connector.Key')。",
-    "variablePresent": "この変数はすでに必要なプロジェクトに存在しています。 インポートしますか?"
+    "variableInfo": "変数のフォルダ構造（例: 'Connector.Key'）。",
+    "variablePresent": "この変数はすでに必要なプロジェクトに存在しています。 インポートしますか？"
   },
   "metadata": {
     "daytime": "デイタイム",
