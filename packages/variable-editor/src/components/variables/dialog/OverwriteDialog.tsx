@@ -58,7 +58,7 @@ export const OverwriteDialog = ({ table, children }: OverwriteVariableDialogProp
         </Tooltip>
       </TooltipProvider>
       <DialogContent className='h-[80vh] w-125'>
-        <Flex direction='column' gap={4}>
+        <Flex direction='column' gap={4} className='overflow-hidden'>
           <BasicDialogHeader title={t('dialog.overwrite.title')} description={t('dialog.overwrite.desc')} />
           <VariableBrowser
             applyFn={node => {
