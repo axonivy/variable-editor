@@ -19,7 +19,7 @@ export class AddVariableDialog {
     this.dialog = parent.getByRole('dialog');
     this.name = new TextArea(this.dialog);
     this.namespace = new Combobox(page, this.dialog);
-    this.importMessage = this.dialog.locator('.import-message');
+    this.importMessage = this.dialog.locator('.ui-message');
     this.create = new Button(this.dialog, { name: 'Create Variable' });
   }
 

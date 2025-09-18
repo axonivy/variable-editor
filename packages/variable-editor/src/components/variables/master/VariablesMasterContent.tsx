@@ -35,9 +35,8 @@ import { variableIcon } from '../data/variable-utils';
 import { AddVariableDialog } from '../dialog/AddDialog';
 import { OverwriteDialog } from '../dialog/OverwriteDialog';
 import { ValidationRow } from './ValidationRow';
-import './VariablesMasterContent.css';
 
-export const ROW_HEIGHT = 36 as const;
+export const ROW_HEIGHT = 32 as const;
 
 export const VariablesMasterContent = () => {
   const { t } = useTranslation();
@@ -65,7 +64,7 @@ export const VariablesMasterContent = () => {
       header: header => <ExpandableHeader name={t('common.label.name')} header={header} />,
       cell: cell => (
         <ExpandableCell cell={cell} icon={variableIcon(cell.row.original)}>
-          <span>{cell.getValue()}</span>
+          <span className='block truncate'>{cell.getValue()}</span>
         </ExpandableCell>
       ),
       minSize: 200,
@@ -75,7 +74,7 @@ export const VariablesMasterContent = () => {
     {
       accessorFn: (variable: Variable) => (variable.metadata.type === 'password' ? '***' : variable.value),
       header: t('common.label.value'),
-      cell: cell => <span>{cell.getValue()}</span>,
+      cell: cell => <span className='block truncate'>{cell.getValue()}</span>,
       minSize: 200,
       size: 500,
       maxSize: 1000
@@ -125,13 +124,13 @@ export const VariablesMasterContent = () => {
   const control = readonly ? null : (
     <Flex gap={2}>
       <AddVariableDialog table={table}>
-        <Button className='variables-editor-add-button' icon={IvyIcons.Plus} aria-label={hotkeys.addVar.label} />
+        <Button icon={IvyIcons.Plus} aria-label={hotkeys.addVar.label} />
       </AddVariableDialog>
-      <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
+      <Separator decorative orientation='vertical' className='m-0! h-[20px]!' />
       <OverwriteDialog table={table}>
         <Button icon={IvyIcons.FileImport} aria-label={hotkeys.importVar.label} />
       </OverwriteDialog>
-      <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
+      <Separator decorative orientation='vertical' className='m-0! h-[20px]!' />
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -153,7 +152,7 @@ export const VariablesMasterContent = () => {
 
   if (variables === undefined || variables.length === 0) {
     return (
-      <Flex direction='column' alignItems='center' justifyContent='center' style={{ height: '100%' }}>
+      <Flex direction='column' alignItems='center' justifyContent='center' className='h-full'>
         <PanelMessage icon={IvyIcons.Tool} message={t('message.addFirstItem')} mode='column'>
           <Flex gap={2}>
             <AddVariableDialog table={table}>
@@ -173,20 +172,20 @@ export const VariablesMasterContent = () => {
   }
 
   return (
-    <Flex direction='column' ref={ref} className='variables-editor-main-content' onClick={resetSelection}>
+    <Flex direction='column' ref={ref} className='h-full overflow-auto' onClick={resetSelection}>
       <BasicField
         tabIndex={-1}
         ref={firstElement}
-        className='variables-editor-table-field'
+        className='m-3 min-h-0'
         label={t('label.variables')}
         control={control}
         onClick={event => event.stopPropagation()}
       >
         {globalFilter.filter}
-        <div ref={tableContainer} className='variables-editor-table-container'>
-          <Table onKeyDown={e => handleKeyDown(e, () => setDetail(!detail))} className='variables-editor-table'>
+        <div ref={tableContainer} className='relative overflow-x-hidden'>
+          <Table onKeyDown={e => handleKeyDown(e, () => setDetail(!detail))} className='grid'>
             <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={resetSelection} />
-            <TableBody style={{ height: `${virtualizer.getTotalSize()}px` }} className='variables-editor-table-body'>
+            <TableBody style={{ height: `${virtualizer.getTotalSize()}px` }}>
               {virtualizer.getVirtualItems().map(virtualRow => {
                 const row = rows[virtualRow.index];
                 if (row === undefined) return null;
@@ -226,8 +225,8 @@ const addValidations = (variables: Array<Variable>, groupedValidations: Record<s
 };
 
 export const rowHeight = (validations?: ValidationMessages) => {
-  const height = 32;
-  if (!validations) {
+  const height = ROW_HEIGHT;
+  if (!validations || validations.length === 0) {
     return height;
   }
   return height * (validations.length + 1);

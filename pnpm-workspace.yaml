@@ -5,3 +5,5 @@ packages:
 preferWorkspacePackages: true
 publicHoistPattern:
   - 'eslint'
+  - 'prettier-plugin-tailwindcss'
+  - 'tailwindcss'

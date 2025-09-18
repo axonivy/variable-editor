@@ -9,7 +9,7 @@
     "publish": {
       "forcePublish": true,
       "skipGit": true,
-      "registry": "https://npmjs-registry.ivyteam.ch/"
+      "registry": "http://localhost:4873/"
     }
   },
   "packages": ["packages/*", "integrations/*", "playwright"]

@@ -16,8 +16,8 @@ export class Details {
   readonly listOfPossibleValues: EnumValues;
 
   constructor(page: Page, parent: Locator) {
-    this.locator = parent.locator('.variables-editor-detail-panel');
-    this.title = this.locator.locator('.variables-editor-detail-header');
+    this.locator = parent.locator('.ui-sidebar');
+    this.title = this.locator.locator('.ui-sidebar-header');
     this.name = new TextArea(this.locator, { label: 'Name' });
     this.namespace = new TextArea(this.locator, { label: 'Namespace' });
     this.value = new TextArea(this.locator, { label: 'Value' });

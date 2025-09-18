@@ -1,8 +1,0 @@
-.ui-table-row.variables-editor-row-error {
-  border: 1px solid var(--error-color);
-  width: calc(100% - 2px);
-}
-.ui-table-row.variables-editor-row-warning {
-  border: 1px solid var(--warning-color);
-  width: calc(100% - 2px);
-}
