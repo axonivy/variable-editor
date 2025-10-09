@@ -13,5 +13,7 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname
       }
     }
-  }
+  },
+  // Latest react-hook rules
+  ...config.reactHooksLatest
 ]);

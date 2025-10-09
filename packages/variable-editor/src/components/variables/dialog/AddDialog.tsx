@@ -20,7 +20,7 @@ import {
 import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
@@ -68,9 +68,17 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
   const [name, setName] = useState(newNodeName(table, 'NewVariable'));
   const [namespace, setNamespace] = useState(keyOfFirstSelectedNonLeafRow(table));
   const { nameValidationMessage, namespaceValidationMessage } = useValidateAddVariable(name, namespace, variables);
-
   const [knownVariable, setKnownVariable] = useState<KnownVariables>();
-  useEffect(() => setKnownVariable(undefined), [name, namespace]);
+
+  const onNameChange = (name: string) => {
+    setName(name);
+    setKnownVariable(undefined);
+  };
+
+  const onNamespaceChange = (namespace: string) => {
+    setNamespace(namespace);
+    setKnownVariable(undefined);
+  };
 
   const knownVariables = useMeta('meta/knownVariables', context, EMPTY_KNOWN_VARIABLES).data;
 
@@ -118,19 +126,18 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
       nameInputRef.current?.focus();
     }
   };
+  const allInputsValid = !nameValidationMessage && !namespaceValidationMessage;
 
   const enter = useHotkeys(
     ['Enter', 'mod+Enter'],
     e => {
-      if (!allInputsValid()) {
+      if (!allInputsValid) {
         return;
       }
       addVariable(e);
     },
     { scopes: DIALOG_HOTKEY_IDS, enableOnFormTags: true }
   );
-
-  const allInputsValid = () => !nameValidationMessage && !namespaceValidationMessage;
 
   return (
     <BasicDialogContent
@@ -145,7 +152,7 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
                 size='large'
                 icon={IvyIcons.Plus}
                 aria-label={t('dialog.create')}
-                disabled={!allInputsValid()}
+                disabled={!allInputsValid}
                 onClick={addVariable}
               >
                 {knownVariable ? t('dialog.import') : t('dialog.create')}
@@ -164,7 +171,7 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
       tabIndex={-1}
     >
       <BasicField label={t('common.label.name')} message={nameValidationMessage} aria-label={t('common.label.name')}>
-        <Input ref={nameInputRef} value={name} onChange={event => setName(event.target.value)} />
+        <Input ref={nameInputRef} value={name} onChange={event => onNameChange(event.target.value)} />
       </BasicField>
       <BasicField
         label={t('common.label.namespace')}
@@ -173,8 +180,8 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
       >
         <Combobox
           value={namespace}
-          onChange={setNamespace}
-          onInput={event => setNamespace(event.currentTarget.value)}
+          onChange={onNamespaceChange}
+          onInput={event => onNamespaceChange(event.currentTarget.value)}
           options={namespaceOptions()}
         />
       </BasicField>
