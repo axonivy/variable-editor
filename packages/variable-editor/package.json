@@ -32,9 +32,9 @@
     "react-i18next": "^15.4.1 || ^16.0.0"
   },
   "devDependencies": {
-    "@axonivy/jsonrpc": "~13.2.0-next.847.a8ce22a",
-    "@axonivy/ui-components": "~13.2.0-next.847.a8ce22a",
-    "@axonivy/ui-icons": "~13.2.0-next.847.a8ce22a",
+    "@axonivy/jsonrpc": "~13.2.0-next.878.c52b3e6",
+    "@axonivy/ui-components": "~13.2.0-next.878.c52b3e6",
+    "@axonivy/ui-icons": "~13.2.0-next.878.c52b3e6",
     "@tanstack/react-table": "^8.21.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
