@@ -56,7 +56,7 @@ export const OverwriteDialog = ({ table, children }: OverwriteVariableDialogProp
           <TooltipContent>{shortcut.label}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <DialogContent>
+      <DialogContent style={{ height: '80vh', gridTemplateRows: 'auto 1fr' }}>
         <BasicDialogHeader title={t('dialog.overwrite.title')} description={t('dialog.overwrite.desc')} />
         <VariableBrowser
           applyFn={node => {
