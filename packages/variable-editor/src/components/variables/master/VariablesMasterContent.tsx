@@ -125,7 +125,7 @@ export const VariablesMasterContent = () => {
   const control = readonly ? null : (
     <Flex gap={2}>
       <AddVariableDialog table={table}>
-        <Button className='variables-editor-add-button' icon={IvyIcons.Plus} aria-label={hotkeys.addVar.label} />
+        <Button icon={IvyIcons.Plus} aria-label={hotkeys.addVar.label} />
       </AddVariableDialog>
       <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
       <OverwriteDialog table={table}>

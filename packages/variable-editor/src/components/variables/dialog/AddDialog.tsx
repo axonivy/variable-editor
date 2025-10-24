@@ -29,7 +29,6 @@ import { addNode } from '../../../utils/tree/tree-data';
 import type { AddNodeReturnType } from '../../../utils/tree/types';
 import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { createVariable, type Variable } from '../data/variable';
-import './AddDialog.css';
 import { addKnownVariable, findVariable } from './known-variables';
 import { useValidateAddVariable } from './useValidateAddVariable';
 

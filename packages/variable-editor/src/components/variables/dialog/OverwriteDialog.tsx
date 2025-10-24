@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogContent,
   DialogTrigger,
-  Flex,
   selectRow,
   Tooltip,
   TooltipContent,
@@ -21,7 +20,6 @@ import { toRowId } from '../../../utils/tree/tree';
 import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { type Variable } from '../data/variable';
 import { addKnownVariable } from './known-variables';
-import './OverwriteDialog.css';
 import { VariableBrowser } from './VariableBrowser';
 
 type OverwriteVariableDialogProps = {
@@ -58,16 +56,14 @@ export const OverwriteDialog = ({ table, children }: OverwriteVariableDialogProp
           <TooltipContent>{shortcut.label}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <DialogContent className='variables-editor-overwrite-dialog-content'>
-        <Flex direction='column' gap={4}>
-          <BasicDialogHeader title={t('dialog.overwrite.title')} description={t('dialog.overwrite.desc')} />
-          <VariableBrowser
-            applyFn={node => {
-              insertVariable(node);
-              onOpenChange(false);
-            }}
-          />
-        </Flex>
+      <DialogContent>
+        <BasicDialogHeader title={t('dialog.overwrite.title')} description={t('dialog.overwrite.desc')} />
+        <VariableBrowser
+          applyFn={node => {
+            insertVariable(node);
+            onOpenChange(false);
+          }}
+        />
       </DialogContent>
     </Dialog>
   );
