@@ -58,7 +58,7 @@
     "type": "tsc --noEmit",
     "test": "vitest",
     "test:ci": "vitest --watch=false",
-    "i18n:extract": "i18next",
+    "i18n": "i18next",
     "i18n:ci": "i18next --fail-on-update"
   }
 }
