@@ -32,16 +32,16 @@
     "react-i18next": "^15.4.1 || ^16.0.0"
   },
   "devDependencies": {
-    "@axonivy/jsonrpc": "~13.2.0-next.927.325add7",
-    "@axonivy/ui-components": "~13.2.0-next.927.325add7",
-    "@axonivy/ui-icons": "~13.2.0-next.927.325add7",
+    "@axonivy/jsonrpc": "~13.2.0-next.934.4686e45",
+    "@axonivy/ui-components": "~13.2.0-next.934.4686e45",
+    "@axonivy/ui-icons": "~13.2.0-next.934.4686e45",
     "@tanstack/react-table": "^8.21.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/react": "^19.0.7",
     "@vanilla-extract/recipes": "^0.5.5",
     "@vitejs/plugin-react": "^5.0.0",
-    "i18next-parser": "^9.3.0",
+    "i18next-cli": "^1.21.1",
     "jsdom": "^27.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -58,7 +58,7 @@
     "type": "tsc --noEmit",
     "test": "vitest",
     "test:ci": "vitest --watch=false",
-    "i18n": "i18next",
-    "i18n:ci": "i18next --fail-on-update"
+    "i18n": "i18next-cli extract",
+    "i18n:ci": "i18next-cli extract --ci --dry-run"
   }
 }
