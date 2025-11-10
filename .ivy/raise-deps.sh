@@ -19,5 +19,5 @@ done
 
 pnpm run update:axonivy:next
 if [ "$DRY_RUN" = false ]; then
-  pnpm install
+  pnpm install --no-frozen-lockfile
 fi
