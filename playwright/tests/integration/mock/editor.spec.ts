@@ -26,40 +26,40 @@ test('search', async () => {
   await search.fill('useUser');
   await search.expectValue('useUser');
   await tree.expectRowCount(5);
-  await tree.cell(0, 0).expectValue('microsoft-connector');
-  await tree.cell(1, 0).expectValue('useUserPassFlow');
-  await tree.cell(2, 0).expectValue('enabled');
-  await tree.cell(3, 0).expectValue('user');
-  await tree.cell(4, 0).expectValue('pass');
+  await tree.cell(0, 0).expectValue('MicrosoftConnector');
+  await tree.cell(1, 0).expectValue('UseUserPassFlow');
+  await tree.cell(2, 0).expectValue('Enabled');
+  await tree.cell(3, 0).expectValue('User');
+  await tree.cell(4, 0).expectValue('Pass');
 });
 
 test.describe('delete', () => {
   test('delete', async () => {
     const row = tree.row(6);
     await row.click();
-    await row.expectValues(['enabled', 'false']);
+    await row.expectValues(['Enabled', 'false']);
     await row.expectSelected();
 
     await editor.delete.click();
 
     await tree.expectRowCount(10);
-    await row.expectValues(['user', 'MyUser']);
+    await row.expectValues(['User', 'MyUser']);
     await row.expectSelected();
   });
 
   test('last child', async () => {
     const row = tree.row(8);
     await row.click();
-    await row.expectValues(['pass', '***']);
+    await row.expectValues(['Pass', '***']);
     await row.expectSelected();
 
     await editor.delete.click();
 
     await tree.expectRowCount(10);
-    await row.column(0).expectValue('permissions');
+    await row.column(0).expectValue('Permissions');
     await row.expectNotSelected();
     const previousRow = tree.row(7);
-    await previousRow.expectValues(['user', 'MyUser']);
+    await previousRow.expectValues(['User', 'MyUser']);
     await previousRow.expectSelected();
   });
 
@@ -68,15 +68,15 @@ test.describe('delete', () => {
     await row.click();
     await editor.delete.click();
     await editor.delete.click();
-    await row.expectValues(['pass', '***']);
+    await row.expectValues(['Pass', '***']);
 
     await editor.delete.click();
 
     await tree.expectRowCount(8);
-    await row.column(0).expectValue('permissions');
+    await row.column(0).expectValue('Permissions');
     await row.expectNotSelected();
     const parentRow = tree.row(5);
-    await parentRow.expectValues(['useUserPassFlow', '']);
+    await parentRow.expectValues(['UseUserPassFlow', '']);
     await parentRow.expectSelected();
   });
 
@@ -90,7 +90,7 @@ test.describe('delete', () => {
 
 test.describe('add', () => {
   test('add', async () => {
-    await editor.addVariable('NewVariable', 'microsoft-connector.New.Namespace');
+    await editor.addVariable('NewVariable', 'MicrosoftConnector.New.Namespace');
     await tree.expectRowCount(14);
     await tree.row(11).expectValues(['New', '']);
     await tree.row(12).expectValues(['Namespace', '']);
@@ -99,9 +99,9 @@ test.describe('add', () => {
 
   test('dialog default values', async () => {
     await tree.row(5).click();
-    await tree.row(5).expectValues(['useUserPassFlow', '']);
+    await tree.row(5).expectValues(['UseUserPassFlow', '']);
     await editor.add.open.click();
-    await editor.add.expectValues('NewVariable', 'microsoft-connector.useUserPassFlow', 'microsoft-connector', 'microsoft-connector.useUserPassFlow');
+    await editor.add.expectValues('NewVariable', 'MicrosoftConnector.UseUserPassFlow', 'MicrosoftConnector', 'MicrosoftConnector.UseUserPassFlow');
   });
 
   test('keyboard', async () => {
@@ -136,7 +136,7 @@ test.describe('add', () => {
         await add.name.fill('');
         await nameMessage.expectToBeError('Name cannot be empty.');
         await expect(add.create.locator).toBeDisabled();
-        await add.name.fill('microsoft-connector');
+        await add.name.fill('MicrosoftConnector');
         await nameMessage.expectToBeError('Name is already present in this Namespace.');
         await expect(add.create.locator).toBeDisabled();
       });
@@ -145,10 +145,10 @@ test.describe('add', () => {
         const add = editor.add;
         await add.open.click();
         const nameMessage = await add.name.message();
-        await add.name.fill('appId');
+        await add.name.fill('AppId');
         await nameMessage.expectToBeHidden();
         await expect(add.create.locator).toBeEnabled();
-        await add.namespace.choose('microsoft-connector');
+        await add.namespace.choose('MicrosoftConnector');
         await nameMessage.expectToBeError('Name is already present in this Namespace.');
         await expect(add.create.locator).toBeDisabled();
       });
@@ -157,10 +157,10 @@ test.describe('add', () => {
         const add = editor.add;
         await add.open.click();
         const nameMessage = await add.name.message();
-        await add.name.fill('appId');
+        await add.name.fill('AppId');
         await nameMessage.expectToBeHidden();
         await expect(add.create.locator).toBeEnabled();
-        await add.namespace.fill('microsoft-connector');
+        await add.namespace.fill('MicrosoftConnector');
         await nameMessage.expectToBeError('Name is already present in this Namespace.');
         await expect(add.create.locator).toBeDisabled();
       });
@@ -172,8 +172,8 @@ test.describe('add', () => {
       const namespaceMessage = await add.namespace.message();
       await namespaceMessage.expectToBeInfo("Folder structure of Variable (e.g. 'Connector.Key')");
       await expect(add.create.locator).toBeEnabled();
-      await add.namespace.fill('microsoft-connector.appId.New.Namespace');
-      await namespaceMessage.expectToBeError("Namespace 'microsoft-connector.appId' is not a folder, you cannot add a child to it.");
+      await add.namespace.fill('MicrosoftConnector.AppId.New.Namespace');
+      await namespaceMessage.expectToBeError("Namespace 'MicrosoftConnector.AppId' is not a folder, you cannot add a child to it.");
       await expect(add.create.locator).toBeDisabled();
     });
   });
@@ -206,7 +206,7 @@ test('theme', async () => {
 });
 
 test('password', async () => {
-  await editor.tree.row(2).expectValues(['secretKey', '***']);
+  await editor.tree.row(2).expectValues(['SecretKey', '***']);
 });
 
 test('help', async ({ page }) => {
