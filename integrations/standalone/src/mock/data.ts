@@ -3,38 +3,37 @@ import type { ValidationMessages, VariablesData } from '@axonivy/variable-editor
 export const variables: VariablesData = {
   context: { app: '', pmv: '', file: '' },
   data: `Variables:
-  microsoft-connector:
+  MicrosoftConnector:
     # Your Azure Application (client) ID
-    appId: MyAppId
+    AppId: MyAppId
     # Secret key from your applications "certificates & secrets"
     # [password]
-    secretKey: MySecretKey
-    # work with app permissions rather than in delegate of a user
-    # set to 'true' if no user consent should be accuired and adjust the 'tenantId' below.
-    useAppPermissions: "false"
-    # tenant to use for OAUTH2 request.
-    # the default 'common' fits for user delegate requests.
-    # set the Azure Directory (tenant) ID, for application requests.
-    tenantId: common
-    # use a static user+password authentication to work in the name of technical user.
-    # most insecure but valid, if you must work with user permissions, while no real user is able to consent the action.
-    useUserPassFlow:
-      enabled: "false"
-      # technical user to login
-      user: MyUser
-      # technical users password
+    SecretKey: MySecretKey
+    # Work with app permissions rather than in delegate of a user.
+    # Set to 'true' if no user consent should be accuired and adjust the 'tenantId' below.
+    UseAppPermissions: "false"
+    # Tenant to use for OAUTH2 request.
+    # The default 'common' fits for user delegate requests.
+    # Set the Azure Directory (tenant) ID, for application requests.
+    TenantId: common
+    # Use a static user+password authentication to work in the name of technical user.
+    # Most insecure but valid, if you must work with user permissions, while no real user is able to consent the action.
+    UseUserPassFlow:
+      Enabled: "false"
+      # Technical user to login
+      User: MyUser
+      # Technical users password
       # [password]
-      pass: MyPass
-    # permissions to request access to.
-    # you may exclude or add some, as your azure administrator allows or restricts them.
-    # for sharepoint-demos, the following must be added: Sites.Read.All Files.ReadWrite
-    permissions: user.read Calendars.ReadWrite mail.readWrite mail.send
-      Tasks.ReadWrite Chat.Read offline_access
-    # this property specifies the library used to create and manage HTTP connections for Jersey client. 
-    # it sets the connection provider class for the Jersey client.
-    # while the default provider works well for most methods, if you specifically need to use the PATCH method, consider switching the provider to:
+      Pass: MyPass
+    # Permissions to request access to.
+    # You may exclude or add some, as your azure administrator allows or restricts them.
+    # For sharepoint-demos, the following must be added: Sites.Read.All Files.ReadWrite
+    Permissions: user.read Calendars.ReadWrite mail.readWrite mail.send Tasks.ReadWrite Chat.Read offline_access
+    # This property specifies the library used to create and manage HTTP connections for Jersey client. 
+    # It sets the connection provider class for the Jersey client.
+    # While the default provider works well for most methods, if you specifically need to use the PATCH method, consider switching the provider to:
     #   org.glassfish.jersey.apache.connector.ApacheConnectorProvider
-    connectorProvider: org.glassfish.jersey.client.HttpUrlConnectorProvider
+    ConnectorProvider: org.glassfish.jersey.client.HttpUrlConnectorProvider
   `,
   helpUrl: 'https://dev.axonivy.com'
 };
