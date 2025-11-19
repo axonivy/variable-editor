@@ -5,8 +5,8 @@ import { Message } from './Message';
 
 export class Combobox {
   readonly parent: Locator;
-  private readonly locator: Locator;
-  private readonly options: Locator;
+  readonly locator: Locator;
+  readonly options: Locator;
   private readonly toggleMenu: Button;
 
   constructor(readonly page: Page, parent: Locator, options?: { label?: string; nth?: number }) {
