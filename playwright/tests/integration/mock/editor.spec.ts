@@ -127,6 +127,26 @@ test.describe('add', () => {
     await tree.row(11).expectValues(['keyboard', '']);
   });
 
+  test('keyboard namespace', async () => {
+    await expect(editor.add.dialog).toBeHidden();
+    await editor.page.keyboard.press('a');
+    await editor.add.name.fill('keyboard');
+    await editor.add.name.expectValue('keyboard');
+
+    await editor.add.namespace.locator.focus();
+    await editor.page.keyboard.press('Enter');
+    await expect(editor.add.namespace.options).toHaveCount(2);
+    await editor.page.keyboard.press('ArrowDown');
+    await editor.page.keyboard.press('Enter');
+    await editor.add.namespace.expectValue('MicrosoftConnector.UseUserPassFlow');
+    await editor.page.keyboard.press('Tab');
+    await editor.page.keyboard.press('Tab');
+    await editor.page.keyboard.press('Enter');
+
+    await expect(editor.add.dialog).toBeHidden();
+    await tree.row(9).expectValues(['keyboard', '']);
+  });
+
   test.describe('validation', () => {
     test.describe('name', () => {
       test('onNameChange', async () => {
