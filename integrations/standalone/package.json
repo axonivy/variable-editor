@@ -3,9 +3,9 @@
   "private": true,
   "version": "14.0.0-next",
   "dependencies": {
-    "@axonivy/jsonrpc": "~13.2.0-next.934.4686e45",
-    "@axonivy/ui-components": "~13.2.0-next.934.4686e45",
-    "@axonivy/ui-icons": "~13.2.0-next.934.4686e45",
+    "@axonivy/jsonrpc": "~14.0.0-next.957.4046f5f",
+    "@axonivy/ui-components": "~14.0.0-next.957.4046f5f",
+    "@axonivy/ui-icons": "~14.0.0-next.957.4046f5f",
     "@axonivy/variable-editor": "workspace:~14.0.0-next",
     "@axonivy/variable-editor-protocol": "workspace:~14.0.0-next",
     "@tanstack/react-query": "^5.64",
