@@ -3,7 +3,6 @@ import { AddVariableDialog } from './AddVariableDialog';
 import { Button } from './Button';
 import { Details } from './Details';
 import { OverwriteDialog } from './OverwriteDialog';
-import { Settings } from './Settings';
 import { Table } from './Table';
 import { TextArea } from './TextArea';
 import { Toolbar } from './Toolbar';
@@ -16,7 +15,6 @@ export class VariableEditor {
   readonly delete: Button;
   readonly add: AddVariableDialog;
   readonly locator: Locator;
-  readonly settings: Settings;
   readonly details: Details;
   readonly masterPanel: Locator;
   readonly overwrite: OverwriteDialog;
@@ -31,7 +29,6 @@ export class VariableEditor {
     this.delete = new Button(this.locator, { name: 'Delete variable' });
     this.add = new AddVariableDialog(page, this.locator);
     this.overwrite = new OverwriteDialog(page, this.locator);
-    this.settings = new Settings(this.locator);
     this.details = new Details(this.page, this.locator);
   }
 

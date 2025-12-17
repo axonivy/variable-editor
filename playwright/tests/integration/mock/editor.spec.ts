@@ -219,14 +219,6 @@ test('expand', async () => {
   await tree.expectRowCount(11);
 });
 
-test('theme', async () => {
-  const settings = editor.settings;
-  await settings.toggle();
-  await settings.theme.expectLight();
-  await settings.theme.toggle();
-  await settings.theme.expectDark();
-});
-
 test('password', async () => {
   await editor.tree.row(2).expectValues(['SecretKey', '***']);
 });
