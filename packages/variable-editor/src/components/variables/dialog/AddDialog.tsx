@@ -19,22 +19,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
   useHotkeyLocalScopes,
-  useHotkeys,
-  type MessageData
+  useHotkeys
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/AppContext';
 import { useMeta } from '../../../context/useMeta';
 import { useKnownHotkeys } from '../../../utils/hotkeys';
 import { keyOfFirstSelectedNonLeafRow, keysOfAllNonLeafRows, newNodeName, toRowId } from '../../../utils/tree/tree';
-import { addNode, hasChildren } from '../../../utils/tree/tree-data';
+import { addNode } from '../../../utils/tree/tree-data';
 import type { AddNodeReturnType } from '../../../utils/tree/types';
 import { createVariable, type Variable } from '../data/variable';
 import './AddDialog.css';
 import { addKnownVariable, findVariable } from './known-variables';
+import { trimNamespace } from './trim-namespace';
+import { useValidateAddVariable } from './useValidateAddVariable';
 
 type AddVariableDialogProps = {
   table: Table<Variable>;
@@ -56,9 +57,7 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
   };
   const [name, setName] = useState('');
   const [namespace, setNamespace] = useState('');
-
-  const nameValidationMessage = useMemo(() => validateName(name, namespace, variables), [name, namespace, variables]);
-  const namespaceValidationMessage = useMemo(() => validateNamespace(namespace, variables), [namespace, variables]);
+  const { nameValidationMessage, namespaceValidationMessage } = useValidateAddVariable(name, trimNamespace(namespace), variables);
 
   const [knownVariable, setKnownVariable] = useState<KnownVariables>();
   useEffect(() => setKnownVariable(undefined), [name, namespace]);
@@ -85,28 +84,25 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
     });
   };
 
-  const addVar = () => {
-    setVariables(old => {
-      const addNodeReturnValue = addNode(name, namespace, old, createVariable);
-      updateSelection(addNodeReturnValue);
-      return addNodeReturnValue.newData;
-    });
-  };
-
   const addVariable = (event: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
     if (knownVariable) {
       addKnown(knownVariable);
       onOpenChange(false);
       return;
     }
-    const namespaceKey = namespace ? namespace.split('.') : [];
+    const trimmedNamespace = trimNamespace(namespace);
+    const namespaceKey = trimmedNamespace ? trimmedNamespace.split('.') : [];
     const foundKnownVariable = findVariable(knownVariables, ...namespaceKey, name);
     if (foundKnownVariable) {
       setKnownVariable(foundKnownVariable.node);
       event.preventDefault();
       return;
     }
-    addVar();
+    setVariables(old => {
+      const addNodeReturnValue = addNode(name, trimmedNamespace, old, createVariable);
+      updateSelection(addNodeReturnValue);
+      return addNodeReturnValue.newData;
+    });
     if (!event.ctrlKey && !event.metaKey) {
       onOpenChange(false);
     }
@@ -188,54 +184,3 @@ export const AddVariableDialog = ({ table }: AddVariableDialogProps) => {
     </Dialog>
   );
 };
-
-export const validateName = (name: string, namespace: string, variables: Array<Variable>): MessageData | undefined => {
-  if (name.trim() === '') {
-    return toErrorMessage('Name cannot be empty.');
-  }
-  if (name.includes('.')) {
-    return toErrorMessage("Character '.' is not allowed.");
-  }
-  let takenNames: Array<string> = [];
-  try {
-    takenNames = variablesOfNamespace(namespace, variables).map(variable => variable.name);
-  } catch {
-    // handled by validateNamespace
-  }
-  if (takenNames.includes(name)) {
-    return toErrorMessage('Name is already present in this Namespace.');
-  }
-  return;
-};
-
-export const validateNamespace = (namespace: string, variables: Array<Variable>): MessageData | undefined => {
-  try {
-    variablesOfNamespace(namespace, variables);
-  } catch (e) {
-    if (e instanceof Error) {
-      return toErrorMessage(e.message);
-    }
-  }
-  return;
-};
-
-const variablesOfNamespace = (namespace: string, variables: Array<Variable>): Array<Variable> => {
-  const keyParts = namespace.split('.');
-  let currentVariables = variables;
-  for (const [index, keyPart] of keyParts.entries()) {
-    if (keyPart === '') {
-      return currentVariables;
-    }
-    const nextVariable = currentVariables.find(variable => variable.name === keyPart);
-    if (nextVariable === undefined) {
-      return [];
-    }
-    if (!hasChildren(nextVariable)) {
-      throw new Error("Namespace '" + keyParts.slice(0, index + 1).join('.') + "' is not a folder, you cannot add a child to it.");
-    }
-    currentVariables = nextVariable.children;
-  }
-  return currentVariables;
-};
-
-const toErrorMessage = (message: string): MessageData => ({ message: message, variant: 'error' });
