@@ -11,6 +11,10 @@ export function pmvParam(): string {
   return parameter('pmv') ?? '';
 }
 
+export function fileParam(): string {
+  return parameter('file') ?? 'config/variables.yaml';
+}
+
 export function themeParam(): 'dark' | 'light' {
   const theme = parameter('theme');
   if (theme === 'dark') {
