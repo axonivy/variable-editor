@@ -30,6 +30,7 @@ import type { AddNodeReturnType } from '../../../utils/tree/types';
 import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { createVariable, type Variable } from '../data/variable';
 import { addKnownVariable, findVariable } from './known-variables';
+import { trimNamespace } from './trim-namespace';
 import { useValidateAddVariable } from './useValidateAddVariable';
 
 type AddVariableDialogProps = {
@@ -66,7 +67,7 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
   const { context, variables, setVariables, setSelectedVariable } = useAppContext();
   const [name, setName] = useState(newNodeName(table, 'NewVariable'));
   const [namespace, setNamespace] = useState(keyOfFirstSelectedNonLeafRow(table));
-  const { nameValidationMessage, namespaceValidationMessage } = useValidateAddVariable(name, namespace, variables);
+  const { nameValidationMessage, namespaceValidationMessage } = useValidateAddVariable(name, trimNamespace(namespace), variables);
   const [knownVariable, setKnownVariable] = useState<KnownVariables>();
 
   const onNameChange = (name: string) => {
@@ -96,28 +97,25 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
     });
   };
 
-  const addVar = () => {
-    setVariables(old => {
-      const addNodeReturnValue = addNode(name, namespace, old, createVariable);
-      updateSelection(addNodeReturnValue);
-      return addNodeReturnValue.newData;
-    });
-  };
-
   const addVariable = (event: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
     if (knownVariable) {
       addKnown(knownVariable);
       closeDialog();
       return;
     }
-    const namespaceKey = namespace ? namespace.split('.') : [];
+    const trimmedNamespace = trimNamespace(namespace);
+    const namespaceKey = trimmedNamespace ? trimmedNamespace.split('.') : [];
     const foundKnownVariable = findVariable(knownVariables, ...namespaceKey, name);
     if (foundKnownVariable) {
       setKnownVariable(foundKnownVariable.node);
       event.preventDefault();
       return;
     }
-    addVar();
+    setVariables(old => {
+      const addNodeReturnValue = addNode(name, trimmedNamespace, old, createVariable);
+      updateSelection(addNodeReturnValue);
+      return addNodeReturnValue.newData;
+    });
     if (!event.ctrlKey && !event.metaKey) {
       closeDialog();
     } else {
