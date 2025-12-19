@@ -2,7 +2,7 @@ import { Flex, PanelMessage, ResizableHandle, ResizablePanel, ResizablePanelGrou
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { RootVariable, Variable } from './components/variables/data/variable';
 import { toContent, toVariables } from './components/variables/data/variable-utils';
@@ -16,15 +16,9 @@ import type { Unary } from './utils/lambda/lambda';
 import type { TreePath } from './utils/tree/types';
 import './VariablesEditor.css';
 
-function VariableEditor(props: EditorProps) {
+function VariableEditor({ context, directSave }: EditorProps) {
   const { t } = useTranslation();
   const [detail, setDetail] = useState(true);
-  const [context, setContext] = useState(props.context);
-  const [directSave, setDirectSave] = useState(props.directSave);
-  useEffect(() => {
-    setContext(props.context);
-    setDirectSave(props.directSave);
-  }, [props]);
   const [selectedVariable, setSelectedVariable] = useState<TreePath>([]);
   const history = useHistoryData<Array<Variable>>();
 
@@ -96,7 +90,7 @@ function VariableEditor(props: EditorProps) {
         selectedVariable,
         setSelectedVariable,
         validations,
-        context,
+        context: data.context,
         detail,
         setDetail,
         history
