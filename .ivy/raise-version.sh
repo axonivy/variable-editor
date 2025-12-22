@@ -6,7 +6,6 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-mvn --batch-mode -f integrations/standalone/pom.xml versions:set versions:commit -DnewVersion=${1}
 mvn --batch-mode -f playwright/tests/screenshots/pom.xml versions:set versions:commit -DnewVersion=${1}
 mvn --batch-mode -f playwright/variables-test-project/pom.xml versions:set versions:commit -DnewVersion=${1}
 
