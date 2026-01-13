@@ -7,6 +7,11 @@ import { Table } from './Table';
 import { TextArea } from './TextArea';
 import { Toolbar } from './Toolbar';
 
+export const server = process.env.BASE_URL ?? 'localhost:8080/~Developer-variables-test-project';
+const ws = process.env.TEST_WS ?? '';
+const app = process.env.TEST_APP ?? 'Developer-variables-test-project';
+const pmv = 'variables-test-project';
+
 export class VariableEditor {
   readonly page: Page;
   readonly toolbar: Toolbar;
@@ -32,12 +37,9 @@ export class VariableEditor {
     this.details = new Details(this.page, this.locator);
   }
 
-  static async openEngine(page: Page, options?: { readonly?: boolean }) {
-    const server = process.env.BASE_URL ?? 'localhost:8081';
-    const app = process.env.TEST_APP ?? 'designer';
+  static async openEngine(page: Page, options?: { directSave?: boolean; readonly?: boolean }) {
     const serverUrl = server.replace(/^https?:\/\//, '');
-    const pmv = 'variables-test-project';
-    let url = `?server=${serverUrl}&app=${app}&pmv=${pmv}&file=config/variables.yaml`;
+    let url = `?server=${serverUrl}${ws}&app=${app}&pmv=${pmv}&file=config/variables.yaml`;
     if (options) {
       url += `${this.params(options)}`;
     }
@@ -64,18 +66,15 @@ export class VariableEditor {
   private static async openUrl(page: Page, url: string) {
     const editor = new VariableEditor(page);
     await page.goto(url);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.addStyleTag({ content: `.tsqd-parent-container { display: none; }` });
     return editor;
   }
 
   async takeScreenshot(fileName: string) {
-    await this.hideQuery();
     const dir = process.env.SCREENSHOT_DIR ?? 'tests/screenshots/target';
     const buffer = await this.page.screenshot({ path: `${dir}/screenshots/${fileName}`, animations: 'disabled' });
     expect(buffer.byteLength).toBeGreaterThan(3000);
-  }
-
-  async hideQuery() {
-    await this.page.addStyleTag({ content: `.tsqd-parent-container { display: none; }` });
   }
 
   async addVariable(name?: string, namespace?: string) {

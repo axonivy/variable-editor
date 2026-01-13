@@ -20,7 +20,7 @@ pipeline {
             }
           }
           archiveArtifacts artifacts: '**/integrations/standalone/build/**', allowEmptyArchive: true
-          currentBuild.description = "<a href=${BUILD_URL}artifact/integrations/standalone/build/index.html?server=localhost:8081&secure=false&app=designer&pmv=variables-test-project>&raquo; Variables Editor</a><br>" +
+          currentBuild.description = "<a href=${BUILD_URL}artifact/integrations/standalone/build/index.html?server=localhost:8080/~Developer-variables-test-project&secure=false&app=Developer-variables-test-project&pmv=variables-test-project>&raquo; Variables Editor</a><br>" +
             "<a href=${BUILD_URL}artifact/integrations/standalone/build/mock.html>&raquo; Variables Editor Mock</a>"
 
           withChecks('ESLint') {
