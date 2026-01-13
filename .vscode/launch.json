@@ -8,7 +8,7 @@
       "name": "Launch Standalone (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3001/?server=localhost:8081&app=designer&pmv=variables-test-project&directSave",
+      "url": "http://localhost:3001/?server=localhost:8080/~Developer-variables-test-project&app=Developer-variables-test-project&pmv=variables-test-project&directSave",
       "preLaunchTask": "Start Standalone",
       "postDebugTask": "Terminate All Tasks"
     },

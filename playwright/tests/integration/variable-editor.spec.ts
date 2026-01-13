@@ -4,11 +4,11 @@ import { VariableEditor } from '../pageobjects/VariableEditor';
 let editor: VariableEditor;
 
 test.beforeEach(async ({ page }) => {
-  editor = await VariableEditor.openEngine(page);
+  editor = await VariableEditor.openEngine(page, { directSave: true });
 });
 
 test.afterEach(async ({ page }) => {
-  editor = await VariableEditor.openEngine(page);
+  editor = await VariableEditor.openEngine(page, { directSave: true });
   const tree = editor.tree;
   await tree.expectNotEmpty();
   while ((await tree.rowCount()) > 4) {
@@ -67,7 +67,7 @@ test('save data', async () => {
   await tree.row(3).click();
   await details.fill('secretKeyChanged', 'MySecretKeyChanged', 'Secret key from your applications "certificates & secrets changed"', 'Password');
 
-  const editor2 = await VariableEditor.openEngine(editor.page);
+  const editor2 = await VariableEditor.openEngine(editor.page, { directSave: true });
   const tree2 = editor2.tree;
   const details2 = editor2.details;
 
@@ -79,7 +79,7 @@ test('save data', async () => {
   await details2.expectValues('microsoft.connector', 'secretKeyChanged', 'MySecretKeyChanged', 'Secret key from your applications "certificates & secrets changed"', 'Password');
   await details2.fill('secretKey', 'MySecretKey', 'Secret key from your applications "certificates & secrets"', 'Password');
 
-  const editor3 = await VariableEditor.openEngine(editor.page);
+  const editor3 = await VariableEditor.openEngine(editor.page, { directSave: true });
   const tree3 = editor3.tree;
   const details3 = editor3.details;
 
