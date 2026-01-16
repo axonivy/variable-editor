@@ -1,4 +1,4 @@
-import { Flex, PanelMessage, ResizableHandle, ResizablePanel, ResizablePanelGroup, Spinner, useHistoryData } from '@axonivy/ui-components';
+import { Flex, PanelMessage, ResizableGroup, ResizableHandle, ResizablePanel, Spinner, useHistoryData } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -96,8 +96,8 @@ function VariableEditor({ context, directSave }: EditorProps) {
         history
       }}
     >
-      <ResizablePanelGroup direction='horizontal'>
-        <ResizablePanel defaultSize={75} minSize={50} className='variables-editor-main-panel'>
+      <ResizableGroup orientation='horizontal'>
+        <ResizablePanel defaultSize='75%' minSize='50%' className='variables-editor-main-panel'>
           <Flex className='variables-editor-panel-content' direction='column'>
             <VariablesMasterToolbar />
             <VariablesMasterContent />
@@ -106,12 +106,12 @@ function VariableEditor({ context, directSave }: EditorProps) {
         {detail && (
           <>
             <ResizableHandle />
-            <ResizablePanel defaultSize={25} minSize={10}>
+            <ResizablePanel defaultSize='25%' minSize='20%'>
               <Detail helpUrl={data.helpUrl} />
             </ResizablePanel>
           </>
         )}
-      </ResizablePanelGroup>
+      </ResizableGroup>
     </AppProvider>
   );
 }
