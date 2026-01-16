@@ -209,12 +209,12 @@ test('empty details', async () => {
   await expect(editor.details.locator.locator('p')).toHaveText('Select a Variable to edit its properties.');
 });
 
-test('toogle details', async () => {
-  await expect(editor.masterPanel).toHaveAttribute('data-panel-size', '75.0');
+test('toggle details', async () => {
+  await expect(editor.details.locator).toBeVisible();
   await editor.toolbar.detailsToggle.click();
-  await expect(editor.masterPanel).toHaveAttribute('data-panel-size', '1.0');
+  await expect(editor.details.locator).toBeHidden();
   await editor.toolbar.detailsToggle.click();
-  await expect(editor.masterPanel).toHaveAttribute('data-panel-size', '75.0');
+  await expect(editor.details.locator).toBeVisible();
 });
 
 test('delete selected', async () => {
