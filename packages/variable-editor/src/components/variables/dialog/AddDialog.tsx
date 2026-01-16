@@ -125,7 +125,7 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
   };
   const allInputsValid = !nameValidationMessage && !namespaceValidationMessage;
 
-  const enter = useHotkeys(
+  const enter = useHotkeys<HTMLDivElement>(
     ['Enter', 'mod+Enter'],
     e => {
       if (document.activeElement?.getAttribute('role') === 'combobox') {
