@@ -147,7 +147,7 @@ export const VariablesMasterContent = () => {
       </TooltipProvider>
     </Flex>
   );
-  const ref = useHotkeys(hotkeys.deleteVar.hotkey, () => deleteVariable(), { scopes: ['global'], enabled: !readonly });
+  const ref = useHotkeys<HTMLDivElement>(hotkeys.deleteVar.hotkey, () => deleteVariable(), { scopes: ['global'], enabled: !readonly });
   const firstElement = useRef<HTMLDivElement>(null);
   useHotkeys(hotkeys.focusMain.hotkey, () => firstElement.current?.focus(), { scopes: ['global'] });
 
