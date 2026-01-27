@@ -2,7 +2,6 @@
 import type {
   EditorFileContent,
   KnownVariables,
-  VariablesActionArgs,
   VariablesData,
   VariablesEditorDataContext,
   VariablesSaveDataArgs,
@@ -62,3 +61,9 @@ export const EMPTY_KNOWN_VARIABLES: KnownVariables = {
   namespace: '',
   value: ''
 };
+
+export interface VariablesActionArgs {
+  actionId: 'openUrl';
+  context: VariablesEditorDataContext;
+  payload: string;
+}
