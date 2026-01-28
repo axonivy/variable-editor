@@ -18,7 +18,7 @@ tsGen.DEFAULT_OPTIONS.bannerComment = `
 
 const tsOut = path.resolve('./src/editor.ts');
 var schemaUri =
-  'https://jenkins.ivyteam.io/job/core_json-schema/job/release%252F12.0/lastSuccessfulBuild/artifact/workspace/ch.ivyteam.ivy.config.editor.lsp.schema/target/schema/variables/12.0.0/variables-tsgen.json';
+  'https://jenkins.ivyteam.io/job/core_json-schema/job/release%252F12.0/lastSuccessfulBuild/artifact/build/schema/target/editor-ts/12.0/variables-tsgen.json';
 
 const args = process.argv.slice(2);
 if (args.length > 0) {
