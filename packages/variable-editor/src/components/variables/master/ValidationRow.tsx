@@ -36,6 +36,7 @@ export const ValidationRow = ({ row, virtualRow }: ValidationRowProps) => {
           style={{
             transform: `translateY(${virtualRow.start + ROW_HEIGHT * (index + 1)}px)`
           }}
+          singleLine={true}
         />
       ))}
     </>
