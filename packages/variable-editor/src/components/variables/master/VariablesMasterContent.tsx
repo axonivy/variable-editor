@@ -37,7 +37,7 @@ import { OverwriteDialog } from '../dialog/OverwriteDialog';
 import { ValidationRow } from './ValidationRow';
 import './VariablesMasterContent.css';
 
-export const ROW_HEIGHT = 36 as const;
+export const ROW_HEIGHT = 32 as const;
 
 export const VariablesMasterContent = () => {
   const { t } = useTranslation();
@@ -226,8 +226,8 @@ const addValidations = (variables: Array<Variable>, groupedValidations: Record<s
 };
 
 export const rowHeight = (validations?: ValidationMessages) => {
-  const height = 32;
-  if (!validations) {
+  const height = ROW_HEIGHT;
+  if (!validations || validations.length === 0) {
     return height;
   }
   return height * (validations.length + 1);

@@ -33,8 +33,7 @@
   flex-grow: 1;
 }
 
-.variables-editor-table-body span,
-.variables-editor-table-body p {
+.variables-editor-table-body span {
   display: block;
   white-space: nowrap;
   overflow: hidden;
