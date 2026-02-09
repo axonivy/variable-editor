@@ -1,7 +1,9 @@
 packages:
-  - 'packages/*'
-  - 'integrations/*'
-  - 'playwright'
+  - packages/*
+  - integrations/*
+  - playwright
+
 preferWorkspacePackages: true
+
 publicHoistPattern:
-  - 'eslint'
+  - eslint
