@@ -4,8 +4,6 @@ import { rowClass } from './ValidationRow';
 test('rowClass', () => {
   expect(rowClass([])).toEqual('');
   expect(rowClass([{ severity: 'INFO' }] as ValidationMessages)).toEqual('');
-  expect(rowClass([{ severity: 'INFO' }, { severity: 'WARNING' }] as ValidationMessages)).toEqual('variables-editor-row-warning');
-  expect(rowClass([{ severity: 'INFO' }, { severity: 'WARNING' }, { severity: 'ERROR' }] as ValidationMessages)).toEqual(
-    'variables-editor-row-error'
-  );
+  expect(rowClass([{ severity: 'INFO' }, { severity: 'WARNING' }] as ValidationMessages)).toContain('border-warning');
+  expect(rowClass([{ severity: 'INFO' }, { severity: 'WARNING' }, { severity: 'ERROR' }] as ValidationMessages)).toContain('border-error');
 });

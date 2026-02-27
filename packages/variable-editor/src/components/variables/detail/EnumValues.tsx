@@ -74,7 +74,7 @@ export const EnumValues = ({ selectedValue: value, values, onChange }: EnumValue
   const control = readonly ? null : (
     <Flex gap={2}>
       <Button key='addButton' icon={IvyIcons.Plus} onClick={addValue} aria-label={t('label.addValue')} />
-      <Separator decorative orientation='vertical' style={{ height: '20px', margin: 0 }} />
+      <Separator decorative orientation='vertical' className='m-0! h-5!' />
       <Button
         key='deleteButton'
         icon={IvyIcons.Trash}

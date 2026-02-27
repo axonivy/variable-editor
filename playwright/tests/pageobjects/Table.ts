@@ -133,16 +133,16 @@ export class Row {
   }
 
   async expectToHaveNoValidation() {
-    await expect(this.locator).not.toHaveClass(/variables-editor-row-error/);
-    await expect(this.locator).not.toHaveClass(/variables-editor-row-warning/);
+    await expect(this.locator).not.toHaveClass(/border-warning/);
+    await expect(this.locator).not.toHaveClass(/border-editor/);
   }
 
   async expectToHaveError() {
-    await expect(this.locator).toHaveClass(/variables-editor-row-error/);
+    await expect(this.locator).toHaveClass(/border-error/);
   }
 
   async expectToHaveWarning() {
-    await expect(this.locator).toHaveClass(/variables-editor-row-warning/);
+    await expect(this.locator).toHaveClass(/border-warning/);
   }
 }
 
