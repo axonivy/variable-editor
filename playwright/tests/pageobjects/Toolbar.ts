@@ -9,7 +9,7 @@ export class Toolbar {
 
   constructor(page: Page, parent: Locator) {
     this.page = page;
-    this.locator = parent.locator('.variables-editor-main-toolbar');
+    this.locator = parent.locator('.ui-toolbar');
     this.undo = this.locator.getByRole('button', { name: 'Undo' });
     this.redo = this.locator.getByRole('button', { name: 'Redo' });
     this.detailsToggle = this.locator.getByRole('button', { name: 'Details' });

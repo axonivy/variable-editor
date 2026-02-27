@@ -186,7 +186,7 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
           options={namespaceOptions()}
         />
       </BasicField>
-      {knownVariable && <Message className='import-message' variant='warning' message={t('message.variablePresent')} />}
+      {knownVariable && <Message variant='warning' message={t('message.variablePresent')} />}
     </BasicDialogContent>
   );
 };

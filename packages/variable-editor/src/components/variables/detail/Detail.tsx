@@ -5,15 +5,15 @@ import { useHeaderTitles } from '../../../utils/useHeaderTitles';
 import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { VariablesDetailContent } from './DetailContent';
 
-export const Detail = ({ helpUrl }: { helpUrl: string }) => {
+export const Detail = ({ helpUrl, ref }: { helpUrl: string; ref: React.Ref<HTMLDivElement> }) => {
   const { detailTitle } = useHeaderTitles();
   const openUrl = useAction('openUrl');
   const { openHelp: helpText } = useKnownHotkeys();
   useHotkeys(helpText.hotkey, () => openUrl(helpUrl), { scopes: ['global'] });
 
   return (
-    <Flex direction='column' className='variables-editor-panel-content variables-editor-detail-panel'>
-      <SidebarHeader title={detailTitle} icon={IvyIcons.PenEdit} className='variables-editor-detail-header' tabIndex={-1}>
+    <Flex direction='column' className='ui-sidebar h-full'>
+      <SidebarHeader ref={ref} title={detailTitle} icon={IvyIcons.PenEdit} tabIndex={-1}>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>

@@ -30,19 +30,9 @@ export const VariablesMasterToolbar = () => {
   const firstElement = useRef<HTMLDivElement>(null);
   const hotkeys = useKnownHotkeys();
   useHotkeys(hotkeys.focusToolbar.hotkey, () => firstElement.current?.focus(), { scopes: ['global'] });
-  useHotkeys(
-    hotkeys.focusInscription.hotkey,
-    () => {
-      setDetail(true);
-      document.querySelector<HTMLElement>('.variables-editor-detail-header')?.focus();
-    },
-    {
-      scopes: ['global']
-    }
-  );
 
   return (
-    <Toolbar tabIndex={-1} ref={firstElement} className='variables-editor-main-toolbar'>
+    <Toolbar tabIndex={-1} ref={firstElement}>
       <ToolbarTitle>{mainTitle}</ToolbarTitle>
       <Flex gap={1}>
         {!readonly && <EditButtons />}
@@ -92,7 +82,7 @@ const EditButtons = () => {
             </Tooltip>
           </TooltipProvider>
         </Flex>
-        <Separator orientation='vertical' style={{ height: '26px', marginInline: 'var(--size-2)' }} />
+        <Separator orientation='vertical' className='mx-2! h-6.5!' />
       </Flex>
     </ToolbarContainer>
   );

@@ -27,7 +27,7 @@ export class VariableEditor {
   constructor(page: Page) {
     this.page = page;
     this.locator = page.locator(':root');
-    this.masterPanel = this.locator.locator('.variables-editor-main-panel');
+    this.masterPanel = this.locator.locator('#variable-editor-main');
     this.toolbar = new Toolbar(page, this.masterPanel);
     this.search = new TextArea(this.locator);
     this.tree = new Table(page, this.locator, ['label', 'label'], { virtualized: true });
@@ -64,11 +64,10 @@ export class VariableEditor {
   }
 
   private static async openUrl(page: Page, url: string) {
-    const editor = new VariableEditor(page);
     await page.goto(url);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.addStyleTag({ content: `.tsqd-parent-container { display: none; }` });
-    return editor;
+    return new VariableEditor(page);
   }
 
   async takeScreenshot(fileName: string) {

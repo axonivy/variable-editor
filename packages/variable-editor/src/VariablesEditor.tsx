@@ -1,8 +1,18 @@
-import { Flex, PanelMessage, ResizableGroup, ResizableHandle, ResizablePanel, Spinner, useHistoryData } from '@axonivy/ui-components';
+import {
+  Flex,
+  PanelMessage,
+  ResizableGroup,
+  ResizableHandle,
+  ResizablePanel,
+  Spinner,
+  useDefaultLayout,
+  useHistoryData,
+  useHotkeys
+} from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { RootVariable, Variable } from './components/variables/data/variable';
 import { toContent, toVariables } from './components/variables/data/variable-utils';
@@ -14,13 +24,14 @@ import { useClient } from './protocol/ClientContextProvider';
 import { genQueryKey } from './query/query-client';
 import type { Unary } from './utils/lambda/lambda';
 import type { TreePath } from './utils/tree/types';
-import './VariablesEditor.css';
+import { useKnownHotkeys } from './utils/useKnownHotkeys';
 
 function VariableEditor({ context, directSave }: EditorProps) {
   const { t } = useTranslation();
   const [detail, setDetail] = useState(true);
   const [selectedVariable, setSelectedVariable] = useState<TreePath>([]);
   const history = useHistoryData<Array<Variable>>();
+  const { defaultLayout, onLayoutChanged } = useDefaultLayout({ groupId: 'variable-editor-resize', storage: localStorage });
 
   const client = useClient();
   const queryClient = useQueryClient();
@@ -70,9 +81,22 @@ function VariableEditor({ context, directSave }: EditorProps) {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.validate(context) })
   });
 
+  const detailRef = useRef<HTMLDivElement>(null);
+  const hotkeys = useKnownHotkeys();
+  useHotkeys(
+    hotkeys.focusInscription.hotkey,
+    () => {
+      setDetail(true);
+      detailRef.current?.focus();
+    },
+    {
+      scopes: ['global']
+    }
+  );
+
   if (isPending) {
     return (
-      <Flex alignItems='center' justifyContent='center' style={{ width: '100%', height: '100%' }}>
+      <Flex alignItems='center' justifyContent='center' className='size-full'>
         <Spinner />
       </Flex>
     );
@@ -96,9 +120,9 @@ function VariableEditor({ context, directSave }: EditorProps) {
         history
       }}
     >
-      <ResizableGroup orientation='horizontal'>
-        <ResizablePanel defaultSize='75%' minSize='50%' className='variables-editor-main-panel'>
-          <Flex className='variables-editor-panel-content' direction='column'>
+      <ResizableGroup orientation='horizontal' defaultLayout={defaultLayout} onLayoutChanged={onLayoutChanged}>
+        <ResizablePanel id='variable-editor-main' defaultSize='75%' minSize='50%' className='bg-n75'>
+          <Flex className='h-full' direction='column'>
             <VariablesMasterToolbar />
             <VariablesMasterContent />
           </Flex>
@@ -106,8 +130,8 @@ function VariableEditor({ context, directSave }: EditorProps) {
         {detail && (
           <>
             <ResizableHandle />
-            <ResizablePanel defaultSize='25%' minSize='20%'>
-              <Detail helpUrl={data.helpUrl} />
+            <ResizablePanel id='variable-editor-detail' defaultSize='25%' minSize='20%'>
+              <Detail helpUrl={data.helpUrl} ref={detailRef} />
             </ResizablePanel>
           </>
         )}
