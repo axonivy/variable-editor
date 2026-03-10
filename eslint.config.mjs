@@ -14,5 +14,9 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname
       }
     }
+  },
+  {
+    name: 'ignore-files',
+    ignores: ['packages/protocol/src/editor.ts']
   }
 ]);
