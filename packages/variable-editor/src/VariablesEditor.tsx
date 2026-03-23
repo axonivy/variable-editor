@@ -12,7 +12,7 @@ import {
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { EditorProps, VariablesData, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { RootVariable, Variable } from './components/variables/data/variable';
 import { toContent, toVariables } from './components/variables/data/variable-utils';
@@ -30,6 +30,7 @@ function VariableEditor({ context, directSave }: EditorProps) {
   const { t } = useTranslation();
   const [detail, setDetail] = useState(true);
   const [selectedVariable, setSelectedVariable] = useState<TreePath>([]);
+  const [initialData, setInitalData] = useState<Array<Variable> | undefined>(undefined);
   const history = useHistoryData<Array<Variable>>();
   const { defaultLayout, onLayoutChanged } = useDefaultLayout({ groupId: 'variable-editor-resize', storage: localStorage });
 
@@ -50,7 +51,6 @@ function VariableEditor({ context, directSave }: EditorProps) {
     queryFn: async () => {
       const content = await client.data(context);
       const root = toVariables(content.data);
-      history.push(root.children);
       return { ...content, root };
     },
     structuralSharing: false
@@ -62,6 +62,18 @@ function VariableEditor({ context, directSave }: EditorProps) {
     initialData: [],
     enabled: isSuccess
   }).data;
+
+  useEffect(() => {
+    const dataDispose = client.onDataChanged(() => queryClient.invalidateQueries({ queryKey: queryKeys.data(context) }));
+    return () => {
+      dataDispose.dispose();
+    };
+  }, [client, context, queryClient, queryKeys]);
+
+  if (data?.root !== undefined && initialData === undefined) {
+    setInitalData(data.root.children);
+    history.push(data.root.children);
+  }
 
   const mutation = useMutation({
     mutationKey: queryKeys.saveData(context),
