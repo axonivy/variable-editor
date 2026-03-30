@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "vite/client"]
   },
   "include": ["src", "src/translation/**/*.json"],
   "references": [{ "path": "../../packages/protocol/tsconfig.json" }]
