@@ -3,6 +3,8 @@ import { VariableEditor } from '../pageobjects/VariableEditor';
 
 let editor: VariableEditor;
 
+test.describe.configure({ mode: 'serial' });
+
 test.beforeEach(async ({ page }) => {
   editor = await VariableEditor.openEngine(page, { directSave: true });
 });
