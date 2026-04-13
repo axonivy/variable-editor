@@ -29,6 +29,7 @@ export const ValidationRow = ({ row, virtualRow }: ValidationRowProps) => {
       </SelectRow>
       {row.original.validations?.map((val, index) => (
         <MessageRow
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           key={index}
           className='absolute flex h-8 w-full items-center'
           columnCount={2}

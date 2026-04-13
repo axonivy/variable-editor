@@ -95,11 +95,11 @@ export const VariablesMasterContent = () => {
   });
 
   const rows = table.getRowModel().rows;
-  const tableContainer = useRef<HTMLDivElement>(null);
+  const tableContainerRef = useRef<HTMLDivElement>(null);
   const virtualizer = useVirtualizer<HTMLDivElement, HTMLTableRowElement>({
     count: rows.length,
     estimateSize: index => rowHeight(rows[index]?.original.validations),
-    getScrollElement: () => tableContainer.current,
+    getScrollElement: () => tableContainerRef.current,
     overscan: 20
   });
   useEffect(() => virtualizer.measure(), [virtualizer, validations]);
@@ -147,8 +147,8 @@ export const VariablesMasterContent = () => {
     </Flex>
   );
   const ref = useHotkeys<HTMLDivElement>(hotkeys.deleteVar.hotkey, () => deleteVariable(), { scopes: ['global'], enabled: !readonly });
-  const firstElement = useRef<HTMLDivElement>(null);
-  useHotkeys(hotkeys.focusMain.hotkey, () => firstElement.current?.focus(), { scopes: ['global'] });
+  const firstElementRef = useRef<HTMLDivElement>(null);
+  useHotkeys(hotkeys.focusMain.hotkey, () => firstElementRef.current?.focus(), { scopes: ['global'] });
 
   if (variables === undefined || variables.length === 0) {
     return (
@@ -175,14 +175,14 @@ export const VariablesMasterContent = () => {
     <Flex direction='column' ref={ref} className='h-full overflow-auto' onClick={resetSelection}>
       <BasicField
         tabIndex={-1}
-        ref={firstElement}
+        ref={firstElementRef}
         className='m-3 min-h-0'
         label={t('label.variables')}
         control={control}
         onClick={event => event.stopPropagation()}
       >
         {globalFilter.filter}
-        <div ref={tableContainer} className='relative overflow-x-hidden'>
+        <div ref={tableContainerRef} className='relative overflow-x-hidden'>
           <Table onKeyDown={e => handleKeyDown(e, () => setDetail(!detail))} className='grid'>
             <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={resetSelection} />
             <TableBody style={{ height: `${virtualizer.getTotalSize()}px` }}>

@@ -65,8 +65,8 @@ export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<
   const nameInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const { context, variables, setVariables, setSelectedVariable } = useAppContext();
-  const [name, setName] = useState(newNodeName(table, 'NewVariable'));
-  const [namespace, setNamespace] = useState(keyOfFirstSelectedNonLeafRow(table));
+  const [name, setName] = useState(() => newNodeName(table, 'NewVariable'));
+  const [namespace, setNamespace] = useState(() =>keyOfFirstSelectedNonLeafRow(table));
   const { nameValidationMessage, namespaceValidationMessage } = useValidateAddVariable(name, trimNamespace(namespace), variables);
   const [knownVariable, setKnownVariable] = useState<KnownVariables>();
 

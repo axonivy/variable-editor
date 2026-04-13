@@ -30,7 +30,7 @@ function VariableEditor({ context, directSave }: EditorProps) {
   const { t } = useTranslation();
   const [detail, setDetail] = useState(true);
   const [selectedVariable, setSelectedVariable] = useState<TreePath>([]);
-  const [initialData, setInitalData] = useState<Array<Variable> | undefined>(undefined);
+  const [initialData, setInitialData] = useState<Array<Variable> | undefined>(undefined);
   const history = useHistoryData<Array<Variable>>();
   const { defaultLayout, onLayoutChanged } = useDefaultLayout({ groupId: 'variable-editor-resize', storage: localStorage });
 
@@ -71,7 +71,7 @@ function VariableEditor({ context, directSave }: EditorProps) {
   }, [client, context, queryClient, queryKeys]);
 
   if (data?.root !== undefined && initialData === undefined) {
-    setInitalData(data.root.children);
+    setInitialData(data.root.children);
     history.push(data.root.children);
   }
 
