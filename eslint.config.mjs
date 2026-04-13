@@ -4,7 +4,7 @@ import { defineConfig } from 'eslint/config';
 export default defineConfig([
   ...config.base,
   ...config.i18n,
-  ...config.tailwind('packages/variable-editor/src/index.css'),
+  ...config.tailwind('packages/variable-editor/src/index.css', import.meta.dirname),
   // TypeScript configs
   {
     name: 'typescript-eslint',

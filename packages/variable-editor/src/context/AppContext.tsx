@@ -1,6 +1,6 @@
 import type { useHistoryData } from '@axonivy/ui-components';
 import type { ValidationMessages, VariablesEditorDataContext } from '@axonivy/variable-editor-protocol';
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 import type { Variable } from '../components/variables/data/variable';
 import type { UpdateConsumer } from '../utils/lambda/lambda';
 import type { TreePath } from '../utils/tree/types';
@@ -17,7 +17,7 @@ type AppContext = {
   history: ReturnType<typeof useHistoryData<Array<Variable>>>;
 };
 
-const appContext = createContext<AppContext>({
+const AppContext = createContext<AppContext>({
   variables: [],
   setVariables: () => {},
   selectedVariable: [],
@@ -29,10 +29,10 @@ const appContext = createContext<AppContext>({
   history: { push: () => {}, undo: () => {}, redo: () => {}, canUndo: false, canRedo: false }
 });
 
-export const AppProvider = appContext.Provider;
+export const AppProvider = AppContext.Provider;
 
 export const useAppContext = (): AppContext & { setUnhistorisedVariables: UpdateConsumer<Array<Variable>> } => {
-  const context = useContext(appContext);
+  const context = use(AppContext);
   return {
     ...context,
     setVariables: updateVars => {
