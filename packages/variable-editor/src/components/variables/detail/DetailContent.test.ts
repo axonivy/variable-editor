@@ -53,9 +53,9 @@ test('messageDataOfProperty', () => {
 });
 
 const validations = [
-  { message: 'message0', property: 'property0', severity: 'INFO' },
-  { message: 'message1', property: 'property1', severity: 'INFO' },
-  { message: 'message2', property: 'property1', severity: 'WARNING' },
-  { message: 'message3', property: 'property2', severity: 'ERROR' },
-  { message: 'message4', property: 'property2', severity: 'INFO' }
+  { message: 'message0', path: 'something.property0', severity: 'INFO' },
+  { message: 'message1', path: 'something.else.property1', severity: 'INFO' },
+  { message: 'message2', path: 'wow.property1', severity: 'WARNING' },
+  { message: 'message3', path: 'wow.another.property2', severity: 'ERROR' },
+  { message: 'message4', path: 'cool.property2', severity: 'INFO' }
 ] as ValidationMessages;

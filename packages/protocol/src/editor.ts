@@ -10,10 +10,10 @@ export type Severity = ("INFO" | "WARNING" | "ERROR")
 export interface Variables {
   editorFileContent: EditorFileContent;
   knownVariables: KnownVariables;
+  validationResult: ValidationResult[];
   variablesData: VariablesData;
   variablesEditorDataContext: VariablesEditorDataContext;
   variablesSaveDataArgs: VariablesSaveDataArgs;
-  variablesValidationResult: VariablesValidationResult[];
   [k: string]: unknown;
 }
 export interface EditorFileContent {
@@ -38,6 +38,11 @@ export interface EnumMetaData {
   type: "enum";
   values: string[];
 }
+export interface ValidationResult {
+  message: string;
+  path: string;
+  severity: Severity;
+}
 export interface VariablesData {
   context: VariablesEditorDataContext;
   data: string;
@@ -51,10 +56,4 @@ export interface VariablesEditorDataContext {
 export interface VariablesSaveDataArgs {
   context: VariablesEditorDataContext;
   data: string;
-}
-export interface VariablesValidationResult {
-  message: string;
-  path: string;
-  property: string;
-  severity: Severity;
 }
