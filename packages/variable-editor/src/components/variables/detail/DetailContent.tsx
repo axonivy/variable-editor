@@ -30,7 +30,7 @@ export const useOverwrites = (key: Array<string>) => {
 };
 
 export const messageDataOfProperty = (validations: ValidationMessages, property: string): MessageData | undefined => {
-  const validationMatches = validations.filter(val => val.property === property);
+  const validationMatches = validations.filter(val => val.path.split('.').pop() === property);
   if (validationMatches.length === 0) {
     return undefined;
   }

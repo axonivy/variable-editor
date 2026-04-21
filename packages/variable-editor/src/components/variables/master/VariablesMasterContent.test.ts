@@ -39,10 +39,10 @@ test('variablesWithValidations', () => {
     }
   ];
   const validations = [
-    { message: 'Validation 0', path: 'name0' },
-    { message: 'Validation 1a', path: 'name1' },
-    { message: 'Validation 1b', path: 'name1' },
-    { message: 'Validation 10', path: 'name1.name10' }
+    { message: 'Validation 0', path: 'name0.key' },
+    { message: 'Validation 1a', path: 'name1.key' },
+    { message: 'Validation 1b', path: 'name1.key' },
+    { message: 'Validation 10', path: 'name1.name10.key' }
   ] as ValidationMessages;
   const variables = variablesWithValidations(originalVariables, validations);
   expect(variables[0]?.validations).toEqual([validations[0]]);

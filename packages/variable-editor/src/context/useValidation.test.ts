@@ -21,9 +21,9 @@ const variables = [
 ] as Array<Variable>;
 
 const validations = [
-  { message: 'message0', path: 'Amazon', severity: 'INFO' },
-  { message: 'message1', path: 'Amazon.Comprehend', severity: 'INFO' },
-  { message: 'message2', path: 'Amazon.Comprehend', severity: 'WARNING' },
-  { message: 'message3', path: 'Amazon.Comprehend', severity: 'ERROR' },
-  { message: 'message4', path: 'Amazon.Comprehend.AccessKey', severity: 'INFO' }
+  { message: 'message0', path: 'Amazon.key', severity: 'INFO' },
+  { message: 'message1', path: 'Amazon.Comprehend.key', severity: 'INFO' },
+  { message: 'message2', path: 'Amazon.Comprehend.key', severity: 'WARNING' },
+  { message: 'message3', path: 'Amazon.Comprehend.key', severity: 'ERROR' },
+  { message: 'message4', path: 'Amazon.Comprehend.AccessKey.key', severity: 'INFO' }
 ] as ValidationMessages;

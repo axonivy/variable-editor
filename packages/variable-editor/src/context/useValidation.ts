@@ -8,5 +8,5 @@ export function useValidations(path: TreePath): ValidationMessages {
   const key = getNodesOnPath(variables, path)
     .map(variable => variable?.name)
     .join('.');
-  return validations.filter(val => val.path === key);
+  return validations.filter(val => val.path.split('.').slice(0, -1).join('.') === key);
 }

@@ -95,32 +95,27 @@ export const virtualizedVariables = `
 export const validations: ValidationMessages = [
   {
     message: 'Invalid key',
-    path: 'invalidKey',
-    property: 'key',
+    path: 'invalidKey.key',
     severity: 'WARNING'
   },
   {
     message: 'Invalid variable 0 key',
-    path: 'invalidKey.invalidVariable0',
-    property: 'key',
+    path: 'invalidKey.invalidVariable0.key',
     severity: 'INFO'
   },
   {
     message: 'Invalid variable 0 value warning',
-    path: 'invalidKey.invalidVariable0',
-    property: 'value',
+    path: 'invalidKey.invalidVariable0.value',
     severity: 'WARNING'
   },
   {
     message: 'Invalid variable 0 value error',
-    path: 'invalidKey.invalidVariable0',
-    property: 'value',
+    path: 'invalidKey.invalidVariable0.value',
     severity: 'ERROR'
   },
   {
     message: 'Invalid variable 1 value',
-    path: 'invalidKey.invalidVariable1',
-    property: 'value',
+    path: 'invalidKey.invalidVariable1.value',
     severity: 'INFO'
   }
 ];

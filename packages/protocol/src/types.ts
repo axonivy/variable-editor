@@ -2,16 +2,16 @@
 import type {
   EditorFileContent,
   KnownVariables,
+  ValidationResult,
   VariablesData,
   VariablesEditorDataContext,
-  VariablesSaveDataArgs,
-  VariablesValidationResult
+  VariablesSaveDataArgs
 } from './editor';
 
 export type EditorProps = { context: VariablesEditorDataContext; directSave?: boolean };
 export type SaveArgs = VariablesSaveDataArgs & { directSave?: boolean };
 
-export type ValidationMessages = Array<VariablesValidationResult>;
+export type ValidationMessages = Array<ValidationResult>;
 
 export interface MetaRequestTypes {
   'meta/knownVariables': [VariablesEditorDataContext, KnownVariables];
