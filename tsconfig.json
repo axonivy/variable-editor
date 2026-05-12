@@ -5,8 +5,8 @@
     "noEmit": true
   },
   "references": [
-    { "path": "integrations/standalone/tsconfig.json" },
+    { "path": "packages/protocol/tsconfig.json" },
     { "path": "packages/variable-editor/tsconfig.json" },
-    { "path": "packages/protocol/tsconfig.json" }
+    { "path": "integrations/standalone/tsconfig.json" }
   ]
 }

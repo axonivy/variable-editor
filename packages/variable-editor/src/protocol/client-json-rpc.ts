@@ -10,6 +10,7 @@ import {
 import type {
   Client,
   VariablesData,
+  Event,
   VariablesEditorDataContext,
   MetaRequestTypes,
   NotificationTypes,
@@ -21,7 +22,7 @@ import type {
 
 export class ClientJsonRpc extends BaseRpcClient implements Client {
   protected onDataChangedEmitter = new Emitter<void>();
-  onDataChanged = this.onDataChangedEmitter.event;
+  onDataChanged: Event<void> = this.onDataChangedEmitter.event;
   protected override setupConnection(): void {
     super.setupConnection();
     this.toDispose.push(this.onDataChangedEmitter);
