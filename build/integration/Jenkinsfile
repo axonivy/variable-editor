@@ -52,7 +52,7 @@ pipeline {
                 curl -o schema.zip ${devSchema}
                 unzip -j schema.zip
                 mv $PWD/variables-tsgen.json $PWD/variables.json
-                pnpm run protocol generate $PWD/variables.json
+                pnpm run generate $PWD/variables.json
 
                 pnpm run build && pnpm run lint:ci
               '''
