@@ -42,6 +42,7 @@ function VariableEditor(props: EditorProps) {
     setDirectSave(props.directSave);
   }, [props]);
   const [selectedVariable, setSelectedVariable] = useState<TreePath>([]);
+  const [initialData, setInitialData] = useState<Array<Variable> | undefined>(undefined);
   const history = useHistoryData<Array<Variable>>();
 
   const client = useClient();
@@ -61,7 +62,6 @@ function VariableEditor(props: EditorProps) {
     queryFn: async () => {
       const content = await client.data(context);
       const root = toVariables(content.data);
-      history.push(root.children);
       return { ...content, root };
     },
     structuralSharing: false
@@ -73,6 +73,11 @@ function VariableEditor(props: EditorProps) {
     initialData: [],
     enabled: isSuccess
   }).data;
+
+  if (data?.root !== undefined && initialData === undefined) {
+    setInitialData(data.root.children);
+    history.push(data.root.children);
+  }
 
   const mutation = useMutation({
     mutationKey: queryKeys.saveData(context),
