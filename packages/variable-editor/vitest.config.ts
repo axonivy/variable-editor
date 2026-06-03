@@ -11,7 +11,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     css: false,
-    reporters: process.env.CI ? ['basic', 'junit'] : ['default'],
+    reporters: process.env.CI ? ['default', 'junit'] : ['default'],
     outputFile: 'report.xml'
   }
 });
