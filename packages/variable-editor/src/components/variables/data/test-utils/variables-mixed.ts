@@ -31,7 +31,7 @@ export const contentMixed = `Variables:
     # this property specifies the library used to create and manage HTTP connections for Jersey client. 
     # it sets the connection provider class for the Jersey client.
     # while the default provider works well for most methods, if you specifically need to use the PATCH method, consider switching the provider to:
-    #   org.glassfish.jersey.apache.connector.ApacheConnectorProvider
+    #   org.glassfish.jersey.apache5.connector.Apache5ConnectorProvider
     connectorProvider: org.glassfish.jersey.client.HttpUrlConnectorProvider
 `;
 
@@ -120,7 +120,7 @@ export const rootVariableMixed: RootVariable = {
           name: 'connectorProvider',
           value: 'org.glassfish.jersey.client.HttpUrlConnectorProvider',
           description:
-            'this property specifies the library used to create and manage HTTP connections for Jersey client. \nit sets the connection provider class for the Jersey client.\nwhile the default provider works well for most methods, if you specifically need to use the PATCH method, consider switching the provider to:\n  org.glassfish.jersey.apache.connector.ApacheConnectorProvider',
+            'this property specifies the library used to create and manage HTTP connections for Jersey client. \nit sets the connection provider class for the Jersey client.\nwhile the default provider works well for most methods, if you specifically need to use the PATCH method, consider switching the provider to:\n  org.glassfish.jersey.apache5.connector.Apache5ConnectorProvider',
           metadata: { type: '' },
           children: []
         }
