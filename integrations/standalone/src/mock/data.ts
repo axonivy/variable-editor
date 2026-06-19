@@ -32,7 +32,7 @@ export const variables: VariablesData = {
     # This property specifies the library used to create and manage HTTP connections for Jersey client. 
     # It sets the connection provider class for the Jersey client.
     # While the default provider works well for most methods, if you specifically need to use the PATCH method, consider switching the provider to:
-    #   org.glassfish.jersey.apache.connector.ApacheConnectorProvider
+    #   org.glassfish.jersey.apache5.connector.Apache5ConnectorProvider
     ConnectorProvider: org.glassfish.jersey.client.HttpUrlConnectorProvider
   `,
   helpUrl: 'https://dev.axonivy.com'
