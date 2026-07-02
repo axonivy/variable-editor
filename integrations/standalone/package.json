@@ -1,7 +1,7 @@
 {
   "name": "@axonivy/variable-editor-standalone",
   "private": true,
-  "version": "12.0.16-next",
+  "version": "12.0.17-next",
   "dependencies": {
     "@axonivy/jsonrpc": "next-12.0.16",
     "@axonivy/ui-components": "next-12.0.16",
