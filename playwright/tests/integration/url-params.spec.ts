@@ -2,14 +2,14 @@ import { expect, test } from '@playwright/test';
 import { VariableEditor } from '../pageobjects/VariableEditor';
 
 test('normal', async ({ page }) => {
-  const editor = await VariableEditor.openEngine(page);
+  const editor = await VariableEditor.openVariables(page);
   await expect(editor.add.open.locator).toBeVisible();
   await expect(editor.overwrite.overwrite.locator).toBeVisible();
   await expect(editor.delete.locator).toBeVisible();
 });
 
 test('readonly', async ({ page }) => {
-  const editor = await VariableEditor.openEngine(page, { readonly: true });
+  const editor = await VariableEditor.openVariables(page, { readonly: true });
   await expect(editor.add.open.locator).toBeHidden();
   await page.keyboard.press('a');
   await expect(editor.add.dialog).toBeHidden();
