@@ -23,7 +23,7 @@ const AppContext = createContext<AppContext>({
   selectedVariable: [],
   setSelectedVariable: () => {},
   validations: [],
-  context: { app: '', pmv: '', file: '' },
+  context: { app: '', project: '', file: '' },
   detail: true,
   setDetail: () => {},
   history: { push: () => {}, undo: () => {}, redo: () => {}, canUndo: false, canRedo: false }
