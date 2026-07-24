@@ -1,7 +1,7 @@
 import type { ValidationMessages, VariablesData } from '@axonivy/variable-editor-protocol';
 
 export const variables: VariablesData = {
-  context: { app: '', pmv: '', file: '' },
+  context: { app: '', project: '', file: '' },
   data: `Variables:
   MicrosoftConnector:
     # Your Azure Application (client) ID
