@@ -5,7 +5,7 @@ import { getNode } from './tree/tree-data';
 export const useHeaderTitles = () => {
   const { context, variables, selectedVariable } = useAppContext();
   const { t } = useTranslation();
-  const mainTitle = t('title.main', { name: context.pmv });
+  const mainTitle = t('title.main', { name: context.project });
   let detailTitle = mainTitle;
   const variable = getNode(variables, selectedVariable);
   if (variable) {

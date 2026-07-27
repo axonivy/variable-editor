@@ -32,10 +32,10 @@ export interface MetaData {
 }
 export interface FileMetaData {
   extension: string;
-  type: "file";
+  type: 'file';
 }
 export interface EnumMetaData {
-  type: "enum";
+  type: 'enum';
   values: string[];
 }
 export interface ValidationResult {
@@ -51,7 +51,7 @@ export interface VariablesData {
 export interface VariablesEditorDataContext {
   app: string;
   file: string;
-  pmv: string;
+  project: string;
 }
 export interface VariablesSaveDataArgs {
   context: VariablesEditorDataContext;

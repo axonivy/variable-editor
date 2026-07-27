@@ -24,7 +24,7 @@ root.render(
         <QueryProvider client={queryClient}>
           <ReadonlyProvider readonly={readonly}>
             <HotkeysProvider initiallyActiveScopes={['global']}>
-              <VariableEditor context={{ app: '', pmv: 'project-name', file: '' }} />
+              <VariableEditor context={{ app: '', project: 'project-name', file: '' }} />
             </HotkeysProvider>
           </ReadonlyProvider>
         </QueryProvider>

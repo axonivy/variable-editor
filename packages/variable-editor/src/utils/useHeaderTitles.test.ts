@@ -10,7 +10,7 @@ test('empty', () => {
 });
 
 test('project', () => {
-  const context = { pmv: 'test-project' } as VariablesEditorDataContext;
+  const context = { project: 'test-project' } as VariablesEditorDataContext;
   const { result } = customRenderHook(() => useHeaderTitles(), { wrapperProps: { appContext: { context } } });
   expect(result.current.mainTitle).toEqual('Variables - test-project');
   expect(result.current.detailTitle).toEqual('Variables - test-project');

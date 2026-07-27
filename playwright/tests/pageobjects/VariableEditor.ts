@@ -12,7 +12,7 @@ export const server = process.env.BASE_URL ?? 'http://localhost:8080/';
 const user = 'Developer';
 const ws = process.env.TEST_WS ?? '~Developer-variables-test-project';
 const app = process.env.TEST_APP ?? 'Developer-variables-test-project';
-const pmv = 'variables-test-project';
+const project = 'variables-test-project';
 
 const tmpDir = '/tmp';
 
@@ -41,13 +41,13 @@ export class VariableEditor {
     this.details = new Details(this.page, this.locator);
   }
 
-  static async openVariables(page: Page, options: { app?: string; pmv?: string; readonly?: boolean } = {}) {
+  static async openVariables(page: Page, options: { app?: string; project?: string; readonly?: boolean } = {}) {
     const serverUrl = server.replace(/^https?:\/\//, '');
     if (!options.app) {
       options.app = app;
     }
-    if (!options.pmv) {
-      options.pmv = pmv;
+    if (!options.project) {
+      options.project = project;
     }
     const url = `?server=${serverUrl}${ws}&file=config/variables.yaml${this.params(options)}`;
     return this.openUrl(page, url);
@@ -72,7 +72,7 @@ export class VariableEditor {
     if (!result.ok) {
       throw Error(`Failed to create project: ${result.status}`);
     }
-    return await this.openVariables(page, { app, pmv: name, ...options });
+    return await this.openVariables(page, { app, project: name, ...options });
   }
 
   static async openMock(page: Page, options?: { virtualize?: boolean; lng?: string }) {
