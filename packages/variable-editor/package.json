@@ -18,7 +18,7 @@
   "main": "lib/editor.js",
   "dependencies": {
     "@axonivy/variable-editor-protocol": "workspace:~",
-    "@tanstack/react-virtual": "^3.14.8",
+    "@tanstack/react-virtual": "^3.14.9",
     "yaml": "^2.9.0"
   },
   "peerDependencies": {
