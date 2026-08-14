@@ -13,8 +13,8 @@ export default defineConfig({
   server: { port: 3001 },
   resolve: {
     alias: {
-      '@axonivy/variable-editor': resolve(__dirname, '../../packages/variable-editor/src'),
-      '@axonivy/variable-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
+      '@axonivy/variable-editor': resolve(import.meta.dirname, '../../packages/variable-editor/src'),
+      '@axonivy/variable-editor-protocol': resolve(import.meta.dirname, '../../packages/protocol/src')
     }
   },
   base: './'
