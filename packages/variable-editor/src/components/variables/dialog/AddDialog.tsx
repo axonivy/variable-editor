@@ -15,7 +15,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
   useDialogHotkeys,
-  useHotkeys
+  useHotkeys,
+  type DataTableFeatures
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { EMPTY_KNOWN_VARIABLES, type KnownVariables } from '@axonivy/variable-editor-protocol';
@@ -34,7 +35,7 @@ import { trimNamespace } from './trim-namespace';
 import { useValidateAddVariable } from './useValidateAddVariable';
 
 type AddVariableDialogProps = {
-  table: Table<Variable>;
+  table: Table<DataTableFeatures, Variable>;
   children: ReactNode;
 };
 
@@ -61,7 +62,7 @@ export const AddVariableDialog = ({ table, children }: AddVariableDialogProps) =
   );
 };
 
-export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<Variable>; closeDialog: () => void }) => {
+export const AddVariableDialogContent = ({ table, closeDialog }: { table: Table<DataTableFeatures, Variable>; closeDialog: () => void }) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const { context, variables, setVariables, setSelectedVariable } = useAppContext();

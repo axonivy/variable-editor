@@ -1,11 +1,10 @@
-import { selectRow, useTableGlobalFilter } from '@axonivy/ui-components';
+import { selectRow, type DataTableFeatures } from '@axonivy/ui-components';
 import type { Row, Table } from '@tanstack/react-table';
-import { useTranslation } from 'react-i18next';
 import { getNode, getNodesOnPath, removeNode } from './tree-data';
 import type { DeleteFirstSelectedRowReturnType, TreeNode, TreePath } from './types';
 
 export const deleteFirstSelectedRow = <TNode extends TreeNode<TNode>>(
-  table: Table<TNode>,
+  table: Table<DataTableFeatures, TNode>,
   data: Array<TNode>
 ): DeleteFirstSelectedRowReturnType<TNode> => {
   const selectedRow = table.getSelectedRowModel().flatRows[0];
@@ -19,21 +18,25 @@ export const deleteFirstSelectedRow = <TNode extends TreeNode<TNode>>(
   return { newData: newData, selectedPath: selectedVariablePath };
 };
 
-export const getPathOfRow = <TNode extends TreeNode<TNode>>(row?: Row<TNode>) => {
+export const getPathOfRow = <TNode extends TreeNode<TNode>>(row?: Row<DataTableFeatures, TNode>) => {
   if (!row) {
     return [];
   }
   return toTreePath(row.id);
 };
 
-const getPathOfParentRow = <TNode extends TreeNode<TNode>>(row?: Row<TNode>) => {
+const getPathOfParentRow = <TNode extends TreeNode<TNode>>(row?: Row<DataTableFeatures, TNode>) => {
   if (!row || !row.parentId) {
     return [];
   }
   return toTreePath(row.parentId);
 };
 
-const adjustSelectionAfterDeletionOfRow = <TNode extends TreeNode<TNode>>(data: Array<TNode>, table: Table<TNode>, row: Row<TNode>) => {
+const adjustSelectionAfterDeletionOfRow = <TNode extends TreeNode<TNode>>(
+  data: Array<TNode>,
+  table: Table<DataTableFeatures, TNode>,
+  row: Row<DataTableFeatures, TNode>
+) => {
   const parentPath = getPathOfParentRow(row);
   const parentNode = getNode(data, parentPath);
   const children = parentNode ? parentNode.children : data;
@@ -69,14 +72,6 @@ export const toRowId = (path: TreePath) => {
   return path.join('.');
 };
 
-export const useTreeGlobalFilter = <TNode extends TreeNode<TNode>>(data: Array<TNode>) => {
-  const { t } = useTranslation();
-  const globalFilter = useTableGlobalFilter({ searchPlaceholder: t('common.label.search') });
-  const globalFilterFn = (row: Row<TNode>, _columnId: string, filterValue: string) =>
-    treeGlobalFilter(data, toTreePath(row.id), filterValue);
-  return { ...globalFilter, options: { ...globalFilter.options, globalFilterFn: globalFilterFn, filterFromLeafRows: true } };
-};
-
 export const treeGlobalFilter = <TNode extends TreeNode<TNode>>(data: Array<TNode>, path: TreePath, filterValue: string) => {
   filterValue = filterValue.toLowerCase();
   const nodesOnPath = getNodesOnPath(data, path);
@@ -92,7 +87,7 @@ export const treeGlobalFilter = <TNode extends TreeNode<TNode>>(data: Array<TNod
   return false;
 };
 
-export const newNodeName = <TNode extends TreeNode<TNode>>(table: Table<TNode>, baseName: string) => {
+export const newNodeName = <TNode extends TreeNode<TNode>>(table: Table<DataTableFeatures, TNode>, baseName: string) => {
   const takenNames = subRowsOfFirstSelectedNonLeafRow(table).map(row => row.original.name);
   let newName = baseName;
   let index = 2;
@@ -103,7 +98,7 @@ export const newNodeName = <TNode extends TreeNode<TNode>>(table: Table<TNode>, 
   return newName;
 };
 
-const subRowsOfFirstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: Table<TNode>) => {
+const subRowsOfFirstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: Table<DataTableFeatures, TNode>) => {
   const row = firstSelectedNonLeafRow(table);
   if (!row) {
     return table.getRowModel().rows;
@@ -111,7 +106,7 @@ const subRowsOfFirstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: 
   return row.subRows;
 };
 
-export const keyOfFirstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: Table<TNode>) => {
+export const keyOfFirstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: Table<DataTableFeatures, TNode>) => {
   const row = firstSelectedNonLeafRow(table);
   if (!row) {
     return '';
@@ -119,7 +114,7 @@ export const keyOfFirstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(tabl
   return keyOfRow(row);
 };
 
-const firstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: Table<TNode>) => {
+const firstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: Table<DataTableFeatures, TNode>) => {
   const selectedRow = table.getSelectedRowModel().flatRows[0];
   if (!selectedRow) {
     return;
@@ -135,15 +130,15 @@ const firstSelectedNonLeafRow = <TNode extends TreeNode<TNode>>(table: Table<TNo
   return parentRow;
 };
 
-export const keysOfAllNonLeafRows = <TNode extends TreeNode<TNode>>(table: Table<TNode>) => {
+export const keysOfAllNonLeafRows = <TNode extends TreeNode<TNode>>(table: Table<DataTableFeatures, TNode>) => {
   return table.getRowModel().flatRows.filter(hasChildren).map(keyOfRow);
 };
 
-const hasChildren = <TNode extends TreeNode<TNode>>(row: Row<TNode>) => {
+const hasChildren = <TNode extends TreeNode<TNode>>(row: Row<DataTableFeatures, TNode>) => {
   return row.subRows.length !== 0;
 };
 
-export const keyOfRow = <TNode extends TreeNode<TNode>>(row: Row<TNode>) => {
+export const keyOfRow = <TNode extends TreeNode<TNode>>(row: Row<DataTableFeatures, TNode>) => {
   const parentKey = keyOfParentRows(row);
   if (parentKey !== '') {
     return parentKey + '.' + row.original.name;
@@ -151,18 +146,18 @@ export const keyOfRow = <TNode extends TreeNode<TNode>>(row: Row<TNode>) => {
   return row.original.name;
 };
 
-const keyOfParentRows = <TNode extends TreeNode<TNode>>(row: Row<TNode>) => {
+const keyOfParentRows = <TNode extends TreeNode<TNode>>(row: Row<DataTableFeatures, TNode>) => {
   return row
     .getParentRows()
     .map(parentRow => parentRow.original.name)
     .join('.');
 };
 
-export const subRowNamesOfRow = <TNode extends TreeNode<TNode>>(key: string, table: Table<TNode>) => {
+export const subRowNamesOfRow = <TNode extends TreeNode<TNode>>(key: string, table: Table<DataTableFeatures, TNode>) => {
   return subRowsOfRow(key, table).map(row => row.original.name);
 };
 
-const subRowsOfRow = <TNode extends TreeNode<TNode>>(key: string, table: Table<TNode>) => {
+const subRowsOfRow = <TNode extends TreeNode<TNode>>(key: string, table: Table<DataTableFeatures, TNode>) => {
   let currentSubRows = table.getCoreRowModel().rows;
   if (key === '') {
     return currentSubRows;

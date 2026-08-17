@@ -1,5 +1,14 @@
-import type { RowSelectionState, Updater } from '@tanstack/react-table';
-import { createTable, getCoreRowModel } from '@tanstack/react-table';
+import { dataTreeHelper } from '@axonivy/ui-components';
+import { useTable } from '@tanstack/react-table';
+import { renderHook } from '@testing-library/react';
+
+type TestNode = {
+  name: string;
+  value: string;
+  children: Array<TestNode>;
+};
+
+const { tableOptions } = dataTreeHelper<TestNode>();
 
 export const setupData = () => {
   return [
@@ -27,20 +36,14 @@ export const setupData = () => {
 
 export const setupTable = () => {
   const data = setupData();
-  const onRowSelectionChangeValues: Array<Updater<RowSelectionState>> = [];
-  const table = createTable({
-    columns: [],
-    data: data,
-    getCoreRowModel: getCoreRowModel(),
-    onStateChange: () => {},
-    onRowSelectionChange: (value: Updater<RowSelectionState>) => {
-      onRowSelectionChangeValues.push(value);
-    },
-    getSubRows: row => row.children,
-    renderFallbackValue: undefined,
-    state: {}
-  });
-  return { data, table, onRowSelectionChangeValues };
+  const { result } = renderHook(() =>
+    useTable({
+      ...tableOptions,
+      columns: [],
+      data
+    })
+  );
+  return { data, table: result.current };
 };
 
 export const setupSearchData = () => {
