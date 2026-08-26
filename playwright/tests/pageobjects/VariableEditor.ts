@@ -55,7 +55,7 @@ export class VariableEditor {
 
   static async openNewVariables(page: Page, options: { directSave?: boolean }) {
     const name = 'project' + randomUUID().replaceAll('-', '');
-    const result = await fetch(`${server}${ws}/api/web-ide/project/new`, {
+    const result = await fetch(`${server}designer/api/web-ide/project/new`, {
       method: 'POST',
       headers: {
         'X-Requested-By': 'variables-editor-tests',
@@ -63,6 +63,7 @@ export class VariableEditor {
         Authorization: 'Basic ' + Buffer.from(user + ':' + user).toString('base64')
       },
       body: JSON.stringify({
+        workspaceId: project,
         name,
         groupId: `variables.test.${name}`,
         projectId: `variables-test-${name}`,
