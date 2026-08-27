@@ -2,6 +2,7 @@ import {
   addRow,
   BasicField,
   Button,
+  dataTableHelper,
   deleteFirstSelectedRow,
   Flex,
   InputCell,
@@ -10,12 +11,11 @@ import {
   Table,
   TableBody,
   TableCell,
-  updateRowData,
-  useReadonly,
-  useTableSelect
+  useReadonly
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
+import { useTable } from '@tanstack/react-table';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toEnumMetadataUpdate } from '../data/metadata';
 import { type VariableUpdates } from '../data/variable';
@@ -26,43 +26,46 @@ type EnumValuesProps = {
   onChange: (updates: VariableUpdates) => void;
 };
 
+type EnumValue = { value: string };
+
+const { columnHelper, tableOptions } = dataTableHelper<EnumValue>();
+const columns = columnHelper.columns([
+  columnHelper.accessor('value', {
+    header: 'Value',
+    cell: cell => <InputCell cell={cell} />
+  })
+]);
+
 export const EnumValues = ({ selectedValue: value, values, onChange }: EnumValuesProps) => {
   const { t } = useTranslation();
-  const selection = useTableSelect<string>();
-  const columns: Array<ColumnDef<string, string>> = [
-    {
-      accessorFn: (value: string) => value,
-      header: 'Value',
-      cell: cell => <InputCell cell={cell} />
-    }
-  ];
+  const data = useMemo(() => values.map(value => ({ value })), [values]);
   const meta = {
-    updateData: (rowId: string, _columnId: string, value: string) => {
+    updateData: (rowId: string, _columnId: string, value: unknown) => {
+      if (typeof value !== 'string') {
+        return;
+      }
       if (values.includes(value)) {
         return;
       }
-      const newValues = updateRowData(values, Number(rowId), value);
-      onChange([toEnumMetadataUpdate(newValues)]);
+      const newValues = data.map((row, index) => (index === Number(rowId) ? { value } : row));
+      onChange([toEnumMetadataUpdate(newValues.map(row => row.value))]);
     }
   };
-  const table = useReactTable({
-    ...selection.options,
-    data: values,
-    columns: columns,
-    getCoreRowModel: getCoreRowModel(),
-    state: {
-      ...selection.tableState
-    },
-    meta: meta
+  const table = useTable({
+    ...tableOptions,
+    data,
+    columns,
+    meta
   });
 
   const addValue = () => {
-    const newValues = addRow(table, values, '');
-    onChange([toEnumMetadataUpdate(newValues)]);
+    const newValues = addRow(table, data, { value: '' });
+    onChange([toEnumMetadataUpdate(newValues.map(row => row.value))]);
   };
 
   const deleteValue = () => {
-    const { newData: newValues } = deleteFirstSelectedRow(table, values);
+    const { newData } = deleteFirstSelectedRow(table, data);
+    const newValues = newData.map(row => row.value);
     const updates: VariableUpdates = [toEnumMetadataUpdate(newValues)];
     if (!newValues.includes(value)) {
       updates.push({ key: 'value', value: '' });
@@ -92,7 +95,9 @@ export const EnumValues = ({ selectedValue: value, values, onChange }: EnumValue
           {table.getRowModel().rows.map(row => (
             <SelectRow key={row.id} row={row}>
               {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                <TableCell key={cell.id}>
+                  <table.FlexRender cell={cell} />
+                </TableCell>
               ))}
             </SelectRow>
           ))}

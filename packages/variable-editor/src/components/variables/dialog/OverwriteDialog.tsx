@@ -9,7 +9,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
   useDialogHotkeys,
-  useHotkeys
+  useHotkeys,
+  type DataTableFeatures
 } from '@axonivy/ui-components';
 import type { KnownVariables } from '@axonivy/variable-editor-protocol';
 import { type Table } from '@tanstack/react-table';
@@ -23,7 +24,7 @@ import { addKnownVariable } from './known-variables';
 import { VariableBrowser } from './VariableBrowser';
 
 type OverwriteVariableDialogProps = {
-  table: Table<Variable>;
+  table: Table<DataTableFeatures, Variable>;
   children: ReactNode;
 };
 

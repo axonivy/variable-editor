@@ -1,4 +1,4 @@
-import { cn, MessageRow, SelectRow, TableCell } from '@axonivy/ui-components';
+import { cn, MessageRow, SelectRow, TableCell, type DataTableFeatures } from '@axonivy/ui-components';
 import type { Severity, ValidationMessages } from '@axonivy/variable-editor-protocol';
 import { flexRender, type Row } from '@tanstack/react-table';
 import type { VirtualItem } from '@tanstack/react-virtual';
@@ -6,7 +6,7 @@ import type { Variable } from '../data/variable';
 import { ROW_HEIGHT } from './VariablesMasterContent';
 
 type ValidationRowProps = {
-  row: Row<Variable>;
+  row: Row<DataTableFeatures, Variable>;
   virtualRow: VirtualItem;
 };
 

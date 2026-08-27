@@ -1,6 +1,7 @@
 import {
   BasicField,
   Button,
+  dataTreeHelper,
   ExpandableCell,
   ExpandableHeader,
   Flex,
@@ -17,18 +18,17 @@ import {
   TooltipTrigger,
   useHotkeys,
   useReadonly,
-  useTableExpand,
   useTableKeyHandler,
-  useTableSelect
+  TableGlobalFilter
 } from '@axonivy/ui-components';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ValidationMessages } from '@axonivy/variable-editor-protocol';
-import { getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
+import { useTable } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
-import { deleteFirstSelectedRow, toTreePath, useTreeGlobalFilter } from '../../../utils/tree/tree';
+import { deleteFirstSelectedRow, toTreePath, treeGlobalFilter } from '../../../utils/tree/tree';
 import { useKnownHotkeys } from '../../../utils/useKnownHotkeys';
 import { type Variable } from '../data/variable';
 import { variableIcon } from '../data/variable-utils';
@@ -38,29 +38,15 @@ import { ValidationRow } from './ValidationRow';
 
 export const ROW_HEIGHT = 32 as const;
 
+const { columnHelper, tableOptions } = dataTreeHelper<Variable>();
+
 export const VariablesMasterContent = () => {
   const { t } = useTranslation();
   const { variables: originalVariables, setVariables, setSelectedVariable, detail, setDetail, validations } = useAppContext();
   const variables = useMemo(() => variablesWithValidations(originalVariables, validations), [originalVariables, validations]);
 
-  const selection = useTableSelect<Variable>({
-    onSelect: selectedRows => {
-      const selectedRowId = Object.keys(selectedRows).find(key => selectedRows[key]);
-      if (selectedRowId === undefined) {
-        setSelectedVariable([]);
-        return;
-      }
-      const selectedVariable = table.getRowModel().flatRows.find(row => row.id === selectedRowId)?.id;
-      if (selectedVariable) {
-        setSelectedVariable(toTreePath(selectedVariable));
-      }
-    }
-  });
-  const expanded = useTableExpand<Variable>();
-  const globalFilter = useTreeGlobalFilter(variables);
-  const columns: Array<ColumnDef<Variable, string>> = [
-    {
-      accessorKey: 'name',
+  const columns = columnHelper.columns([
+    columnHelper.accessor('name', {
       header: header => <ExpandableHeader name={t('common.label.name')} header={header} />,
       cell: cell => (
         <ExpandableCell cell={cell} icon={variableIcon(cell.row.original)}>
@@ -70,29 +56,37 @@ export const VariablesMasterContent = () => {
       minSize: 200,
       size: 500,
       maxSize: 1000
-    },
-    {
-      accessorFn: (variable: Variable) => (variable.metadata.type === 'password' ? '***' : variable.value),
+    }),
+    columnHelper.accessor(variable => (variable.metadata.type === 'password' ? '***' : variable.value), {
+      id: 'value',
       header: t('common.label.value'),
       cell: cell => <span className='block truncate'>{cell.getValue()}</span>,
       minSize: 200,
       size: 500,
       maxSize: 1000
-    }
-  ];
-  const table = useReactTable({
-    ...selection.options,
-    ...expanded.options,
-    ...globalFilter.options,
+    })
+  ]);
+  const table = useTable({
+    ...tableOptions,
     data: variables,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-    state: {
-      ...selection.tableState,
-      ...expanded.tableState,
-      ...globalFilter.tableState
-    }
+    globalFilterFn: (row, _columnId, filterValue) => treeGlobalFilter(variables, toTreePath(row.id), filterValue),
+    filterFromLeafRows: true
   });
+  useEffect(() => {
+    const subscription = table.atoms.rowSelection.subscribe(selectedRows => {
+      const selectedRowId = Object.keys(selectedRows).find(key => selectedRows[key]);
+      if (selectedRowId === undefined) {
+        setSelectedVariable([]);
+        return;
+      }
+      const selectedVariable = table.getRowModel().flatRows.find(row => row.id === selectedRowId)?.id;
+      if (selectedVariable) {
+        setSelectedVariable(toTreePath(selectedVariable));
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [table, setSelectedVariable]);
 
   const rows = table.getRowModel().rows;
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -181,7 +175,7 @@ export const VariablesMasterContent = () => {
         control={control}
         onClick={event => event.stopPropagation()}
       >
-        {globalFilter.filter}
+        <TableGlobalFilter table={table} placeholder={t('common.label.search')} />
         <div ref={tableContainerRef} className='relative overflow-x-hidden'>
           <Table onKeyDown={e => handleKeyDown(e, () => setDetail(!detail))} className='grid'>
             <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={resetSelection} />
