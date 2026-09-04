@@ -56,7 +56,17 @@ const deployProjects = async (engineUrl: string, workspaceId: string, projectPat
   console.info(`Deployed project '${projectPath}' [${deployResponse.status}]`);
 };
 
+const isScreenshotRun = () => {
+  const args = process.argv;
+  return args.includes('--project=screenshots') || args.some((arg, index) => arg === '--project' && args[index + 1] === 'screenshots');
+};
+
 const setup = async () => {
+  if (isScreenshotRun()) {
+    console.info('Skipping workspace setup for screenshot tests');
+    return;
+  }
+
   const engineUrl = process.env.BASE_URL ?? 'http://localhost:8080';
   const workspacePath = path.resolve(import.meta.dirname, '..');
   console.info(`Setting up workspace '${workspaceName}' in '${workspacePath}'`);
