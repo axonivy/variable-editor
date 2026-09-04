@@ -10,7 +10,7 @@ import { Toolbar } from './Toolbar';
 
 export const server = process.env.BASE_URL ?? 'http://localhost:8080/';
 const user = 'Developer';
-const ws = process.env.TEST_WS ?? '~Developer-variables-test-project';
+const ws = '~Developer-variables-test-project';
 const app = process.env.TEST_APP ?? 'Developer-variables-test-project';
 const project = 'variables-test-project';
 
