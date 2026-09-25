@@ -3,9 +3,9 @@
   "private": true,
   "version": "14.0.1-next",
   "dependencies": {
-    "@axonivy/jsonrpc": "next-14.0.0",
-    "@axonivy/ui-components": "next-14.0.0",
-    "@axonivy/ui-icons": "next-14.0.0",
+    "@axonivy/jsonrpc": "next-14.0.1",
+    "@axonivy/ui-components": "next-14.0.1",
+    "@axonivy/ui-icons": "next-14.0.1",
     "@axonivy/variable-editor": "workspace:~",
     "@axonivy/variable-editor-protocol": "workspace:~",
     "@tanstack/react-query": "^5.101.4",
