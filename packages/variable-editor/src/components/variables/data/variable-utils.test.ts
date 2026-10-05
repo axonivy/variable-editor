@@ -26,6 +26,8 @@ import {
 import type { Variable } from './variable';
 import { nodeIcon, toContent, toVariables, variableIcon } from './variable-utils';
 
+const contentWithQuotedDaytime = contentWithMetadata.replace('daytimeKey: 12:00', 'daytimeKey: "12:00"');
+
 describe('toVariables', () => {
   test('default', () => {
     expect(toVariables(content)).toEqual(rootVariable);
@@ -100,7 +102,11 @@ describe('toContent', () => {
   });
 
   test('metadata', () => {
-    expect(toContent(rootVariableWithMetadata)).toEqual(contentWithMetadata);
+    expect(toContent(rootVariableWithMetadata)).toEqual(contentWithQuotedDaytime);
+  });
+
+  test('daytime values are saved as quoted strings', () => {
+    expect(toContent(toVariables(contentWithMetadata))).toEqual(contentWithQuotedDaytime);
   });
 
   test('mixed', () => {

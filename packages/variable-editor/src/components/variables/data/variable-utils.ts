@@ -217,6 +217,9 @@ const parseVariable = (variable: Variable) => {
   let variableValue;
   if (variable.children.length === 0) {
     variableValue = new Scalar(variable.value);
+    if (variable.metadata.type === 'daytime') {
+      variableValue.type = 'QUOTE_DOUBLE';
+    }
   } else {
     variableValue = parseVariables(variable.children);
   }
