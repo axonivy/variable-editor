@@ -5,7 +5,7 @@ export const contentWithMetadata = `Variables:
   # [password]
   passwordKey: passwordValue
   # [daytime]
-  daytimeKey: 12:00
+  daytimeKey: "08:00"
   # [enum: value0, value1, value2]
   enumKey: value1
   # [file: json]
@@ -28,7 +28,7 @@ export const rootVariableWithMetadata: RootVariable = {
     },
     {
       name: 'daytimeKey',
-      value: '12:00',
+      value: '08:00',
       description: '',
       metadata: { type: 'daytime' },
       children: []
