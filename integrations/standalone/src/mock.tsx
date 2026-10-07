@@ -1,5 +1,7 @@
 import { HotkeysProvider, ReadonlyProvider, ThemeProvider } from '@axonivy/ui-components';
-import { ClientContextProvider, QueryProvider, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
+import { ClientContextProvider, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { initTranslation } from './i18n';
@@ -21,13 +23,14 @@ root.render(
   <React.StrictMode>
     <ThemeProvider defaultTheme={'light'}>
       <ClientContextProvider client={client}>
-        <QueryProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
           <ReadonlyProvider readonly={readonly}>
             <HotkeysProvider initiallyActiveScopes={['global']}>
               <VariableEditor context={{ app: '', project: 'project-name', file: '' }} />
             </HotkeysProvider>
           </ReadonlyProvider>
-        </QueryProvider>
+          <ReactQueryDevtools initialIsOpen={false} buttonPosition={'bottom-left'} />
+        </QueryClientProvider>
       </ClientContextProvider>
     </ThemeProvider>
   </React.StrictMode>
