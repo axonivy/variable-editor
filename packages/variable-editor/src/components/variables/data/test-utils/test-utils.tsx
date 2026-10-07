@@ -7,7 +7,7 @@ import { type ReactNode } from 'react';
 import { initReactI18next } from 'react-i18next';
 import { AppProvider } from '../../../../context/AppContext';
 import { ClientContextProvider } from '../../../../protocol/ClientContextProvider';
-import { QueryProvider } from '../../../../query/QueryProvider';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { initQueryClient } from '../../../../query/query-client';
 import enTrans from '../../../../translation/variable-editor/en.json';
 import type { TreePath } from '../../../../utils/tree/types';
@@ -52,9 +52,9 @@ const ContextHelper = (props: ContextHelperProps & { children: ReactNode }) => {
 
   return (
     <ClientContextProvider client={client}>
-      <QueryProvider client={initQueryClient()}>
+      <QueryClientProvider client={initQueryClient()}>
         <AppProvider value={appContext}>{props.children}</AppProvider>
-      </QueryProvider>
+      </QueryClientProvider>
     </ClientContextProvider>
   );
 };
