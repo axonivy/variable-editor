@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react';
 import { type ReactNode } from 'react';
 import { AppProvider } from '../../../../context/AppContext';
 import { ClientContextProvider } from '../../../../protocol/ClientContextProvider';
-import { QueryProvider } from '../../../../query/QueryProvider';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { initQueryClient } from '../../../../query/query-client';
 import type { TreePath } from '../../../../utils/tree/types';
 import type { Variable } from '../variable';
@@ -34,9 +34,9 @@ const ContextHelper = (props: ContextHelperProps & { children: ReactNode }) => {
   };
   return (
     <ClientContextProvider client={client}>
-      <QueryProvider client={initQueryClient()}>
+      <QueryClientProvider client={initQueryClient()}>
         <AppProvider value={appContext}>{props.children}</AppProvider>
-      </QueryProvider>
+      </QueryClientProvider>
     </ClientContextProvider>
   );
 };

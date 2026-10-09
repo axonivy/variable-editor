@@ -1,5 +1,7 @@
 import { ThemeProvider, ReadonlyProvider, Flex, Spinner, toast, Toaster, HotkeysProvider } from '@axonivy/ui-components';
-import { ClientContextProvider, ClientJsonRpc, QueryProvider, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
+import { ClientContextProvider, ClientJsonRpc, VariableEditor, initQueryClient } from '@axonivy/variable-editor';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
@@ -37,13 +39,14 @@ export async function start(): Promise<void> {
       <React.StrictMode>
         <ThemeProvider defaultTheme={theme}>
           <ClientContextProvider client={client}>
-            <QueryProvider client={queryClient}>
+            <QueryClientProvider client={queryClient}>
               <ReadonlyProvider readonly={readonly}>
                 <HotkeysProvider initiallyActiveScopes={['global']}>
                   <VariableEditor context={{ app, pmv, file: 'config/variables.yaml' }} directSave={directSave} />
                 </HotkeysProvider>
               </ReadonlyProvider>
-            </QueryProvider>
+              <ReactQueryDevtools initialIsOpen={false} buttonPosition={'bottom-left'} />
+            </QueryClientProvider>
           </ClientContextProvider>
           <Toaster closeButton={true} position='bottom-left' />
         </ThemeProvider>
