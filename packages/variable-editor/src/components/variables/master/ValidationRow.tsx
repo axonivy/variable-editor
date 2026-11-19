@@ -1,8 +1,10 @@
 import { cn, MessageRow, SelectRow, TableCell, type DataTableFeatures } from '@axonivy/ui-components';
-import type { Severity, ValidationMessages } from '@axonivy/variable-editor-protocol';
+import type { ValidationMessages } from '@axonivy/variable-editor-protocol';
 import { flexRender, type Row } from '@tanstack/react-table';
 import type { VirtualItem } from '@tanstack/react-virtual';
+import { useAction } from '../../../context/useAction';
 import type { Variable } from '../data/variable';
+import { messageDataOfValidation } from '../validation';
 import { ROW_HEIGHT } from './VariablesMasterContent';
 
 type ValidationRowProps = {
@@ -11,6 +13,8 @@ type ValidationRowProps = {
 };
 
 export const ValidationRow = ({ row, virtualRow }: ValidationRowProps) => {
+  const openUrl = useAction('openUrl');
+
   return (
     <>
       <SelectRow
@@ -33,7 +37,7 @@ export const ValidationRow = ({ row, virtualRow }: ValidationRowProps) => {
           key={index}
           className='absolute flex h-8 w-full items-center'
           columnCount={2}
-          message={{ message: val.message, variant: val.severity.toLocaleLowerCase() as Lowercase<Severity> }}
+          message={messageDataOfValidation(val, openUrl)}
           style={{
             transform: `translateY(${virtualRow.start + ROW_HEIGHT * (index + 1)}px)`
           }}
