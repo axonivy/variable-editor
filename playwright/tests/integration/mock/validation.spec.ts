@@ -23,7 +23,7 @@ test('tree', async ({ page }) => {
   await editor.tree.row(12).expectToHaveError();
   const valueWarning = editor.tree.message(1);
   await valueWarning.expectToBeWarning('Invalid variable 0 value warning');
-  await valueWarning.expectNoReference();
+  await valueWarning.expectToHaveReference('INVALID_VARIABLE_0_VALUE_WARNING');
   await editor.tree.message(2).expectToBeError('Invalid variable 0 value error');
   const actionLog = consoleLog(page);
   await keyMessage.reference.click();

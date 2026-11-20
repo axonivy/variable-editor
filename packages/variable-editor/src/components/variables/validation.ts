@@ -4,12 +4,8 @@ import type { Severity, ValidationResult } from '@axonivy/variable-editor-protoc
 export const messageDataOfValidation = (validation: ValidationResult, openUrl: (url: string) => void): MessageData => ({
   message: validation.message,
   variant: validation.severity.toLocaleLowerCase() as Lowercase<Severity>,
-  ...(validation.url
-    ? {
-        reference: {
-          tooltip: validation.code,
-          openUrl: () => openUrl(validation.url)
-        }
-      }
-    : {})
+  reference: {
+    tooltip: validation.code,
+    openUrl: () => openUrl(validation.url)
+  }
 });

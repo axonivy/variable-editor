@@ -38,8 +38,4 @@ export class Message {
     await this.reference.hover();
     await expect(this.locator.page().getByRole('tooltip')).toHaveText(tooltip);
   }
-
-  async expectNoReference() {
-    await expect(this.reference).toHaveCount(0);
-  }
 }

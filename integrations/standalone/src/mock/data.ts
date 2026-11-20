@@ -105,27 +105,27 @@ export const validations: ValidationMessages = [
     path: 'invalidKey.invalidVariable0.key',
     severity: 'INFO',
     code: 'INVALID_VARIABLE_0_KEY',
-    url: ''
+    url: 'https://example.com/validation/invalid-variable-0-key'
   },
   {
     message: 'Invalid variable 0 value warning',
     path: 'invalidKey.invalidVariable0.value',
     severity: 'WARNING',
     code: 'INVALID_VARIABLE_0_VALUE_WARNING',
-    url: ''
+    url: 'https://example.com/validation/invalid-variable-0-value-warning'
   },
   {
     message: 'Invalid variable 0 value error',
     path: 'invalidKey.invalidVariable0.value',
     severity: 'ERROR',
     code: 'INVALID_VARIABLE_0_VALUE_ERROR',
-    url: ''
+    url: 'https://example.com/validation/invalid-variable-0-value-error'
   },
   {
     message: 'Invalid variable 1 value',
     path: 'invalidKey.invalidVariable1.value',
     severity: 'INFO',
     code: 'INVALID_VARIABLE_1_VALUE',
-    url: ''
+    url: 'https://example.com/validation/invalid-variable-1-value'
   }
 ];

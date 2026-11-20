@@ -21,9 +21,9 @@ const variables = [
 ] as Array<Variable>;
 
 const validations = [
-  { message: 'message0', path: 'Amazon.key', severity: 'INFO', code: 'CODE0', url: '' },
-  { message: 'message1', path: 'Amazon.Comprehend.key', severity: 'INFO', code: 'CODE1', url: '' },
-  { message: 'message2', path: 'Amazon.Comprehend.key', severity: 'WARNING', code: 'CODE2', url: '' },
-  { message: 'message3', path: 'Amazon.Comprehend.key', severity: 'ERROR', code: 'CODE3', url: '' },
-  { message: 'message4', path: 'Amazon.Comprehend.AccessKey.key', severity: 'INFO', code: 'CODE4', url: '' }
+  { message: 'message0', path: 'Amazon.key', severity: 'INFO', code: 'CODE0', url: 'https://example.com/validation/0' },
+  { message: 'message1', path: 'Amazon.Comprehend.key', severity: 'INFO', code: 'CODE1', url: 'https://example.com/validation/1' },
+  { message: 'message2', path: 'Amazon.Comprehend.key', severity: 'WARNING', code: 'CODE2', url: 'https://example.com/validation/2' },
+  { message: 'message3', path: 'Amazon.Comprehend.key', severity: 'ERROR', code: 'CODE3', url: 'https://example.com/validation/3' },
+  { message: 'message4', path: 'Amazon.Comprehend.AccessKey.key', severity: 'INFO', code: 'CODE4', url: 'https://example.com/validation/4' }
 ] as ValidationMessages;
