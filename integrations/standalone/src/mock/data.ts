@@ -96,26 +96,36 @@ export const validations: ValidationMessages = [
   {
     message: 'Invalid key',
     path: 'invalidKey.key',
-    severity: 'WARNING'
+    severity: 'WARNING',
+    code: 'INVALID_KEY',
+    url: 'https://example.com/validation/invalid-key'
   },
   {
     message: 'Invalid variable 0 key',
     path: 'invalidKey.invalidVariable0.key',
-    severity: 'INFO'
+    severity: 'INFO',
+    code: 'INVALID_VARIABLE_0_KEY',
+    url: 'https://example.com/validation/invalid-variable-0-key'
   },
   {
     message: 'Invalid variable 0 value warning',
     path: 'invalidKey.invalidVariable0.value',
-    severity: 'WARNING'
+    severity: 'WARNING',
+    code: 'INVALID_VARIABLE_0_VALUE_WARNING',
+    url: 'https://example.com/validation/invalid-variable-0-value-warning'
   },
   {
     message: 'Invalid variable 0 value error',
     path: 'invalidKey.invalidVariable0.value',
-    severity: 'ERROR'
+    severity: 'ERROR',
+    code: 'INVALID_VARIABLE_0_VALUE_ERROR',
+    url: 'https://example.com/validation/invalid-variable-0-value-error'
   },
   {
     message: 'Invalid variable 1 value',
     path: 'invalidKey.invalidVariable1.value',
-    severity: 'INFO'
+    severity: 'INFO',
+    code: 'INVALID_VARIABLE_1_VALUE',
+    url: 'https://example.com/validation/invalid-variable-1-value'
   }
 ];

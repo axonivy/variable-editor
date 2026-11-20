@@ -42,6 +42,8 @@ export interface ValidationResult {
   message: string;
   path: string;
   severity: Severity;
+  code: string;
+  url: string;
 }
 export interface VariablesData {
   context: VariablesEditorDataContext;

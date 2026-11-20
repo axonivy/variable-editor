@@ -12,11 +12,13 @@ import { EMPTY_KNOWN_VARIABLES, type ValidationMessages } from '@axonivy/variabl
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppContext } from '../../../context/AppContext';
+import { useAction } from '../../../context/useAction';
 import { useMeta } from '../../../context/useMeta';
 import { useValidations } from '../../../context/useValidation';
 import { getNodesOnPath, updateNode, hasChildren as variableHasChildren } from '../../../utils/tree/tree-data';
 import { type VariableUpdates } from '../data/variable';
 import { findVariable } from '../dialog/known-variables';
+import { messageDataOfValidation } from '../validation';
 import { MetadataPart } from './MetadataPart';
 import { Value } from './Value';
 
@@ -29,7 +31,11 @@ export const useOverwrites = (key: Array<string>) => {
   return findVariable(knownVariables, ...key) !== undefined;
 };
 
-export const messageDataOfProperty = (validations: ValidationMessages, property: string): MessageData | undefined => {
+export const messageDataOfProperty = (
+  validations: ValidationMessages,
+  property: string,
+  openUrl: (url: string) => void
+): MessageData | undefined => {
   const validationMatches = validations.filter(val => val.path.split('.').pop() === property);
   if (validationMatches.length === 0) {
     return undefined;
@@ -37,17 +43,19 @@ export const messageDataOfProperty = (validations: ValidationMessages, property:
 
   const validationError = validationMatches.find(val => val.severity === 'ERROR');
   if (validationError) {
-    return { message: validationError.message, variant: 'error' };
+    return messageDataOfValidation(validationError, openUrl);
   }
   const validationWarning = validationMatches.find(val => val.severity === 'WARNING');
   if (validationWarning) {
-    return { message: validationWarning.message, variant: 'warning' };
+    return messageDataOfValidation(validationWarning, openUrl);
   }
-  return { message: validationMatches[0]?.message, variant: 'info' };
+  const validationInfo = validationMatches[0];
+  return validationInfo ? messageDataOfValidation(validationInfo, openUrl) : undefined;
 };
 
 export const VariablesDetailContent = () => {
   const { variables, setVariables, selectedVariable } = useAppContext();
+  const openUrl = useAction('openUrl');
   const readonly = useReadonly();
 
   const nodesToVariable = useMemo(() => getNodesOnPath(variables, selectedVariable), [variables, selectedVariable]);
@@ -72,11 +80,15 @@ export const VariablesDetailContent = () => {
       <BasicField label={t('common.label.namespace')}>
         <BasicInput value={key.slice(0, -1).join('.')} disabled />
       </BasicField>
-      <BasicField label={t('common.label.name')} message={messageDataOfProperty(validations, 'key')}>
+      <BasicField label={t('common.label.name')} message={messageDataOfProperty(validations, 'key', openUrl)}>
         <BasicInput value={variable.name} onChange={event => handleVariableAttributeChange([{ key: 'name', value: event.target.value }])} />
       </BasicField>
       {!hasChildren && (
-        <Value variable={variable} onChange={handleVariableAttributeChange} message={messageDataOfProperty(validations, 'value')} />
+        <Value
+          variable={variable}
+          onChange={handleVariableAttributeChange}
+          message={messageDataOfProperty(validations, 'value', openUrl)}
+        />
       )}
       <BasicField label={t('common.label.description')}>
         <Textarea
